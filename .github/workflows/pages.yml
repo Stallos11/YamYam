@@ -17,6 +17,8 @@ jobs:
           cd front
           npm ci
           npm run build
+        env:
+          VITE_ENV: production
 
       - name: Deploy 🚀
         uses: s0/git-publish-subdir-action@develop
