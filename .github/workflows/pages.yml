@@ -18,11 +18,6 @@ jobs:
           npm ci
           npm run build
 
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
-        with:
-          ref: my-branch
-
       - name: Deploy 🚀
         uses: s0/git-publish-subdir-action@develop
         env:
