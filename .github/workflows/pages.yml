@@ -11,21 +11,27 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
-        
+
       - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
           cd front
-          npm ci
-          npm run build
+          ./build.sh
         env:
           VITE_ENV: production
+      # - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      #   run: |
+      #     cd front
+      #     npm ci
+      #     npm run build
+      #   env:
+      #     VITE_ENV: production
 
-      - name: Deploy 🚀
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: pages
-          FOLDER: front/dist
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Build: ({sha}) {msg}" 
+      # - name: Deploy 🚀
+      #   uses: s0/git-publish-subdir-action@develop
+      #   env:
+      #     REPO: self
+      #     BRANCH: pages
+      #     FOLDER: front/dist
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     MESSAGE: "Build: ({sha}) {msg}" 
           
