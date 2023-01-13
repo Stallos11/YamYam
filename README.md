@@ -1,4 +1,4 @@
-# m2-archi
+# Mealaway
 
 ## First install
 
@@ -6,8 +6,9 @@ Edit your hosts file `C:\Windows\System32\drivers\etc` and add these lines at th
 
 ```sh
 #archi
-127.0.0.1 app.archi.test
-127.0.0.1 api.archi.test
+127.0.0.1 app.mealaway.test
+127.0.0.1 api.mealaway.test
+127.0.0.1 dashboard.mealaway.test
 ```
 
 ## Launch dev stack
@@ -24,7 +25,10 @@ docker-compose up -d
 ## Accesses
 
 Dashboard
-[app.archi.test](app.archi.test)
+[dashboard.mealaway.test](dashboard.mealaway.test)
+
+App
+[app.mealaway.test](app.mealaway.test)
 
 API
-[api.archi.test](api.archi.test)
+[api.mealaway.test](api.mealaway.test)
