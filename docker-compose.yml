@@ -8,11 +8,11 @@ services:
       - --providers.docker
       - --api.insecure
     networks:
-      archi:
+      mealaway:
         aliases:
-          - archi.test
-          - app.archi.test
-          - api.archi.test
+          - mealaway.test
+          - app.mealaway.test
+          - api.mealaway.test
     ports:
       - "80:80"
       - "8080:8080"
@@ -23,7 +23,7 @@ services:
       - ./devstack/certificates:/etc/certs:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-  dashboard:
+  app:
     stop_grace_period: '1s'
     image: node:16-buster
     working_dir: /app
@@ -34,22 +34,22 @@ services:
         npm ci
         npm run dev
     networks:
-      archi:
+      mealaway:
         aliases:
-          - app.archi.test
+          - app.mealaway.test
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.tls=false"
-      - "traefik.http.routers.dashboard.rule=Host(`app.archi.test`)"
-      - "traefik.http.routers.dashboard.entrypoints=http"
-      - "traefik.http.routers.dashboard.service=dashboard"
-      - "traefik.http.services.dashboard.loadbalancer.server.port=5173"
-      - "traefik.docker.network=archi"
+      - "traefik.http.routers.app.tls=false"
+      - "traefik.http.routers.app.rule=Host(`app.mealaway.test`)"
+      - "traefik.http.routers.app.entrypoints=http"
+      - "traefik.http.routers.app.service=app"
+      - "traefik.http.services.app.loadbalancer.server.port=5173"
+      - "traefik.docker.network=mealaway"
     volumes:
-      - ./dashboard:/app
+      - ./app:/app
       - ./devstack/certificates:/etc/certs:ro
     environment:
-      VITE_API_URL: http://api.archi.test/
+      VITE_API_URL: http://api.mealaway.test/
 
   api:
     stop_grace_period: '1s'
@@ -62,17 +62,17 @@ services:
         npm ci
         npm run dev
     networks:
-      archi:
+      mealaway:
         aliases:
-          - api.archi.test
+          - api.mealaway.test
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api.tls=false"
-      - "traefik.http.routers.api.rule=Host(`api.archi.test`)"
+      - "traefik.http.routers.api.rule=Host(`api.mealaway.test`)"
       - "traefik.http.routers.api.entrypoints=http"
       - "traefik.http.routers.api.service=api"
       - "traefik.http.services.api.loadbalancer.server.port=3333"
-      - "traefik.docker.network=archi"
+      - "traefik.docker.network=mealaway"
     volumes:
       - ./api:/app
     environment:
@@ -84,13 +84,13 @@ services:
       DB_CONNECTION: pg
       PG_HOST: postgres
       PG_PORT: 5432
-      PG_USER: archi
-      PG_PASSWORD: archi
-      PG_DB_NAME: archi
-      API_URL: http://api.archi.test/
-      APP_URL: http://app.archi.test/
+      PG_USER: mealaway
+      PG_PASSWORD: mealaway
+      PG_DB_NAME: mealaway
+      API_URL: http://api.mealaway.test/
+      APP_URL: http://app.mealaway.test/
       SESSION_DRIVER: cookie
-      ROOT_DOMAIN: archi.test
+      ROOT_DOMAIN: mealaway.test
       QUEUE_REDIS_HOST: redis
       QUEUE_REDIS_PORT: 6379
       QUEUE_REDIS_PASSWORD: 
@@ -103,13 +103,13 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: archi
-      POSTGRES_USER: archi
-      POSTGRES_DB: archi
+      POSTGRES_PASSWORD: mealaway
+      POSTGRES_USER: mealaway
+      POSTGRES_DB: mealaway
     networks:
-      - archi
+      - mealaway
 networks:
-  archi:
+  mealaway:
     driver: bridge
 
     
