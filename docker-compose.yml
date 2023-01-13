@@ -23,6 +23,34 @@ services:
       - ./devstack/certificates:/etc/certs:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
+  dashboard:
+    stop_grace_period: '1s'
+    image: node:16-buster
+    working_dir: /app
+    command:
+      - sh
+      - -c
+      - |
+        npm ci
+        npm run dev
+    networks:
+      archi:
+        aliases:
+          - dashboard.archi.test
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.tls=false"
+      - "traefik.http.routers.dashboard.rule=Host(`app.archi.test`)"
+      - "traefik.http.routers.dashboard.entrypoints=http"
+      - "traefik.http.routers.dashboard.service=dashboard"
+      - "traefik.http.services.dashboard.loadbalancer.server.port=5173"
+      - "traefik.docker.network=archi"
+    volumes:
+      - ./dashboard:/app
+      - ./devstack/certificates:/etc/certs:ro
+    environment:
+      VITE_API_URL: http://api.archi.test/
+
   app:
     stop_grace_period: '1s'
     image: node:16-buster
