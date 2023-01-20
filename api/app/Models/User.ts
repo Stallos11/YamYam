@@ -6,11 +6,19 @@ import {
   beforeSave,
   BaseModel,
   beforeCreate,
+  hasMany,
+  HasMany,
 } from "@ioc:Adonis/Lucid/Orm";
+import Favourite from "./Favourite";
+import Recipe from "./Recipe";
+import Rating from "./Rating";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
+
+  @column()
+  public role: "admin" | "user";
 
   @column()
   public email: string;
@@ -26,6 +34,15 @@ export default class User extends BaseModel {
 
   @column()
   public rememberMeToken: string | null;
+
+  @hasMany(() => Favourite)
+  public favourites: HasMany<typeof Favourite>;
+
+  @hasMany(() => Recipe)
+  public recipes: HasMany<typeof Recipe>;
+
+  @hasMany(() => Rating)
+  public ratings: HasMany<typeof Rating>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
