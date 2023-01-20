@@ -15,17 +15,14 @@ export default class User extends BaseModel {
   @column()
   public email: string;
 
-  @column()
-  public lastname: string;
+  @column({ serializeAs: null })
+  public password: string;
 
   @column()
   public firstname: string;
 
   @column()
-  public role: string;
-
-  @column({ serializeAs: null })
-  public password: string;
+  public provider: string;
 
   @column()
   public rememberMeToken: string | null;
@@ -43,8 +40,8 @@ export default class User extends BaseModel {
     }
   }
 
-  // @beforeCreate()
-  // public static async createUUID(user: User) {
-  //   user.id = uuidv4();
-  // }
+  @beforeCreate()
+  public static async createUUID(user: User) {
+    user.id = uuidv4();
+  }
 }
