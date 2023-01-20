@@ -1,0 +1,141 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:2.6
+    restart: always
+    command: 
+      - --providers.docker
+      - --api.insecure
+    networks:
+      mealaway:
+        aliases:
+          - app.mealaway.test
+          - api.mealaway.test
+    ports:
+      - "80:80"
+      - "8080:8080"
+    security_opt:
+      - no-new-privileges=true
+    volumes:
+      - ./devstack/traefik:/etc/traefik:ro
+      - ./devstack/certificates:/etc/certs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  dashboard:
+    stop_grace_period: '1s'
+    image: node:16-buster
+    working_dir: /app
+    command:
+      - sh
+      - -c
+      - |
+        npm ci
+        npm run dev
+    networks:
+      mealaway:
+        aliases:
+          - dashboard.mealaway.test
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.tls=false"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.mealaway.test`)"
+      - "traefik.http.routers.dashboard.entrypoints=http"
+      - "traefik.http.routers.dashboard.service=dashboard"
+      - "traefik.http.services.dashboard.loadbalancer.server.port=5173"
+      - "traefik.docker.network=mealaway"
+    volumes:
+      - ./dashboard:/app
+      - ./devstack/certificates:/etc/certs:ro
+    environment:
+      VITE_API_URL: http://api.mealaway.test/
+
+  app:
+    stop_grace_period: '1s'
+    image: node:16-buster
+    working_dir: /app
+    command:
+      - sh
+      - -c
+      - |
+        npm ci
+        npm run dev
+    networks:
+      mealaway:
+        aliases:
+          - app.mealaway.test
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.tls=false"
+      - "traefik.http.routers.app.rule=Host(`app.mealaway.test`)"
+      - "traefik.http.routers.app.entrypoints=http"
+      - "traefik.http.routers.app.service=app"
+      - "traefik.http.services.app.loadbalancer.server.port=5173"
+      - "traefik.docker.network=mealaway"
+    volumes:
+      - ./app:/app
+      - ./devstack/certificates:/etc/certs:ro
+    environment:
+      VITE_API_URL: http://api.mealaway.test/
+
+  api:
+    stop_grace_period: '1s'
+    image: node:16-buster
+    working_dir: /app
+    command:
+      - sh
+      - -c
+      - |
+        npm ci
+        npm run dev
+    networks:
+      mealaway:
+        aliases:
+          - api.mealaway.test
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.api.tls=false'
+      - 'traefik.http.routers.api.rule=Host(`api.mealaway.test`)'
+      - 'traefik.http.routers.api.entrypoints=http'
+      - 'traefik.http.routers.api.service=api'
+      - 'traefik.http.services.api.loadbalancer.server.port=3333'
+      - 'traefik.docker.network=mealaway'
+    volumes:
+      - ./api:/app
+    environment:
+      PORT: 3333
+      HOST: 0.0.0.0
+      NODE_ENV: development
+      APP_KEY: 51p6hxeWWV0G3qqGpVWyhq8ExI4rz8FZ
+      DRIVE_DISK: local
+      DB_CONNECTION: pg
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_USER: mealaway
+      PG_PASSWORD: mealaway
+      PG_DB_NAME: mealaway
+      API_URL: http://api.mealaway.test/
+      APP_URL: http://app.mealaway.test/
+      SESSION_DRIVER: cookie
+      ROOT_DOMAIN: mealaway.test
+
+  postgres:
+    image: postgres:14.5
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: mealaway
+      POSTGRES_USER: mealaway
+      POSTGRES_DB: mealaway
+    networks:
+      - mealaway
+networks:
+  mealaway:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

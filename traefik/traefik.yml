@@ -1,0 +1,20 @@
+global:
+  sendAnonymousUsage: false
+api:
+  insecure: true
+  dashboard: true
+entryPoints:
+  http:
+    address: ":80"
+    forwardedHeaders:
+      trustedIPs:
+        - "192.168.10.2"
+providers:
+  file:
+    filename: /etc/traefik/dynamic.yml
+    watch: true
+  docker:
+    endpoint: unix:///var/run/docker.sock
+    exposedByDefault: false
+    network: mealaway
+
