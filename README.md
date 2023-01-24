@@ -1,4 +1,4 @@
-# Mealaway
+# YamYam
 
 ## First install
 
@@ -6,9 +6,9 @@ Edit your hosts file `C:\Windows\System32\drivers\etc` and add these lines at th
 
 ```sh
 #archi
-127.0.0.1 app.mealaway.test
-127.0.0.1 api.mealaway.test
-127.0.0.1 dashboard.mealaway.test
+127.0.0.1 app.yamyam.test
+127.0.0.1 api.yamyam.test
+127.0.0.1 dashboard.yamyam.test
 ```
 
 ## Launch dev stack
@@ -25,10 +25,10 @@ docker-compose up -d
 ## Accesses
 
 Dashboard
-[dashboard.mealaway.test](dashboard.mealaway.test)
+[dashboard.yamyam.test](dashboard.yamyam.test)
 
 App
-[app.mealaway.test](app.mealaway.test)
+[app.yamyam.test](app.yamyam.test)
 
 API
-[api.mealaway.test](api.mealaway.test)
+[api.yamyam.test](api.yamyam.test)

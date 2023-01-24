@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
       table
-        .enum("category", ["fitness", "cheat meal", "diabetes", "snack"])
+        .string("category")
         .notNullable();
 
       /**
