@@ -14,7 +14,7 @@ export default class RecipeCategory extends BaseModel {
   public id: string;
 
   @column()
-  public category: "fitness" | "cheat meal" | "diabetes" | "snack";
+  public category: string;
 
   @hasMany(() => Recipe)
   public recipe: HasMany<typeof Recipe>;

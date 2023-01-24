@@ -1,6 +1,5 @@
 import Route from "@ioc:Adonis/Core/Route";
 
-// Recipe Category
 Route.group(() => {
   Route.get("/", "RecipeCategoriesController.index").name =
     "recipe-categories.index";
