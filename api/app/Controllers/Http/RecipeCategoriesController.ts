@@ -38,3 +38,4 @@ export default class RecipeCategoriesController {
     return response.ok(recipeCategory);
   }
 }
+
