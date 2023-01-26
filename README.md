@@ -1,34 +1,18 @@
-# YamYam
+# Vue 3 + TypeScript + Vite
 
-## First install
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-Edit your hosts file `C:\Windows\System32\drivers\etc` and add these lines at the end
+## Recommended IDE Setup
 
-```sh
-#archi
-127.0.0.1 app.yamyam.test
-127.0.0.1 api.yamyam.test
-127.0.0.1 dashboard.yamyam.test
-```
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Launch dev stack
+## Type Support For `.vue` Imports in TS
 
-Requirement : [docker compose](https://docs.docker.com/desktop/install/windows-install/).
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-On windows, open docker desktop.
-Then :
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-```
-docker-compose up -d
-```
-
-## Accesses
-
-Dashboard
-[dashboard.yamyam.test](dashboard.yamyam.test)
-
-App
-[app.yamyam.test](app.yamyam.test)
-
-API
-[api.yamyam.test](api.yamyam.test)
+1. Disable the built-in TypeScript Extension
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
