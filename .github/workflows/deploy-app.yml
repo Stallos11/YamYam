@@ -7,9 +7,6 @@ jobs:
   build_vue:
     runs-on: ubuntu-latest
     name: Build Vue
-    defaults:
-       run:
-         working-directory: ./app/
     steps:
     - name: install dependencies
       uses: actions/setup-node@v3
