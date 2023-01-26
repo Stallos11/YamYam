@@ -233,4 +233,4 @@ export const profiler: ProfilerConfig = {
 */
 export const validator: ValidatorConfig = {};
 
-export const disableUuidGeneration: boolean = true;
+export const enableUuidGeneration: boolean = true;

@@ -15,6 +15,7 @@ import RecipeType from "./RecipeType";
 import RecipeIngredient from "./RecipeIngredient";
 import Favourite from "./Favourite";
 import Rating from "./Rating";
+import Config from "@ioc:Adonis/Core/Config";
 
 export default class Recipe extends BaseModel {
   @column({ isPrimary: true })
@@ -70,6 +71,6 @@ export default class Recipe extends BaseModel {
 
   @beforeCreate()
   public static async createUUID(recipe: Recipe) {
-    recipe.id = uuidv4();
+    if (Config.get("app.enableUuidGeneration")) recipe.id = uuidv4();
   }
 }

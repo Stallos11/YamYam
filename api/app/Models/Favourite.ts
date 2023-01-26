@@ -9,6 +9,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import Recipe from "./Recipe";
 import User from "./User";
+import Config from "@ioc:Adonis/Core/Config";
 
 export default class Favourite extends BaseModel {
   @column({ isPrimary: true })
@@ -34,6 +35,6 @@ export default class Favourite extends BaseModel {
 
   @beforeCreate()
   public static async createUUID(favourite: Favourite) {
-    favourite.id = uuidv4();
+    if (Config.get("app.enableUuidGeneration")) favourite.id = uuidv4();
   }
 }

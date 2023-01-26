@@ -28,6 +28,6 @@ export default class RecipeCategory extends BaseModel {
 
   @beforeCreate()
   public static async createUUID(recipeCategory: RecipeCategory) {
-    if (Config.get("disableUuidGeneration")) recipeCategory.id = uuidv4();
+    if (Config.get("app.enableUuidGeneration")) recipeCategory.id = uuidv4();
   }
 }
