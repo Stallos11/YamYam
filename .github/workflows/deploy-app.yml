@@ -9,7 +9,8 @@ jobs:
     name: Build Vue
     steps:
     - run: |
-          cd app
+          ls 
+          cd ./app
     - uses: actions/checkout@v2
     - id: Build-Vue
       uses: xRealNeon/VuePagesAction@1.0.1
