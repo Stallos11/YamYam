@@ -14,7 +14,7 @@ export default class RecipeType extends BaseModel {
   public id: string;
 
   @column()
-  public type: "starter" | "main course" | "dessert";
+  public type: string;
 
   @hasMany(() => Recipe)
   public recipe: HasMany<typeof Recipe>;
