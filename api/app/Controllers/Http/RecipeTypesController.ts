@@ -37,4 +37,11 @@ export default class RecipeTypesController {
 
     return response.ok(recipeType);
   }
+
+  public async delete({ params, response }) {
+    const recipeType = await RecipeType.findOrFail(params.id);
+    await recipeType.delete();
+
+    return response.ok({ msg: "recipeType deleted" });
+  }
 }

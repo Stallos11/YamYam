@@ -23,6 +23,7 @@ import "./routes/auth";
 import "./routes/recipe_categories";
 import "./routes/recipe_types";
 import "./routes/favourites";
+import "./routes/recipes";
 
 Route.get("/", async () => {
   return { hello: "world" };
