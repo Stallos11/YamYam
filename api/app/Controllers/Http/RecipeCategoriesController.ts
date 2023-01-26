@@ -37,5 +37,11 @@ export default class RecipeCategoriesController {
 
     return response.ok(recipeCategory);
   }
-}
 
+  public async delete({ params, response }) {
+    const recipeCategory = await RecipeCategory.findOrFail(params.id);
+    await recipeCategory.delete();
+
+    return response.ok({ msg: "recipeCategory deleted" });
+  }
+}

@@ -1,6 +1,7 @@
 import BaseSeeder from "@ioc:Adonis/Lucid/Seeder";
 import User from "App/Models/User";
 import { enableUuidGeneration } from "App/Decorators/enableUuidGeneration";
+import { DateTime } from "luxon";
 
 export default class UserSeeder extends BaseSeeder {
   // @ts-ignore
@@ -14,6 +15,8 @@ export default class UserSeeder extends BaseSeeder {
         role: "admin",
         email: "a@a.a",
         password: "aaaaaaaa",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       },
       {
         id: "8baa40c3-1eb6-4ee0-a2e7-b0b3df37965a",
@@ -22,6 +25,8 @@ export default class UserSeeder extends BaseSeeder {
         role: "user",
         email: "b@b.b",
         password: "bbbbbbbb",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       },
     ]);
   }

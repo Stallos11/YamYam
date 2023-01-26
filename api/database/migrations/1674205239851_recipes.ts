@@ -15,8 +15,8 @@ export default class extends BaseSchema {
 
       // relations
       table.uuid("user_id").references("users.id");
-      table.uuid("recipe_category").references("recipe_categories.id");
-      table.uuid("recipe_type").references("recipe_types.id");
+      table.uuid("recipe_category_id").references("recipe_categories.id");
+      table.uuid("recipe_type_id").references("recipe_types.id");
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
