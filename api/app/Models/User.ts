@@ -60,7 +60,6 @@ export default class User extends BaseModel {
 
   @beforeCreate()
   public static async createUUID(user: User) {
-    console.log('to',Config.get("app.enableUuidGeneration") )
     if (Config.get("app.enableUuidGeneration")) user.id = uuidv4();
   }
 }
