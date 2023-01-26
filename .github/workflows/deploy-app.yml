@@ -20,7 +20,7 @@ jobs:
       working-directory: app
 
     - name: Build
-      run: npm run build && cd ./dist && cp index.html 404.html
+      run: npm run build
       working-directory: app
       env:
         VITE_ENV: production
