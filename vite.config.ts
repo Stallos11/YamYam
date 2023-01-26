@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import { VitePWA } from 'vite-plugin-pwa';
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/YamYam/',
+  base: './YamYam',
   plugins: [
     vue(),
     VitePWA({
