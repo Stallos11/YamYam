@@ -41,7 +41,7 @@ export default defineConfig({
             purpose: 'any maskable',
           },
         ],
-        start_url: '/',
+        start_url: 'https://app.vleveque.com/',
         lang: 'en',
         theme_color: '#262a32',
         background_color: '#262a32',
