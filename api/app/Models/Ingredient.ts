@@ -8,6 +8,7 @@ import {
   hasMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import RecipeIngredient from "./RecipeIngredient";
+import Config from "@ioc:Adonis/Core/Config";
 
 export default class Ingredient extends BaseModel {
   @column({ isPrimary: true })
@@ -24,6 +25,6 @@ export default class Ingredient extends BaseModel {
 
   @beforeCreate()
   public static async createUUID(ingredient: Ingredient) {
-    ingredient.id = uuidv4();
+    if (Config.get("app.enableUuidGeneration")) ingredient.id = uuidv4();
   }
 }

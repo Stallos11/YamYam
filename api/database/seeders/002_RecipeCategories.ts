@@ -2,7 +2,11 @@ import BaseSeeder from "@ioc:Adonis/Lucid/Seeder";
 import RecipeCategory from "App/Models/RecipeCategory";
 import { DateTime } from "luxon";
 
+import { enableUuidGeneration } from "App/Decorators/enableUuidGeneration";
+
 export default class UserSeeder extends BaseSeeder {
+  // @ts-ignore
+  @enableUuidGeneration()
   public async run() {
     await RecipeCategory.updateOrCreateMany("id", [
       {

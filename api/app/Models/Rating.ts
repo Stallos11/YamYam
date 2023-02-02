@@ -9,6 +9,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import User from "./User";
 import Recipe from "./Recipe";
+import Config from "@ioc:Adonis/Core/Config";
 
 export default class Rating extends BaseModel {
   @column({ isPrimary: true })
@@ -40,6 +41,6 @@ export default class Rating extends BaseModel {
 
   @beforeCreate()
   public static async createUUID(rating: Rating) {
-    rating.id = uuidv4();
+    if (Config.get("app.enableUuidGeneration")) rating.id = uuidv4();
   }
 }

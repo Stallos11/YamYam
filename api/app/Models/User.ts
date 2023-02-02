@@ -12,6 +12,7 @@ import {
 import Favourite from "./Favourite";
 import Recipe from "./Recipe";
 import Rating from "./Rating";
+import Config from "@ioc:Adonis/Core/Config";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -59,6 +60,6 @@ export default class User extends BaseModel {
 
   @beforeCreate()
   public static async createUUID(user: User) {
-    user.id = uuidv4();
+    if (Config.get("app.enableUuidGeneration")) user.id = uuidv4();
   }
 }
