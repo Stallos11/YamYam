@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "start_url": "https://app.vleveque.com/",
+  "start_url": "/",
   "theme_color": "#262a32",
   "background_color": "#262a32",
   "display": "standalone"
