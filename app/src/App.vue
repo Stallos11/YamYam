@@ -9,7 +9,7 @@ import Pwa from './components/Pwa.vue';
         <a href="#" class="navbar-brand">YamYam</a>
         <div class="navbar-menu ml-auto">
           <a class="navbar-link" href="#">Recipes</a>
-          <a class="navbar-link" href="#">Recipes</a>
+          <a class="navbar-link" href="#">Users</a>
         </div>
       </nav>
     </header>
@@ -20,7 +20,7 @@ import Pwa from './components/Pwa.vue';
       <Pwa />
     </main>
 
-    <footer class="footer primary">Copyright © 2022 - Example</footer>
+    <footer class="footer primary">Copyright © 2023 - Example</footer>
   </div>
 </template>
 
