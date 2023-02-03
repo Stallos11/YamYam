@@ -5,8 +5,11 @@ import Pwa from './components/Pwa.vue';
 <template>
   <div class="layout">
     <header>
-      <nav class="navbar shadow-1 primary">
-        <a href="#" class="navbar-brand">YamYam</a>
+      <nav class="navbar">
+        <a href="#" class="navbar-logo hide-sm-down">
+          <img src="icon.png" alt="logo" class="navbar-logo" style="filter: brightness(0%)" />
+        </a>
+
         <div class="navbar-menu ml-auto">
           <a class="navbar-link" href="#">Recipes</a>
           <a class="navbar-link" href="#">Users</a>
@@ -20,7 +23,7 @@ import Pwa from './components/Pwa.vue';
       <Pwa />
     </main>
 
-    <footer class="footer primary">Copyright © 2023 - Example</footer>
+    <footer class="footer white">Copyright © 2023</footer>
   </div>
 </template>
 
@@ -35,8 +38,8 @@ $font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto
   'Segoe UI Emoji', 'Segoe UI Symbol';
 
 $axentix-palette: (
-  'primary': #fec538,
-  'secondary': #2983e6,
+  'primary': #20acac,
+  'secondary': #53dfdf,
   'tertiary': #2781e6,
   'success': #12ad12,
   'warning': #fccc2e,
