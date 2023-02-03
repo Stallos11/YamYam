@@ -53,4 +53,53 @@ $axentix-palette: (
 
 @import 'axentix';
 @import '@axentix/vue/dist/vue3/vue-axentix.css';
+
+// Forms hack
+.grix > .form-field {
+  margin-top: 0.5rem !important;
+}
+
+.form-field {
+  &:not(:first-child) {
+    margin-top: 1.75rem;
+  }
+
+  label:not(.form-switch) {
+    display: inline-block;
+    position: absolute;
+    top: -0.5rem;
+    margin-bottom: 0;
+    background-color: getColor('bg-light');
+    z-index: 10;
+    margin-left: 0.5rem;
+    padding: 0 0.25rem;
+    color: getColor('grey', 'light', 3);
+  }
+
+  .form-control {
+    border-radius: 0.5rem;
+
+    &:focus {
+      border: 1px solid getColor('primary') !important;
+      box-shadow: none;
+    }
+  }
+
+  &.not-valid {
+    label {
+      color: getColor('error');
+    }
+
+    .form-control {
+      border: 1px solid getColor('error') !important;
+      box-shadow: none;
+    }
+  }
+}
+
+.form-control[disabled],
+.form-control[readonly] {
+  background-color: transparent !important;
+  pointer-events: none;
+}
 </style>
