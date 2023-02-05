@@ -2,10 +2,10 @@ import Route from "@ioc:Adonis/Core/Route";
 
 Route.group(() => {
   Route.get("/", "UserController.index").name = "user.index";
-  Route.get("/get-users-per/:period", "UserController.getUsersPer").name =
+  Route.get("/total/:period", "UserController.getUsersPer").name =
     "user.getUsersPer";
   Route.get(
-    "/registrations/:daysBefore",
+    "/registrations/:period",
     "UserController.getRegistrations"
   ).name = "user.getRegistrations";
   Route.get("/details/:id", "UserController.getUserDetails").name =

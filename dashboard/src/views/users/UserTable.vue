@@ -3,7 +3,7 @@
     <ax-form class="d-flex fx-col">
       <div class="grix xs1 sm2">
         <div>
-          <ax-form-field label="Choose an option">
+          <ax-form-field label="Key">
             <ax-form-select
               :items="filterKeyOptions"
               v-model="searchField"
@@ -11,7 +11,7 @@
           </ax-form-field>
         </div>
         <div>
-          <ax-form-field label="Test input">
+          <ax-form-field label="Query">
             <ax-form-control
               tag="input"
               v-model="searchValue"
@@ -69,3 +69,13 @@ const filterKeyOptions = ["firstname", "email", "provider", "created_at"];
 
 onBeforeMount(() => userStore.fetchUsers());
 </script>
+
+<style lang="scss" >
+.buttons-pagination .item.button.active {
+  background-color: #5893c0 !important;
+}
+
+.easy-data-table__rows-selector ul.select-items li.selected {
+  background-color: #5893c0 !important;
+}
+</style>

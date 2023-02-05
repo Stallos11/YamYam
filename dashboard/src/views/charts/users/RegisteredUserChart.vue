@@ -14,13 +14,106 @@ import { ApexOptions } from "apexcharts";
 import { onBeforeMount, ref, defineProps } from "vue";
 import VueApexCharts from "vue3-apexcharts";
 import axios from "axios";
+import { time } from "console";
+import { Icon } from "@iconify/vue";
 const props = defineProps(["days", "title"]);
 
 const chartOptions = ref<ApexOptions>({
   chart: {
-    id: "registered-user-chart",
+    id: "total-user-chart",
     toolbar: {
-      show: false,
+      show: true,
+      tools: {
+        download: false,
+        selection: false,
+        zoom: false,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        reset: false,
+        customIcons: [
+          {
+            icon: `
+              <ax-btn
+                class="btn btn-circle btn-small cursor-pointer mr-1"
+                :icon="'mdi:cards-heart-outline'"
+                size="50"
+              >D</ax-btn>`,
+            click: function (e, chartContext) {
+              console.log(e, chartContext, "day");
+              fetchTotalUserBy("day");
+            },
+          },
+          {
+            icon: `
+              <ax-btn
+                class="btn btn-circle btn-small cursor-pointer mr-1"
+                :icon="'mdi:cards-heart-outline'"
+                size="50"
+              >W</<ax-btn>`,
+            click: function (e, chartContext) {
+              console.log(e, chartContext, "week");
+              fetchTotalUserBy("week");
+            },
+          },
+          {
+            icon: `
+              <ax-btn
+                class="btn btn-circle btn-small cursor-pointer mr-1"
+                :icon="'mdi:cards-heart-outline'"
+                size="50"
+              >M</<ax-btn>`,
+            click: function (e, chartContext) {
+              console.log(e, chartContext, "month");
+              fetchTotalUserBy("month");
+            },
+          },
+          {
+            icon: `
+              <Icon
+                class="btn btn-circle btn-small cursor-pointer mr-1"
+                :icon="'mdi:cards-heart-outline'"
+                size="50"
+              >Y</Icon>`,
+            click: function (e, chartContext) {
+              console.log(e, chartContext, "year");
+              fetchTotalUserBy("year");
+            },
+          },
+        ],
+      },
+    },
+  },
+  xaxis: {
+    type: "datetime",
+    labels: {
+      // @ts-ignore
+      formatter: function (value, timestamp) {
+        //@ts-ignore
+        var a = new Date(timestamp);
+        var months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        var sec = a.getSeconds();
+        var time = `${date} ${month} ${year}`;
+        return time;
+      },
     },
   },
   title: {
@@ -42,51 +135,25 @@ const chartOptions = ref<ApexOptions>({
   },
 });
 
-const series = ref([
+const series: any = ref([
   {
-    name: "series-1",
-    data: [
-      {
-        x: "10 Juil",
-        y: 45,
-      },
-    ],
+    name: "total",
+    data: [],
   },
 ]);
 
 onBeforeMount(() => {
+  fetchTotalUserBy("week");
+});
+
+const fetchTotalUserBy = (period: string) => {
   axios
-    .get(`users/registrations/${props.days}`)
+    .get(`users/registrations/${period}`)
     .then((res) => {
-      const today = new Date();
-      const priorDays = props.days;
-      // console.log(new Date(res.data[0].created_at).toLocaleDateString());
-
-      let data: any[] = [];
-
-      for (let i = 0; i < priorDays; i++) {
-        var priorDate = new Date(
-          new Date().setDate(today.getDate() - priorDays + i)
-        );
-
-        // console.log(priorDate.toLocaleDateString());
-        const x = priorDate.toLocaleDateString();
-        const y = res.data.filter(
-          (user: any) =>
-            new Date(user.created_at).toLocaleDateString() ===
-            priorDate.toLocaleDateString()
-        ).length;
-
-        data.push({ x, y });
+      if (res.data) {
+        series.value[0].data = res.data;
       }
-
-      series.value = [
-        {
-          name: "series-1",
-          data,
-        },
-      ];
     })
     .catch(console.error);
-});
+};
 </script>

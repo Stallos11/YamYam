@@ -148,7 +148,7 @@ onBeforeMount(() => {
 
 const fetchTotalUserBy = (period: string) => {
   axios
-    .get(`users/get-users-per/${period}`)
+    .get(`users/total/${period}`)
     .then((res) => {
       if (res) {
         series.value[0].data = res.data;

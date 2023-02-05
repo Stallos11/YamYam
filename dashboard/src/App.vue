@@ -167,7 +167,7 @@ $font-family: "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
   "Segoe UI Symbol";
 
 $axentix-palette: (
-  "primary": #20acac,
+  "primary": #5893c0,
   "secondary": #53dfdf,
   "tertiary": #2781e6,
   "success": #12ad12,
@@ -179,6 +179,7 @@ $axentix-palette: (
   "bg-dark": #181818,
   "bg-light": #f3f3f3,
 );
+
 
 @import "axentix";
 @import "@axentix/vue/dist/vue3/vue-axentix.css";
@@ -244,7 +245,7 @@ $axentix-palette: (
   --easy-table-header-item-padding: 10px 15px;
 
   --easy-table-body-even-row-font-color: #fff;
-  --easy-table-body-even-row-background-color: #6d6d6d;
+  --easy-table-body-even-row-background-color: #5893c0;
 
   --easy-table-body-row-font-color: #f5f5f5;
   --easy-table-body-row-background-color: #292929;

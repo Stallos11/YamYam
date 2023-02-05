@@ -1,10 +1,7 @@
 <template>
   <div class="grix xs1 sm2">
     <div>
-      <RegisteredUserChart
-        :days="10"
-        :title="'Registered users (last 10 days)'"
-      />
+      <RegisteredUserChart :days="10" :title="'Registered users'" />
     </div>
     <div>
       <TotalUserChart :days="10" :title="'Total users'" />

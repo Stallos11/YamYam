@@ -15,11 +15,19 @@ export default class UserController {
     var daysBefore = params.daysBefore;
     var priorDate = new Date(new Date().setDate(today.getDate() - daysBefore));
 
-    const users = await User.query()
-      .whereBetween("created_at", [priorDate, today])
-      .orderBy("created_at", "asc");
+    // const users = await User.query();
+    // .whereBetween("created_at", [priorDate, today])
+    // .orderBy("created_at", "asc");
+    const users = await Database.rawQuery(`
+      SELECT 
+      DATE_TRUNC('${params.period}', created_at) as x, 
+        COUNT(*) as y 
+      FROM users 
+      GROUP BY x
+      ORDER BY x
+    `);
 
-    return await response.ok(users);
+    return await response.ok(users.rows);
   }
 
   public async getUsersPer({ params, response }) {
