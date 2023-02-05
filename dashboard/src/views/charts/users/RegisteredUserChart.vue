@@ -11,9 +11,10 @@
 </template>
 <script setup lang="ts">
 import { ApexOptions } from "apexcharts";
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, ref, defineProps } from "vue";
 import VueApexCharts from "vue3-apexcharts";
 import axios from "axios";
+const props = defineProps(["days", "title"]);
 
 const chartOptions = ref<ApexOptions>({
   chart: {
@@ -23,7 +24,7 @@ const chartOptions = ref<ApexOptions>({
     },
   },
   title: {
-    text: "Registered users",
+    text: props.title,
     align: "left",
     margin: 10,
     offsetX: 0,
@@ -55,10 +56,10 @@ const series = ref([
 
 onBeforeMount(() => {
   axios
-    .get("http://127.0.0.1:3333/users/registrations/30")
+    .get(`users/registrations/${props.days}`)
     .then((res) => {
       const today = new Date();
-      const priorDays = 30;
+      const priorDays = props.days;
       // console.log(new Date(res.data[0].created_at).toLocaleDateString());
 
       let data: any[] = [];

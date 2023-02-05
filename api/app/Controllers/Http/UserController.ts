@@ -1,4 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
 import { DateTime } from "luxon";
 
@@ -19,6 +20,19 @@ export default class UserController {
       .orderBy("created_at", "asc");
 
     return await response.ok(users);
+  }
+
+  public async getUsersPer({ params, response }) {
+    const users = await Database.rawQuery(`
+      SELECT 
+      DATE_TRUNC('${params.period}', created_at) as x, 
+        COUNT(*) as y 
+      FROM users 
+      GROUP BY x
+      ORDER BY x
+    `);
+
+    return response.ok(users.rows);
   }
 
   public async getUserDetails({ params, response }) {

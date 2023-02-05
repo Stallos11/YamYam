@@ -1,7 +1,7 @@
 <template>
   <div v-if="!userStore.isLoading" class="p-5">
     <ax-form class="d-flex fx-col">
-      <div class="grix xs2">
+      <div class="grix xs1 sm2">
         <div>
           <ax-form-field label="Choose an option">
             <ax-form-select
@@ -28,7 +28,7 @@
       header-text-direction="center"
       body-text-direction="center"
       buttons-pagination
-      :rows-per-page="10"
+      :rows-per-page="5"
       :headers="headers"
       :items="userStore.users"
       alternating

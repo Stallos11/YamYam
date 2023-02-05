@@ -1,9 +1,9 @@
 <template>
   <div class="px-4 py-2">
-    <RegisteredUserChart />
+    <RegisteredUserChart :days="30" :title="'Registered users'" />
     <div class="grix xs1 md2">
       <div>
-        <TotalUserChart />
+        <TotalUserChart :days="30" :title="'Total users'" />
       </div>
     </div>
   </div>
