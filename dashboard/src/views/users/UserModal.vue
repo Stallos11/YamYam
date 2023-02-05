@@ -1,4 +1,5 @@
 <template>
+  <UserDeleteModal />
   <ax-modal
     class="bg-dark rounded-1 shadow-1 h100"
     v-model="userStore.isModalOpened"
@@ -24,7 +25,7 @@
         </div>
         <div class="ml-auto font-s5">
           <Icon
-            @click="userStore.delete()"
+            @click="userStore.showDeleteModal()"
             class="ml-auto cursor-pointer"
             icon="mdi:trash-can-circle"
             size="100"
@@ -108,5 +109,6 @@
 
 <script setup lang="ts">
 import { useUserStore } from "../../stores/user";
+import UserDeleteModal from "./UserDeleteModal.vue";
 const userStore = useUserStore();
 </script>

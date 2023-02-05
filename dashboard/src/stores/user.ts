@@ -22,6 +22,7 @@ interface State {
   users: User[];
   selectedUser: ISelectedUser;
   isModalOpened: boolean;
+  isModalDeleteOpened: boolean;
 }
 
 export const useUserStore = defineStore("user", {
@@ -33,6 +34,7 @@ export const useUserStore = defineStore("user", {
     balanceIntervalId: undefined,
     users: [],
     isModalOpened: false,
+    isModalDeleteOpened: false,
     selectedUser: {
       user: {},
       recipes: [],
@@ -70,6 +72,9 @@ export const useUserStore = defineStore("user", {
       this.isModalOpened = !this.isModalOpened;
       this.selectedUser.user = item;
     },
+    showDeleteModal() {
+      this.isModalDeleteOpened = !this.isModalDeleteOpened;
+    },
     delete() {
       this.axios
         .delete(`users/${this.selectedUser.user.id}`)
@@ -79,10 +84,14 @@ export const useUserStore = defineStore("user", {
               (user) => user.id != this.selectedUser.user.id
             );
             this.isModalOpened = false;
+            this.isModalDeleteOpened = false;
             this.toast.showToast("Info", "user deleted", "bg-dark", "bg-dark");
           }
         })
         .catch((err) => console.error(err));
+    },
+    cancelDelete() {
+      this.isModalDeleteOpened = !this.isModalDeleteOpened;
     },
   },
 });
