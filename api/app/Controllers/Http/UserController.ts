@@ -29,36 +29,10 @@ export default class UserController {
     });
   }
 
-  // public async find({ params, response }) {
-  //   const recipe = await Recipe.find(params.id);
+  public async delete({ params, response }) {
+    const user = await User.findOrFail(params.id);
+    await user.delete();
 
-  //   return response.ok(recipe);
-  // }
-
-  // public async update({ request, params, response }) {
-  //   const body = request.all();
-
-  //   await Recipe.query().where("id", params.id).update({
-  //     name: body.name,
-  //     description: body.description,
-  //     preparationTime: body.preparation_time,
-  //     cookingTime: body.cooking_time,
-  //     difficulty: body.difficulty,
-  //     eatersAmount: body.eaters_amount,
-  //     userId: body.userId,
-  //     recipeTypeId: body.recipe_type_id,
-  //     recipeCategoryId: body.recipe_category_id,
-  //   });
-
-  //   const recipe = await Recipe.find(params.id);
-
-  //   return response.ok(recipe);
-  // }
-
-  // public async delete({ params, response }) {
-  //   const recipe = await Recipe.findOrFail(params.id);
-  //   await recipe.delete();
-
-  //   return response.ok({ msg: "recipe deleted" });
-  // }
+    return response.ok({ msg: "user deleted" });
+  }
 }

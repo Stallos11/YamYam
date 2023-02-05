@@ -15,8 +15,7 @@ Route.group(() => {
   // Route.put("/:id", "RecipesController.update").name =
   //   "recipe.update";
 
-  // Route.delete("/:id", "RecipesController.delete").name =
-  //   "recipe.delete";
+  Route.delete("/:id", "UserController.delete").name = "user.delete";
 })
   //   .middleware(["auth", "role:admin"])
   .prefix("/users");

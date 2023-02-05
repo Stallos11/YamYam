@@ -47,17 +47,18 @@ export const useUserStore = defineStore("user", {
     fetchUsers() {
       this.isLoading = true;
       this.axios
-        .get("http://127.0.0.1:3333/users/")
+        .get("users")
         .then((res) => {
-          console.log('res', res)
+          console.log("res", res);
           this.users = res.data;
         })
-        .catch(console.error).finally(() => this.isLoading = false);
+        .catch(console.error)
+        .finally(() => (this.isLoading = false));
     },
 
     fetchUsersDetails(id: string) {
       this.axios
-        .get(`http://127.0.0.1:3333/users/details/${id}`)
+        .get(`users/details/${id}`)
         .then((res) => {
           console.log(res);
           this.selectedUser.recipes = res.data.user_recipes;
@@ -68,6 +69,20 @@ export const useUserStore = defineStore("user", {
       this.fetchUsersDetails(item.id);
       this.isModalOpened = !this.isModalOpened;
       this.selectedUser.user = item;
+    },
+    delete() {
+      this.axios
+        .delete(`users/${this.selectedUser.user.id}`)
+        .then((res) => {
+          if (res.status == 200) {
+            this.users = this.users.filter(
+              (user) => user.id != this.selectedUser.user.id
+            );
+            this.isModalOpened = false;
+            this.toast.showToast("Info", "user deleted", "bg-dark", "bg-dark");
+          }
+        })
+        .catch((err) => console.error(err));
     },
   },
 });

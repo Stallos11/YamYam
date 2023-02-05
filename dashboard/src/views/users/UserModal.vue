@@ -15,31 +15,25 @@
               size="50"
             ></Icon>
           </p>
-          <p class="font-s2 my-0">
+          <p
+            @click="userStore.copyUserKey('email')"
+            class="font-s2 my-0 cursor-pointer"
+          >
             {{ userStore.selectedUser.user.email }}
-            <Icon
-              @click="userStore.copyUserKey('email')"
-              class="ml-auto cursor-pointer"
-              icon="material-symbols:content-copy-outline-sharp"
-              size="50"
-            ></Icon>
           </p>
         </div>
-        <div class="ml-auto font-s2">
-          {{ userStore.selectedUser.user.id }}
+        <div class="ml-auto font-s5">
           <Icon
-            @click="userStore.copyUserKey('id')"
+            @click="userStore.delete()"
             class="ml-auto cursor-pointer"
-            icon="material-symbols:content-copy-outline-sharp"
-            size="50"
+            icon="mdi:trash-can-circle"
+            size="100"
           ></Icon>
         </div>
       </div>
       <div class="divider white my-3"></div>
     </template>
     <div>
-      <p class="font-s4 mb-2">Stats</p>
-      <div class="divider white"></div>
       <div class="grix xs1 sm2 md3 p-3 gutter-xs5">
         <div class="d-flex fx-row primary rounded-2 p-3">
           <div>Recettes consultées</div>
@@ -58,7 +52,10 @@
     <div>
       <p class="font-s4 mb-2">Recettes</p>
       <div class="divider white"></div>
-      <div class="grix xs1 sm2 p-3 gutter-xs5">
+      <div
+        v-if="userStore.selectedUser.recipes?.length"
+        class="grix xs1 sm2 p-3 gutter-xs5"
+      >
         <div
           v-for="recipe in userStore.selectedUser.recipes"
           :key="recipe.id"
@@ -104,13 +101,12 @@
           </div>
         </div>
       </div>
+      <div class="my-2" v-else>No recipes found ...</div>
     </div>
   </ax-modal>
 </template>
 
 <script setup lang="ts">
 import { useUserStore } from "../../stores/user";
-
 const userStore = useUserStore();
-const props = defineProps(["user"]);
 </script>
