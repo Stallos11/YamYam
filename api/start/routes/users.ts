@@ -14,8 +14,8 @@ Route.group(() => {
 
   // Route.get("/:id", "RecipesController.find").name = "recipe.find";
 
-  // Route.put("/:id", "RecipesController.update").name =
-  //   "recipe.update";
+  Route.put("/:id", "UserController.update").name =
+    "user.update";
 
   Route.delete("/:id", "UserController.delete").name = "user.delete";
 })

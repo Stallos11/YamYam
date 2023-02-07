@@ -19,7 +19,13 @@ const routes: Array<RouteRecordRaw> = [
     path: "/users/",
     component: () => import("../views/users/List.vue"),
     name: "users",
-    meta: { title: "Loading" },
+    meta: { title: "User" },
+  },
+  {
+    path: "/users/edit",
+    component: () => import("../views/users/UserEdit.vue"),
+    name: "user-edit",
+    meta: { title: "User edit"},
   },
 ];
 

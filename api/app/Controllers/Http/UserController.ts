@@ -57,4 +57,17 @@ export default class UserController {
 
     return response.ok({ msg: "user deleted" });
   }
+
+  public async update({ request, params, response }) {
+    const body = request.all();
+
+    await User.query().where("id", params.id).update({
+      firstname: body.firstname,
+      email: body.email,
+    });
+
+    const user = await User.find(params.id);
+
+    return response.ok(user);
+  }
 }

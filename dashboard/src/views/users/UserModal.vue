@@ -25,6 +25,12 @@
         </div>
         <div class="ml-auto font-s5">
           <Icon
+            @click="userStore.redirEdit()"
+            class="ml-auto mr-2 cursor-pointer"
+            icon="ri:ball-pen-fill"
+            size="100"
+          ></Icon>
+          <Icon
             @click="userStore.showDeleteModal()"
             class="ml-auto cursor-pointer"
             icon="mdi:trash-can-circle"

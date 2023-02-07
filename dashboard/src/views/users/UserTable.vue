@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from "vue";
+import { onBeforeMount, ref} from "vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import { useUserStore } from "../../stores/user";
 

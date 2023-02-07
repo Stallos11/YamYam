@@ -1,14 +1,19 @@
 <template>
-  <div class="grix xs1 sm2">
+  <Transition name="scale">
     <div>
-      <RegisteredUserChart :days="10" :title="'Registered users'" />
+      <p>toto</p>
+      <div class="grix xs1 sm2">
+        <div>
+          <RegisteredUserChart :days="10" :title="'Registered users'" />
+        </div>
+        <div>
+          <TotalUserChart :days="10" :title="'Total users'" />
+        </div>
+      </div>
+      <UserTable />
+      <UserModal />
     </div>
-    <div>
-      <TotalUserChart :days="10" :title="'Total users'" />
-    </div>
-  </div>
-  <UserTable />
-  <UserModal />
+  </Transition>
 </template>
 <script setup lang="ts">
 import UserModal from "./UserModal.vue";

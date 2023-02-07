@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { nextTick } from "vue";
 import { ClickRowArgument } from "vue3-easy-data-table";
 import { User } from "../models/user";
 
@@ -23,6 +24,7 @@ interface State {
   selectedUser: ISelectedUser;
   isModalOpened: boolean;
   isModalDeleteOpened: boolean;
+  isModalEditOpened: boolean;
 }
 
 export const useUserStore = defineStore("user", {
@@ -35,6 +37,7 @@ export const useUserStore = defineStore("user", {
     users: [],
     isModalOpened: false,
     isModalDeleteOpened: false,
+    isModalEditOpened: false,
     selectedUser: {
       user: {},
       recipes: [],
@@ -69,12 +72,10 @@ export const useUserStore = defineStore("user", {
     },
     showUserDetails(item: ClickRowArgument) {
       this.fetchUsersDetails(item.id);
-      this.isModalOpened = !this.isModalOpened;
+      this.isModalOpened = true;
       this.selectedUser.user = item;
     },
-    showDeleteModal() {
-      this.isModalDeleteOpened = !this.isModalDeleteOpened;
-    },
+
     delete() {
       this.axios
         .delete(`users/${this.selectedUser.user.id}`)
@@ -92,6 +93,25 @@ export const useUserStore = defineStore("user", {
     },
     cancelDelete() {
       this.isModalDeleteOpened = !this.isModalDeleteOpened;
+    },
+    showDeleteModal() {
+      this.isModalDeleteOpened = true;
+    },
+    redirEdit() {
+      this.isModalOpened = false;
+      this.router.push({ name: "user-edit" });
+    },
+    update() {
+      this.axios
+        .put(`users/${this.selectedUser.user.id}`, {
+          firstname: this.selectedUser.user.firstname,
+          email: this.selectedUser.user.email,
+        })
+        .then((res) => {
+          console.log(res);
+          this.toast.showToast("Info", "user updated", "bg-dark", "bg-dark");
+        })
+        .catch((err) => console.error(err));
     },
   },
 });

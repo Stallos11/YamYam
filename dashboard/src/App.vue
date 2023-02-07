@@ -9,7 +9,7 @@
     <header>
       <div class="navbar-fixed">
         <nav class="navbar shadow-1 bg-dark">
-          <a href="#" target="_blank" class="navbar-brand">Axentix</a>
+          <router-link class="sidenav-brand" to="/">Home</router-link>
           <div class="navbar-menu ml-auto">
             <a class="navbar-link" href="#">Link 1</a>
             <a class="navbar-link" href="#">Link 2</a>
@@ -133,7 +133,9 @@
     </ax-sidenav>
 
     <main>
-      <router-view></router-view>
+      <transition name="scale">
+        <router-view></router-view>
+      </transition>
       <Pwa />
     </main>
   </div>
@@ -156,6 +158,16 @@ const toggleIcon = (e: any) => {
 </script>
 
 <style lang="scss">
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
+}
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  scale: 0.6;
+}
+
 @font-face {
   font-family: "Quicksand";
   src: url("/assets/Quicksand-VariableFont_wght.ttf") format("truetype");
@@ -179,7 +191,6 @@ $axentix-palette: (
   "bg-dark": #181818,
   "bg-light": #f3f3f3,
 );
-
 
 @import "axentix";
 @import "@axentix/vue/dist/vue3/vue-axentix.css";
