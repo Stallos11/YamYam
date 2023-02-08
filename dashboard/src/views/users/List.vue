@@ -1,7 +1,6 @@
 <template>
   <Transition name="scale">
     <div>
-      <p>toto</p>
       <div class="grix xs1 sm2">
         <div>
           <ApexChart :period="'week'" :url="'users/registrations'" :title="'Registered users'"/>
