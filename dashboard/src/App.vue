@@ -47,7 +47,7 @@
             size="50"
           ></Icon>
         </ax-btn>
-        <ax-collapsible @open="toggleIcon" v-model="isUserCollapsibleOpened">
+        <ax-collapsible v-model="isUserCollapsibleOpened">
           <div class="">
             <router-link class="sidenav-link" to="/users">List</router-link>
             <ax-sidenav-link>Link 2</ax-sidenav-link>
@@ -152,9 +152,7 @@ const isSidenavOpened = ref(false),
   isRecipeCategoryCollapsibleOpened = ref(false);
 
 const authStore = useAuthStore();
-const toggleIcon = (e: any) => {
-  console.log("event", e);
-};
+
 </script>
 
 <style lang="scss">

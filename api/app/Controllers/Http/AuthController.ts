@@ -9,7 +9,6 @@ export default class AuthController {
     try {
       const body = request.body();
 
-      console.log("the body", body);
       const user = new User();
       user.fill(body);
 
@@ -37,7 +36,6 @@ export default class AuthController {
   public async login({ auth, request, response }: HttpContextContract) {
     try {
       const body = request.body();
-      console.log(body);
       const token = await auth.use("api").attempt(body.email, body.password, {
         expiresIn: TOKEN_VALIDITY,
       });

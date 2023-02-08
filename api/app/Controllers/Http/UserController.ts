@@ -1,7 +1,5 @@
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Database from "@ioc:Adonis/Lucid/Database";
 import User from "App/Models/User";
-import { DateTime } from "luxon";
 
 export default class UserController {
   public async index({ response }) {
@@ -11,13 +9,6 @@ export default class UserController {
   }
 
   public async getRegistrations({ params, response }) {
-    var today = new Date();
-    var daysBefore = params.daysBefore;
-    var priorDate = new Date(new Date().setDate(today.getDate() - daysBefore));
-
-    // const users = await User.query();
-    // .whereBetween("created_at", [priorDate, today])
-    // .orderBy("created_at", "asc");
     const users = await Database.rawQuery(`
       SELECT 
       DATE_TRUNC('${params.period}', created_at) as x, 
@@ -33,20 +24,32 @@ export default class UserController {
   public async getUsersPer({ params, response }) {
     const users = await Database.rawQuery(`
       SELECT 
-      DATE_TRUNC('${params.period}', created_at) as x, 
-        COUNT(*) as y 
+      (DATE_TRUNC('${params.period}', created_at)) as x,
+      COUNT(*) as y 
       FROM users 
       GROUP BY x
       ORDER BY x
     `);
 
-    return response.ok(users.rows);
+    let total = 0;
+
+    const data = users.rows.map((row: { x: string; y: string }) => {
+      total += parseInt(row.y);
+
+      return {
+        x: row.x,
+        y: total,
+      };
+    });
+
+    return response.ok(data);
   }
 
   public async getUserDetails({ params, response }) {
     const user = await User.findOrFail(params.id);
     await user.load("recipes");
     return response.ok({
+      user,
       user_recipes: user.recipes,
     });
   }

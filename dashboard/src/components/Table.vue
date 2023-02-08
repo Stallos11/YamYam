@@ -1,11 +1,11 @@
 <template>
-  <div v-if="!userStore.isLoading" class="p-5">
+  <div v-if="!store[props.store].isLoading" class="p-5">
     <ax-form class="d-flex fx-col">
       <div class="grix xs1 sm2">
         <div>
           <ax-form-field label="Key">
             <ax-form-select
-              :items="filterKeyOptions"
+              :items="props.filterKeyOptions"
               v-model="searchField"
             ></ax-form-select>
           </ax-form-field>
@@ -29,10 +29,10 @@
       body-text-direction="center"
       buttons-pagination
       :rows-per-page="5"
-      :headers="headers"
-      :items="userStore.users"
+      :headers="props.headers"
+      :items="store[props.store]"
       alternating
-      @click-row="userStore.showUserDetails"
+      @click-row="store.showDetails"
     />
   </div>
   <div v-else class="spinner text-blue mx-auto my-5">
@@ -50,27 +50,22 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref} from "vue";
-import type { Header, Item } from "vue3-easy-data-table";
-import { useUserStore } from "../../stores/user";
+import { onBeforeMount, ref } from "vue";
+import { useGlobalStore } from "../stores/global";
 
-const userStore = useUserStore();
+const globalStore = useGlobalStore();
+const props = defineProps(["store", "headers", "filterKeyOptions"]);
+const store = ref();
 const searchField = ref("");
 const searchValue = ref("");
 
-const headers: Header[] = [
-  { text: "Firstname", value: "firstname", sortable: true },
-  { text: "Email", value: "email", sortable: true },
-  { text: "Provider", value: "provider", sortable: true },
-  { text: "Created_at", value: "created_at", sortable: true },
-];
-
-const filterKeyOptions = ["firstname", "email", "provider", "created_at"];
-
-onBeforeMount(() => userStore.fetchUsers());
+onBeforeMount(() => {
+  store.value = globalStore.getStore(props.store);
+  store.value.fetchData();
+});
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .buttons-pagination .item.button.active {
   background-color: #5893c0 !important;
 }

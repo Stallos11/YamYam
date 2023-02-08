@@ -14,13 +14,12 @@ import { ApexOptions } from "apexcharts";
 import { onBeforeMount, ref, defineProps } from "vue";
 import VueApexCharts from "vue3-apexcharts";
 import axios from "axios";
-import { time } from "console";
-import { Icon } from "@iconify/vue";
-const props = defineProps(["days", "title"]);
+import { slugify } from "../utils/slugify";
+const props = defineProps(["title", "url", "period"]);
 
 const chartOptions = ref<ApexOptions>({
   chart: {
-    id: "total-user-chart",
+    id: slugify(props.title) + "chart",
     toolbar: {
       show: true,
       tools: {
@@ -33,51 +32,27 @@ const chartOptions = ref<ApexOptions>({
         reset: false,
         customIcons: [
           {
-            icon: `
-              <ax-btn
-                class="btn btn-circle btn-small cursor-pointer mr-1"
-                :icon="'mdi:cards-heart-outline'"
-                size="50"
-              >D</ax-btn>`,
+            icon: "D",
             click: function (e, chartContext) {
-              console.log(e, chartContext, "day");
-              fetchTotalUserBy("day");
+              fetchData("day");
             },
           },
           {
-            icon: `
-              <ax-btn
-                class="btn btn-circle btn-small cursor-pointer mr-1"
-                :icon="'mdi:cards-heart-outline'"
-                size="50"
-              >W</<ax-btn>`,
+            icon: "W",
             click: function (e, chartContext) {
-              console.log(e, chartContext, "week");
-              fetchTotalUserBy("week");
+              fetchData("week");
             },
           },
           {
-            icon: `
-              <ax-btn
-                class="btn btn-circle btn-small cursor-pointer mr-1"
-                :icon="'mdi:cards-heart-outline'"
-                size="50"
-              >M</<ax-btn>`,
+            icon: "M",
             click: function (e, chartContext) {
-              console.log(e, chartContext, "month");
-              fetchTotalUserBy("month");
+              fetchData("month");
             },
           },
           {
-            icon: `
-              <Icon
-                class="btn btn-circle btn-small cursor-pointer mr-1"
-                :icon="'mdi:cards-heart-outline'"
-                size="50"
-              >Y</Icon>`,
+            icon: "Y",
             click: function (e, chartContext) {
-              console.log(e, chartContext, "year");
-              fetchTotalUserBy("year");
+              fetchData("year");
             },
           },
         ],
@@ -108,9 +83,6 @@ const chartOptions = ref<ApexOptions>({
         var year = a.getFullYear();
         var month = months[a.getMonth()];
         var date = a.getDate();
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        var sec = a.getSeconds();
         var time = `${date} ${month} ${year}`;
         return time;
       },
@@ -143,16 +115,29 @@ const series: any = ref([
 ]);
 
 onBeforeMount(() => {
-  fetchTotalUserBy("week");
+  fetchData(props.period);
 });
 
-const fetchTotalUserBy = (period: string) => {
+const fetchData = (period: string) => {
   axios
-    .get(`users/registrations/${period}`)
+    .get(`${props.url}/${period}`)
     .then((res) => {
-      if (res.data) {
+      if (res) {
         series.value[0].data = res.data;
       }
+      // let total = 0;
+
+      series.value[0].data = series.value[0].data.map((serie: any, i: any) => {
+        // if (i == 0) {
+        //   total += parseInt(serie.y);
+        // } else {
+        //   total += parseInt(series.value[0].data[i].y);
+        // }
+        return {
+          x: serie.x,
+          y: serie.y,
+        };
+      });
     })
     .catch(console.error);
 };

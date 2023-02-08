@@ -16,10 +16,6 @@ interface ISelectedUser {
 
 interface State {
   isLoading: boolean;
-  balance?: number;
-  claimCapability: number;
-  claimTimeLeft: number;
-  balanceIntervalId?: ReturnType<typeof setInterval> | undefined;
   users: User[];
   selectedUser: ISelectedUser;
   isModalOpened: boolean;
@@ -30,10 +26,6 @@ interface State {
 export const useUserStore = defineStore("user", {
   state: (): State => ({
     isLoading: true,
-    balance: undefined,
-    claimCapability: 0,
-    claimTimeLeft: 0,
-    balanceIntervalId: undefined,
     users: [],
     isModalOpened: false,
     isModalDeleteOpened: false,
@@ -49,31 +41,31 @@ export const useUserStore = defineStore("user", {
       navigator.clipboard.writeText(this.selectedUser.user[key]);
     },
 
-    fetchUsers() {
+    fetchData() {
       this.isLoading = true;
       this.axios
         .get("users")
         .then((res) => {
-          console.log("res", res);
           this.users = res.data;
         })
         .catch(console.error)
         .finally(() => (this.isLoading = false));
     },
 
-    fetchUsersDetails(id: string) {
+    fetchDataDetails(id: string) {
       this.axios
         .get(`users/details/${id}`)
         .then((res) => {
-          console.log(res);
+          this.selectedUser.user = res.data.user;
           this.selectedUser.recipes = res.data.user_recipes;
         })
         .catch(console.error);
     },
-    showUserDetails(item: ClickRowArgument) {
-      this.fetchUsersDetails(item.id);
-      this.isModalOpened = true;
+
+    showDetails(item: ClickRowArgument) {
       this.selectedUser.user = item;
+      this.fetchDataDetails(item.id);
+      this.isModalOpened = true;
     },
 
     delete() {
@@ -108,7 +100,6 @@ export const useUserStore = defineStore("user", {
           email: this.selectedUser.user.email,
         })
         .then((res) => {
-          console.log(res);
           this.toast.showToast("Info", "user updated", "bg-dark", "bg-dark");
         })
         .catch((err) => console.error(err));
