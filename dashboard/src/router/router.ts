@@ -25,7 +25,25 @@ const routes: Array<RouteRecordRaw> = [
     path: "/users/edit",
     component: () => import("../views/users/UserEdit.vue"),
     name: "user-edit",
-    meta: { title: "User edit"},
+    meta: { title: "User edit" },
+  },
+  {
+    path: "/recipe-types/",
+    component: () => import("../views/recipe_types/List.vue"),
+    name: "recipe-types",
+    meta: { title: "Recipe type" },
+  },
+  {
+    path: "/recipe-types/edit",
+    component: () => import("../views/recipe_types/RecipeTypeEdit.vue"),
+    name: "recipe-types-edit",
+    meta: { title: "Recipe type edit" },
+  },
+  {
+    path: "/recipe-types/create",
+    component: () => import("../views/recipe_types/RecipeTypeCreate.vue"),
+    name: "recipe-types-create",
+    meta: { title: "Recipe type create" },
   },
 ];
 

@@ -1,4 +1,4 @@
-import { FilterOption, Header } from "vue3-easy-data-table";
+import { Header } from "vue3-easy-data-table";
 
 export interface User {
   id?: string;

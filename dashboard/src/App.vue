@@ -50,8 +50,6 @@
         <ax-collapsible v-model="isUserCollapsibleOpened">
           <div class="">
             <router-link class="sidenav-link" to="/users">List</router-link>
-            <ax-sidenav-link>Link 2</ax-sidenav-link>
-            <ax-sidenav-link>Link 3</ax-sidenav-link>
           </div>
         </ax-collapsible>
       </div>
@@ -71,7 +69,6 @@
         </ax-btn>
         <ax-collapsible v-model="isRecipeCollapsibleOpened">
           <div class="">
-            <ax-sidenav-link>Link 1</ax-sidenav-link>
             <ax-sidenav-link>Link 2</ax-sidenav-link>
             <ax-sidenav-link>Link 3</ax-sidenav-link>
           </div>
@@ -99,9 +96,8 @@
         </ax-btn>
         <ax-collapsible v-model="isRecipeTypeCollapsibleOpened">
           <div class="">
-            <ax-sidenav-link>Link 1</ax-sidenav-link>
-            <ax-sidenav-link>Link 2</ax-sidenav-link>
-            <ax-sidenav-link>Link 3</ax-sidenav-link>
+            <router-link class="sidenav-link" to="/recipe-types">List</router-link>
+            <router-link class="sidenav-link" to="/recipe-types/create">Create</router-link>
           </div>
         </ax-collapsible>
       </div>
@@ -124,7 +120,6 @@
         </ax-btn>
         <ax-collapsible v-model="isRecipeCategoryCollapsibleOpened">
           <div class="">
-            <ax-sidenav-link>Link 1</ax-sidenav-link>
             <ax-sidenav-link>Link 2</ax-sidenav-link>
             <ax-sidenav-link>Link 3</ax-sidenav-link>
           </div>

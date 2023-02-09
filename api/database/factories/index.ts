@@ -1,4 +1,5 @@
 import Factory from "@ioc:Adonis/Lucid/Factory";
+import RecipeType from "App/Models/RecipeType";
 import User from "App/Models/User";
 import { DateTime } from "luxon";
 import { v4 as uuidv4 } from "uuid";
@@ -31,6 +32,21 @@ export const UserFactory = Factory.define(User, ({ faker }) => {
     updatedAt: randomDate(
       new Date("2023-01-01 00:00:00"),
       new Date("2023-02-04 23:59:59")
+    ),
+  };
+}).build();
+
+export const RecipeTypeFactory = Factory.define(RecipeType, ({ faker }) => {
+  return {
+    id: uuidv4(),
+    type: 'Type ' + faker.address.cityName(),
+    createdAt: randomDate(
+      new Date("2023-01-01 00:00:00"),
+      new Date("2023-02-04 23:59:59")
+    ),
+    updatedAt: randomDate(
+      new Date("2023-01-01 00:00:00"),
+      new Date("2023-02-08 23:59:59")
     ),
   };
 }).build();

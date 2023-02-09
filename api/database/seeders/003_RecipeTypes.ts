@@ -2,11 +2,14 @@ import BaseSeeder from "@ioc:Adonis/Lucid/Seeder";
 import RecipeType from "App/Models/RecipeType";
 import { DateTime } from "luxon";
 import { enableUuidGeneration } from "App/Decorators/enableUuidGeneration";
+import { RecipeTypeFactory } from "Database/factories";
 
-export default class UserSeeder extends BaseSeeder {
+export default class RecipeTypesSeeder extends BaseSeeder {
   // @ts-ignore
   @enableUuidGeneration()
   public async run() {
+    const recipe_types = await RecipeTypeFactory.createMany(50);
+
     await RecipeType.updateOrCreateMany("id", [
       {
         id: "1b2ae1ba-9165-4c09-b65a-a4072caa8680",
