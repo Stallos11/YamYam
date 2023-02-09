@@ -20,21 +20,13 @@
 
 <script lang="ts" setup>
 import { useRegisterSW } from 'virtual:pwa-register/vue';
-import { useOfflineStore } from '../stores/offline';
-import { watch } from 'vue';
 
 const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW();
-
-const offlineStore = useOfflineStore();
 
 const close = async () => {
   offlineReady.value = false;
   needRefresh.value = false;
 };
-
-watch(offlineReady, (newval, oldval) => {
-  offlineStore.offline = newval;
-});
 </script>
 
 <style lang="scss" scoped>

@@ -26,39 +26,26 @@
 </template>
 
 <script setup lang="ts">
+// @ts-ignore
+import Ping from 'ping.js';
 import { ref } from 'vue';
 import Pwa from './components/Pwa.vue';
 import { useOfflineStore } from './stores/offline';
 
-const offlineStore = useOfflineStore();
 const offline = ref(false);
 
-function ping() {
-  const isUp = () => (offline.value = false);
-  const isDown = () => (offline.value = true);
-
-  let started = new Date().getTime();
-
-  let http = new XMLHttpRequest();
-
-  http.open('GET', 'https://github.com', /*async*/ true);
-  http.onreadystatechange = function () {
-    if (http.readyState == 4) {
-      let ended = new Date().getTime();
-
-      let milliseconds = ended - started;
-      isUp();
-    }
-  };
-  try {
-    http.send(null);
-  } catch (exception) {
-    isDown();
-  }
-}
-
 setInterval(() => {
-  ping();
+  var p = new Ping();
+
+  p.ping('https://github.com')
+    .then((data: any) => {
+      console.log('Successful ping: ' + data);
+      offline.value = true;
+    })
+    .catch((data: any) => {
+      console.error('Ping failed: ' + data);
+      offline.value = false;
+    });
 }, 2000);
 </script>
 
