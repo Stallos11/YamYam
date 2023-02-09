@@ -10,7 +10,7 @@
           <a class="navbar-link" href="#">Recipes</a>
           <a class="navbar-link" href="#">Users</a>
 
-          <span class="font-s7 mx-3" :class="offlineStore.offline ? 'text-green' : 'text-red'">•</span>
+          <span class="font-s7 mx-3" :class="offline ? 'text-green' : 'text-red'">•</span>
         </div>
       </nav>
     </header>
@@ -26,10 +26,40 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import Pwa from './components/Pwa.vue';
 import { useOfflineStore } from './stores/offline';
 
 const offlineStore = useOfflineStore();
+const offline = ref(false);
+
+function ping() {
+  const isUp = () => (offline.value = false);
+  const isDown = () => (offline.value = true);
+
+  let started = new Date().getTime();
+
+  let http = new XMLHttpRequest();
+
+  http.open('GET', 'https://github.com', /*async*/ true);
+  http.onreadystatechange = function () {
+    if (http.readyState == 4) {
+      let ended = new Date().getTime();
+
+      let milliseconds = ended - started;
+      isUp();
+    }
+  };
+  try {
+    http.send(null);
+  } catch (exception) {
+    isDown();
+  }
+}
+
+setInterval(() => {
+  ping();
+}, 2000);
 </script>
 
 <style lang="scss">
