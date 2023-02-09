@@ -18,7 +18,7 @@ app.use(VueAxios, axios);
 
 app.use(VueAxentix);
 const apiUrl = import.meta.env.VITE_API_URL as string;
-axios.defaults.baseURL = apiUrl ? apiUrl : "http://localhost:3333";
+axios.defaults.baseURL = apiUrl ? apiUrl : "http://api.yamyam.test/";
 
 const pinia = createPinia();
 pinia.use(({ store }) => {
