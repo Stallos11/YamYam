@@ -66,7 +66,16 @@ export const useRecipeTypeStore = defineStore("recipe-type", {
         .post("recipe-types", {
           recipe_type,
         })
-        .then((res) => this.recipe_types.push(res.data))
+        .then((res) => {
+          this.recipe_types.push(res.data)
+          this.toast.showToast(
+            "Info",
+            "recipe type created",
+            "bg-dark",
+            "bg-dark"
+          );
+          this.router.replace('/recipe-types')
+        })
         .catch((err) => console.error(err));
     },
     delete() {
@@ -97,7 +106,8 @@ export const useRecipeTypeStore = defineStore("recipe-type", {
     },
     redirEdit() {
       this.isModalOpened = false;
-      this.router.push({ name: "recipe-types-edit" });
+      this.router.replace('/recipe-types/edit');
+
     },
     update() {
       this.axios
@@ -111,6 +121,7 @@ export const useRecipeTypeStore = defineStore("recipe-type", {
             "bg-dark",
             "bg-dark"
           );
+          this.router.replace("/recipe-types");
         })
         .catch((err) => console.error(err));
     },

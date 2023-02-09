@@ -61,11 +61,21 @@ export const useRecipeCategoryStore = defineStore("recipe-category", {
     },
 
     insert(recipe_category: string) {
+      console.log("rec", recipe_category);
       this.axios
         .post("recipe-categories", {
           recipe_category,
         })
-        .then((res) => this.recipe_categories.push(res.data))
+        .then((res) => {
+          this.recipe_categories.push(res.data);
+          this.toast.showToast(
+            "Info",
+            "recipe category created",
+            "bg-dark",
+            "bg-dark"
+          );
+          this.router.replace("/recipe-categories");
+        })
         .catch((err) => console.error(err));
     },
     delete() {
@@ -97,7 +107,7 @@ export const useRecipeCategoryStore = defineStore("recipe-category", {
     },
     redirEdit() {
       this.isModalOpened = false;
-      this.router.push({ name: "recipe-categories-edit" });
+      this.router.replace('/recipe-categories/edit');
     },
     update() {
       this.axios
@@ -111,6 +121,7 @@ export const useRecipeCategoryStore = defineStore("recipe-category", {
             "bg-dark",
             "bg-dark"
           );
+          this.router.replace("/recipe-categories");
         })
         .catch((err) => console.error(err));
     },

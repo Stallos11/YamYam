@@ -91,7 +91,7 @@ export const useUserStore = defineStore("user", {
     },
     redirEdit() {
       this.isModalOpened = false;
-      this.router.push({ name: "user-edit" });
+      this.router.replace("/users/edit");
     },
     update() {
       this.axios
@@ -101,6 +101,7 @@ export const useUserStore = defineStore("user", {
         })
         .then((res) => {
           this.toast.showToast("Info", "user updated", "bg-dark", "bg-dark");
+          this.router.replace("/users");
         })
         .catch((err) => console.error(err));
     },

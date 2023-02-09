@@ -52,7 +52,7 @@ export default class RecipeCategoriesController {
     
     await recipeCategory
       .fill({
-        category: body.category,
+        category: body.recipe_category,
       })
       .save();
 
