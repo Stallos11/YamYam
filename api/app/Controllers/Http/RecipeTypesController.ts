@@ -1,5 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import RecipeType from "App/Models/RecipeType";
+import Database from "@ioc:Adonis/Lucid/Database";
 
 export default class RecipeTypesController {
   public async index({ response }) {
@@ -8,12 +9,50 @@ export default class RecipeTypesController {
     return response.ok(recipeTypes);
   }
 
+  public async getRegistrations({ params, response }) {
+    const recipe_types = await Database.rawQuery(`
+      SELECT 
+      DATE_TRUNC('${params.period}', created_at) as x, 
+        COUNT(*) as y 
+      FROM recipe_types 
+      GROUP BY x
+      ORDER BY x
+    `);
+
+    return await response.ok(recipe_types.rows);
+  }
+
+  public async getRecipeTypesPer({ params, response }) {
+    const recipe_types = await Database.rawQuery(`
+      SELECT 
+      (DATE_TRUNC('${params.period}', created_at)) as x,
+      COUNT(*) as y 
+      FROM recipe_types 
+      GROUP BY x
+      ORDER BY x
+    `);
+
+    let total = 0;
+
+    const data = recipe_types.rows.map((row: { x: string; y: string }) => {
+      total += parseInt(row.y);
+
+      return {
+        x: row.x,
+        y: total,
+      };
+    });
+
+    return response.ok(data);
+  }
+
   public async insert({ request, response }: HttpContextContract) {
     const recipeType = new RecipeType();
-
+    const body = request.all();
+    
     await recipeType
       .fill({
-        type: request.input("type"),
+        type: body.recipe_type,
       })
       .save();
 

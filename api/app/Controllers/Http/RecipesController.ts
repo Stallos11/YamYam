@@ -24,7 +24,7 @@ export default class RecipesController {
         recipeTypeId: body.recipe_type_id,
         recipeCategoryId: body.recipe_category_id,
       })
-      .save().then(e => console.log('resss', e));
+      .save().then(e => console.log('res', e));
 
     return response.ok(recipe);
   }

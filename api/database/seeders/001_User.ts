@@ -2,19 +2,21 @@ import BaseSeeder from "@ioc:Adonis/Lucid/Seeder";
 import User from "App/Models/User";
 import { enableUuidGeneration } from "App/Decorators/enableUuidGeneration";
 import { DateTime } from "luxon";
-
+import { UserFactory } from "Database/factories";
 export default class UserSeeder extends BaseSeeder {
   // @ts-ignore
   @enableUuidGeneration()
   public async run() {
+    const users = await UserFactory.createMany(100);
+
     await User.updateOrCreateMany("id", [
       {
         id: "34353531-c3a0-4eb9-8b87-28cc3147c5f7",
         provider: "database",
         firstname: "a",
         role: "admin",
-        email: "a@a.a",
-        password: "aaaaaaaa",
+        email: "admin@admin.com",
+        password: "!Admin31",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       },

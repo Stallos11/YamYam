@@ -9,7 +9,6 @@ export default class AuthController {
     try {
       const body = request.body();
 
-      console.log("the body", body);
       const user = new User();
       user.fill(body);
 
@@ -29,14 +28,14 @@ export default class AuthController {
       if (error.code == 23505) {
         return response.badRequest({ msg: "Email already used" });
       }
-      
+
       return response.badRequest({ msg: "Invalid credentials." });
     }
   }
+
   public async login({ auth, request, response }: HttpContextContract) {
     try {
       const body = request.body();
-
       const token = await auth.use("api").attempt(body.email, body.password, {
         expiresIn: TOKEN_VALIDITY,
       });
@@ -48,5 +47,11 @@ export default class AuthController {
     } catch {
       return response.badRequest({ msg: "Invalid credentials." });
     }
+  }
+
+  public async logout({ auth, response }) {
+    await auth.use("api").logout();
+
+    return response.ok({ success: true });
   }
 }
