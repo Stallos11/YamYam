@@ -30,7 +30,6 @@
 import Ping from 'ping.js';
 import { ref } from 'vue';
 import Pwa from './components/Pwa.vue';
-import { useOfflineStore } from './stores/offline';
 
 const offline = ref(false);
 
