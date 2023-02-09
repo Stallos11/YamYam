@@ -5,7 +5,7 @@
         <ApexChart
           :period="'week'"
           :url="'users/registrations'"
-          :title="'Registered users'"
+          :title="'New users'"
         />
       </div>
       <div>
@@ -15,7 +15,36 @@
           :title="'Total users'"
         />
       </div>
-      <div></div>
+    </div>
+    <div class="grix xs1 sm2 md4">
+      <div>
+        <ApexChart
+          :period="'week'"
+          :url="'recipe-types/registrations'"
+          :title="'New recipe types'"
+        />
+      </div>
+      <div>
+        <ApexChart
+          :period="'week'"
+          :url="'recipe-types/total'"
+          :title="'Total recipe types'"
+        />
+      </div>
+      <div>
+        <ApexChart
+          :period="'week'"
+          :url="'recipe-categories/registrations'"
+          :title="'New recipe categories'"
+        />
+      </div>
+      <div>
+        <ApexChart
+          :period="'week'"
+          :url="'recipe-categories/total'"
+          :title="'Total recipe categories'"
+        />
+      </div>
     </div>
   </div>
 </template>

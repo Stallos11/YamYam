@@ -8,7 +8,7 @@ export default class RecipeTypesSeeder extends BaseSeeder {
   // @ts-ignore
   @enableUuidGeneration()
   public async run() {
-    const recipe_types = await RecipeTypeFactory.createMany(50);
+    const recipe_types = await RecipeTypeFactory.createMany(20);
 
     await RecipeType.updateOrCreateMany("id", [
       {

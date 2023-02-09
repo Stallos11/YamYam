@@ -1,17 +1,17 @@
 import Route from "@ioc:Adonis/Core/Route";
 
 Route.group(() => {
-  Route.get("/", "RecipeCategoriesController.index").name =
-    "recipe-categories.index";
+  Route.get("/", "RecipeCategoriesController.index");
+  Route.get("/:id", "RecipeCategoriesController.find");
+  Route.get("/total/:period", "RecipeCategoriesController.getRecipeCategoriesPer");
+  Route.get("/registrations/:period", "RecipeCategoriesController.getRegistrations");
 
-  Route.post("/", "RecipeCategoriesController.insert").name =
-    "recipe-categories.insert";
+  Route.post("/", "RecipeCategoriesController.insert");
 
-  Route.get("/:id", "RecipeCategoriesController.find").name =
-    "recipe-categories.find";
+  Route.put("/:id", "RecipeCategoriesController.update");
 
-  Route.put("/:id", "RecipeCategoriesController.update").name =
-    "recipe-categories.update";
+  Route.delete("/:id", "RecipeCategoriesController.delete");
+
 })
   //   .middleware(["auth", "role:admin"])
   .prefix("/recipe-categories");

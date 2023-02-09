@@ -120,8 +120,8 @@
         </ax-btn>
         <ax-collapsible v-model="isRecipeCategoryCollapsibleOpened">
           <div class="">
-            <ax-sidenav-link>Link 2</ax-sidenav-link>
-            <ax-sidenav-link>Link 3</ax-sidenav-link>
+            <router-link class="sidenav-link" to="/recipe-categories">List</router-link>
+            <router-link class="sidenav-link" to="/recipe-categories/create">Create</router-link>
           </div>
         </ax-collapsible>
       </div>

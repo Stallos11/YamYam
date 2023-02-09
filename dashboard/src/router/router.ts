@@ -45,6 +45,24 @@ const routes: Array<RouteRecordRaw> = [
     name: "recipe-types-create",
     meta: { title: "Recipe type create" },
   },
+  {
+    path: "/recipe-categories/",
+    component: () => import("../views/recipe_categories/List.vue"),
+    name: "recipe-categories",
+    meta: { title: "Recipe categories" },
+  },
+  {
+    path: "/recipe-categories/edit",
+    component: () => import("../views/recipe_categories/RecipeCategoryEdit.vue"),
+    name: "recipe-categories-edit",
+    meta: { title: "Recipe category edit" },
+  },
+  {
+    path: "/recipe-categories/create",
+    component: () => import("../views/recipe_categories/RecipeCategoryCreate.vue"),
+    name: "recipe-categories-create",
+    meta: { title: "Recipe category create" },
+  },
 ];
 
 export const router = createRouter({
