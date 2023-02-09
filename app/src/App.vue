@@ -7,7 +7,7 @@ import Pwa from './components/Pwa.vue';
     <header>
       <nav class="navbar">
         <a href="#" class="navbar-logo hide-sm-down">
-          <img src="icon.png" alt="logo" class="navbar-logo" style="filter: brightness(0%)" />
+          <img src="../public/icon.png" alt="logo" class="navbar-logo" style="filter: brightness(0%)" />
         </a>
 
         <div class="navbar-menu ml-auto">
