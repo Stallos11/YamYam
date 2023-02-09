@@ -1,18 +1,16 @@
-<script setup lang="ts">
-import Pwa from './components/Pwa.vue';
-</script>
-
 <template>
   <div class="layout">
     <header>
       <nav class="navbar">
         <a href="#" class="navbar-logo hide-sm-down">
-          <img src="../public/icon.png" alt="logo" class="navbar-logo" style="filter: brightness(0%)" />
+          <img src="/icon.png" alt="logo" class="navbar-logo" style="filter: brightness(0%)" />
         </a>
 
         <div class="navbar-menu ml-auto">
           <a class="navbar-link" href="#">Recipes</a>
           <a class="navbar-link" href="#">Users</a>
+
+          <span class="font-s7 mx-3" :class="offlineStore.offline ? 'text-green' : 'text-red'">•</span>
         </div>
       </nav>
     </header>
@@ -26,6 +24,13 @@ import Pwa from './components/Pwa.vue';
     <footer class="footer white">Copyright © 2023</footer>
   </div>
 </template>
+
+<script setup lang="ts">
+import Pwa from './components/Pwa.vue';
+import { useOfflineStore } from './stores/offline';
+
+const offlineStore = useOfflineStore();
+</script>
 
 <style lang="scss">
 @font-face {
