@@ -10,5 +10,5 @@ Route.group(() => {
 
   Route.delete("/:id", "UserController.delete");
 })
-  //   .middleware(["auth", "role:admin"])
+  // .middleware(["auth"])
   .prefix("/users");
