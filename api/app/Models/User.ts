@@ -14,6 +14,8 @@ import Recipe from "./Recipe";
 import Rating from "./Rating";
 import Config from "@ioc:Adonis/Core/Config";
 
+
+
 export default class User extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
