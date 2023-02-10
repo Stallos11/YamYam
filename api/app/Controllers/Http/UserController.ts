@@ -52,11 +52,9 @@ export default class UserController {
    *          content:
    *            application/json:
    *              schema:
-   *                properties:
-   *                  data:
-   *                    type: array
-   *                    items:
-   *                      $ref: '#/components/schemas/ChartResponse'
+   *                type: array
+   *                items:
+   *                  $ref: '#/components/schemas/ChartResponse'
    */
   public async getRegistrations({ params, response }) {
     const users = await Database.rawQuery(`

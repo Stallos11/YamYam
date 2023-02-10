@@ -14,6 +14,17 @@ export default class Ingredient extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
 
+  @column()
+  public openfoodfact_id: string;
+  @column()
+  public product_name: string;
+  @column()
+  public product_name_fr: string;
+  @column()
+  public product_name_en: string;
+  @column()
+  public product_name_de: string;
+
   @hasMany(() => RecipeIngredient)
   public ingredients: HasMany<typeof RecipeIngredient>;
 
