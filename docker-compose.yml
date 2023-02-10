@@ -77,6 +77,7 @@ services:
       - ./devstack/certificates:/etc/certs:ro
     environment:
       VITE_API_URL: http://api.yamyam.test/
+      VITE_RECAPTCHA_KEY: 6LcggW0kAAAAAIBPh7SXqoEofNWpSmibvJIfHEoh
 
   api:
     stop_grace_period: '1s'

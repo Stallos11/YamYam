@@ -24,6 +24,7 @@ jobs:
       working-directory: app
       env:
         VITE_ENV: production
+        VITE_RECAPTCHA_KEY: 6LcggW0kAAAAAIBPh7SXqoEofNWpSmibvJIfHEoh
 
     # - name: Push
     #   uses: s0/git-publish-subdir-action@develop
