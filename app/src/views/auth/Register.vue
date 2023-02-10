@@ -13,6 +13,10 @@
           <ax-form-control type="email" v-model="user.email" lazy :rules="[required, emailRule]"></ax-form-control>
         </ax-form-field>
 
+        <ax-form-field label="Firstname*">
+          <ax-form-control type="text" v-model="user.firstname" lazy :rules="[required]"></ax-form-control>
+        </ax-form-field>
+
         <ax-form-field label="Password*">
           <ax-form-control type="password" v-model="user.password" lazy :rules="[required, passwordRule]"></ax-form-control>
         </ax-form-field>
