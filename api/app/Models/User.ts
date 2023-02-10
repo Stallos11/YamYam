@@ -31,7 +31,7 @@ export default class User extends BaseModel {
   public firstname: string;
 
   @column()
-  public provider: string;
+  public provider: "database" | "google";
 
   @column()
   public rememberMeToken: string | null;

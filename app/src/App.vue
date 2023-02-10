@@ -2,26 +2,23 @@
   <div class="layout">
     <header>
       <nav class="navbar">
-        <a href="#" class="navbar-logo hide-sm-down">
-          <img src="/icon.png" alt="logo" class="navbar-logo" style="filter: brightness(0%)" />
+        <a href="#" class="navbar-logo mx-0">
+          <img src="/icon.png" alt="logo" class="navbar-logo" />
         </a>
 
-        <div class="navbar-menu ml-auto">
-          <a class="navbar-link" href="#">Recipes</a>
-          <a class="navbar-link" href="#">Users</a>
+        <div class="navbar-menu ml-auto text-white">
+          <router-link to="login" class="navbar-link">Login</router-link>
 
           <span class="font-s7 mx-3" :class="offline ? 'text-green' : 'text-red'">•</span>
         </div>
       </nav>
     </header>
 
-    <main>
+    <main class="container">
       <router-view></router-view>
 
       <Pwa />
     </main>
-
-    <footer class="footer white">Copyright © 2023</footer>
   </div>
 </template>
 
@@ -38,11 +35,11 @@ setInterval(() => {
 
   p.ping('https://github.com')
     .then((data: any) => {
-      console.log('Successful ping: ' + data);
+      // console.log('Successful ping: ' + data);
       offline.value = true;
     })
     .catch((data: any) => {
-      console.error('Ping failed: ' + data);
+      // console.error('Ping failed: ' + data);
       offline.value = false;
     });
 }, 2000);
@@ -122,5 +119,48 @@ $axentix-palette: (
 .form-control[readonly] {
   background-color: transparent !important;
   pointer-events: none;
+}
+
+.auth-card {
+  .card {
+    width: 30rem;
+
+    @include responsive('sm') {
+      width: 24rem;
+    }
+
+    @include responsive('xs') {
+      width: 95%;
+    }
+  }
+
+  .social-divider {
+    text-align: center;
+    position: relative;
+
+    span {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 50%;
+      border-bottom: 1px solid getColor('grey', 'dark', 2);
+    }
+
+    p {
+      color: getColor('grey', 'light', 3);
+      background-color: getColor('bg-light');
+      display: inline-block;
+      position: relative;
+      padding: 0 1.25rem;
+    }
+  }
+
+  .social-auth-icons {
+    .btn {
+      width: 3.5rem;
+      height: 3.5rem;
+      line-height: 3.5rem;
+    }
+  }
 }
 </style>
