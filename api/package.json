@@ -12,6 +12,7 @@
     "@japa/preset-adonis": "^1.2.0",
     "@japa/runner": "^2.2.2",
     "adonis-preset-ts": "^2.1.0",
+    "axios": "^1.3.2",
     "pino-pretty": "^9.1.1",
     "typescript": "~4.6",
     "youch": "^3.2.2",
