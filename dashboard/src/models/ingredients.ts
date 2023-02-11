@@ -31,7 +31,6 @@ export const ingredientsFilterKeyOptions = [
 ];
 
 export const ingredientsQueryKeyOptions = [
-  "uuid",
   "openfoodfact_id",
   "product_name",
   "product_name_fr",
