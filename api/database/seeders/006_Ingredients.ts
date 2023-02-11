@@ -8,6 +8,18 @@ export default class IngredientSeeder extends BaseSeeder {
   // @ts-ignore
   // @enableUuidGeneration()
   public async run() {
+    function randomDate(start: Date, end: Date) {
+      let date = new Date(
+        start.getTime() + Math.random() * (end.getTime() - start.getTime())
+      );
+      let year = date.getFullYear();
+      let month = (1 + date.getMonth()).toString().padStart(2, "0");
+      let day = date.getDate().toString().padStart(2, "0");
+      let hours = date.getHours().toString().padStart(2, "0");
+      let minutes = date.getMinutes().toString().padStart(2, "0");
+      let seconds = date.getSeconds().toString().padStart(2, "0");
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
     //@ts-ignore
     const products = product.map((p) => {
       return {
@@ -17,8 +29,14 @@ export default class IngredientSeeder extends BaseSeeder {
         product_name_en: p.product_name_en,
         product_name_fr: p.product_name_fr,
         product_name_de: p.product_name_de,
-        created_at: DateTime.now(),
-        updated_at: DateTime.now(),
+        created_at: randomDate(
+          new Date("2023-01-01 00:00:00"),
+          new Date("2023-02-04 23:59:59")
+        ),
+        updated_at: randomDate(
+          new Date("2023-01-01 00:00:00"),
+          new Date("2023-02-04 23:59:59")
+        ),
       };
     });
 
@@ -34,7 +52,9 @@ export default class IngredientSeeder extends BaseSeeder {
       await Ingredient.updateOrCreateMany("id", arr).then((e) => {
         console.clear();
         process.stdout.write("\u001b[1A\u001b[2K"); // move cursor up and clear current line
-        process.stdout.write(`${Math.round(((i + 1) / promises.length) * 100).toFixed(2)}% done`);
+        process.stdout.write(
+          `${Math.round(((i + 1) / promises.length) * 100).toFixed(2)}% done`
+        );
       });
     });
 

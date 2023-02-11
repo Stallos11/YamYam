@@ -28,4 +28,5 @@ export default Env.rules({
   PG_PASSWORD: Env.schema.string.optional(),
   PG_DB_NAME: Env.schema.string(),
   RECAPTCHA_SECRET_KEY: Env.schema.string(),
+  DASHBOARD_URL: Env.schema.string()
 });

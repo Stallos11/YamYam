@@ -12,6 +12,7 @@ export default class AuthController {
       const userBody = request.input("user");
       const captchaToken = request.input("token") as string;
 
+      console.log(request);
       const recaptchaResponse = await axios.post(
         `https://www.google.com/recaptcha/api/siteverify?secret=${Env.get(
           "RECAPTCHA_SECRET_KEY"
@@ -60,21 +61,27 @@ export default class AuthController {
       const body = request.body();
       const captchaToken = request.input("token") as string;
 
-      const recaptchaResponse = await axios.post(
-        `https://www.google.com/recaptcha/api/siteverify?secret=${Env.get(
-          "RECAPTCHA_SECRET_KEY"
-        )}&response=${captchaToken}`
-      );
+      let email = body.email;
+      let password = body.password;
 
-      if (!recaptchaResponse.data.success) {
-        return response.badRequest({ msg: "Captcha was invalid." });
+      if (request.headers().origin != Env.get("DASHBOARD_URL")) {
+        const recaptchaResponse = await axios.post(
+          `https://www.google.com/recaptcha/api/siteverify?secret=${Env.get(
+            "RECAPTCHA_SECRET_KEY"
+          )}&response=${captchaToken}`
+        );
+
+        if (!recaptchaResponse.data.success) {
+          return response.badRequest({ msg: "Captcha was invalid." });
+        }
+
+        email = body.user.email;
+        password = body.user.password;
       }
 
-      const token = await auth
-        .use("api")
-        .attempt(body.user.email, body.user.password, {
-          expiresIn: TOKEN_VALIDITY,
-        });
+      const token = await auth.use("api").attempt(email, password, {
+        expiresIn: TOKEN_VALIDITY,
+      });
 
       return response.send({
         token,
