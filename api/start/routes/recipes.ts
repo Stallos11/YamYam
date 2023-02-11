@@ -7,11 +7,9 @@ Route.group(() => {
 
   Route.get("/:id", "RecipesController.find").name = "recipe.find";
 
-  Route.put("/:id", "RecipesController.update").name =
-    "recipe.update";
+  Route.put("/:id", "RecipesController.update").name = "recipe.update";
 
-  Route.delete("/:id", "RecipesController.delete").name =
-    "recipe.delete";
+  Route.delete("/:id", "RecipesController.delete").name = "recipe.delete";
 })
   //   .middleware(["auth", "role:admin"])
   .prefix("/recipes");

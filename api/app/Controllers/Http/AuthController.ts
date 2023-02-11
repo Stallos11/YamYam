@@ -70,9 +70,11 @@ export default class AuthController {
         return response.badRequest({ msg: "Captcha was invalid." });
       }
 
-      const token = await auth.use("api").attempt(body.email, body.password, {
-        expiresIn: TOKEN_VALIDITY,
-      });
+      const token = await auth
+        .use("api")
+        .attempt(body.user.email, body.user.password, {
+          expiresIn: TOKEN_VALIDITY,
+        });
 
       return response.send({
         token,
