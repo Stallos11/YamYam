@@ -5,14 +5,14 @@ import { router } from '../router';
 export const registerAuthMiddleware = (axios: Axios) => {
   router.beforeEach((to) => {
     const authStore = useAuthStore();
-    const authRoutes = ['login', 'register', 'callback', 'reset', 'forgot-password'];
+    const authRoutes = ['login', 'register', 'callback', 'reset', 'forgot-password', 'home'];
 
     if (!authStore.isLoggedIn) {
       if (authRoutes.includes(to.name as string)) return true;
       else return { name: 'login' };
     }
 
-    if (authRoutes.includes(to.name as string)) return { name: 'home' };
+    if (authRoutes.includes(to.name as string) && to.name !== 'home') return { name: 'home' };
     return true;
   });
 
