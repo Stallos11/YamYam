@@ -18,9 +18,10 @@
         </div>
       </div>
       <Table
-        :store="'recipe_types'"
-        :headers="recipeTypeTableHeaders"
+        :enable-form="true"
         :filter-key-options="recipeTypeFilterKeyOptions"
+        :headers="recipeTypeTableHeaders"
+        :store="'recipe_types'"
       />
       <RecipeTypeModal />
     </div>

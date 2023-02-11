@@ -64,7 +64,8 @@ export default class AuthController {
       let email = body.email;
       let password = body.password;
 
-      if (request.headers().origin != Env.get("DASHBOARD_URL")) {
+      console.log(request.headers().origin + '/', Env.get('DASHBOARD_URL'))
+      if (request.headers().origin + '/' != Env.get("DASHBOARD_URL")) {
         const recaptchaResponse = await axios.post(
           `https://www.google.com/recaptcha/api/siteverify?secret=${Env.get(
             "RECAPTCHA_SECRET_KEY"

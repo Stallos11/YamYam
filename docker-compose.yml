@@ -77,7 +77,7 @@ services:
       - ./devstack/certificates:/etc/certs:ro
     environment:
       VITE_API_URL: http://api.yamyam.test/
-      VITE_DASHBOARD_URL: http://dashboard.yamyam.test/
+      VITE_DASHBOARD_URL: http://dashboard.yamyam.test
       VITE_RECAPTCHA_KEY: 6LcggW0kAAAAAIBPh7SXqoEofNWpSmibvJIfHEoh
   api:
     stop_grace_period: "1s"
@@ -117,7 +117,7 @@ services:
       PG_DB_NAME: yamyam
       API_URL: http://api.yamyam.test/
       APP_URL: http://app.yamyam.test/
-      DASHBOARD_URL: http://app.yamyam.test/
+      DASHBOARD_URL: http://dashboard.yamyam.test
       SESSION_DRIVER: cookie
       ROOT_DOMAIN: yamyam.test
 

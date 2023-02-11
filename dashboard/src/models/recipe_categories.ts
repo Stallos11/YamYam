@@ -1,6 +1,6 @@
 import { Header } from "vue3-easy-data-table";
 
-export interface RecipeType {
+export interface IRecipeCategory {
   id?: string;
   category: string;
 }

@@ -1,7 +1,8 @@
 <template>
-  <div v-if="!store[props.store].isLoading" class="p-5">
-    <ax-form class="d-flex fx-col">
-      <div class="grix xs1 sm2">
+  <div v-if="!store[props.store].isLoading" class="px-5 py-2">
+    <ax-form v-if="props.enableForm" class="d-flex fx-col">
+      <p class="text-grey">Filter by</p>
+      <div class="grix xs1 sm2 mb-4">
         <div>
           <ax-form-field label="Key">
             <ax-form-select
@@ -54,7 +55,12 @@ import { onBeforeMount, ref } from "vue";
 import { useGlobalStore } from "../stores/global";
 
 const globalStore = useGlobalStore();
-const props = defineProps(["store", "headers", "filterKeyOptions"]);
+const props = defineProps([
+  "store",
+  "headers",
+  "filterKeyOptions",
+  "enableForm",
+]);
 const store = ref();
 const searchField = ref("");
 const searchValue = ref("");
@@ -72,5 +78,8 @@ onBeforeMount(() => {
 
 .easy-data-table__rows-selector ul.select-items li.selected {
   background-color: #5893c0 !important;
+}
+.vue3-easy-data-table__message {
+  --easy-table-message-font-color: white;
 }
 </style>

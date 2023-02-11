@@ -1,15 +1,10 @@
 import { defineStore } from "pinia";
 import { ClickRowArgument } from "vue3-easy-data-table";
-import { User } from "../models/user";
-
-interface RecipeType {
-  id: string;
-  type: string;
-}
+import { IRecipeType } from "../models/recipe_types";
 
 interface State {
   isLoading: boolean;
-  recipe_types: RecipeType[];
+  recipe_types: IRecipeType[];
   selectedRecipeType: any;
   isModalOpened: boolean;
   isModalDeleteOpened: boolean;
@@ -67,14 +62,14 @@ export const useRecipeTypeStore = defineStore("recipe-type", {
           recipe_type,
         })
         .then((res) => {
-          this.recipe_types.push(res.data)
+          this.recipe_types.push(res.data);
           this.toast.showToast(
             "Info",
             "recipe type created",
             "bg-dark",
             "bg-dark"
           );
-          this.router.replace('/recipe-types')
+          this.router.replace("/recipe-types");
         })
         .catch((err) => console.error(err));
     },
@@ -106,8 +101,7 @@ export const useRecipeTypeStore = defineStore("recipe-type", {
     },
     redirEdit() {
       this.isModalOpened = false;
-      this.router.replace('/recipe-types/edit');
-
+      this.router.replace("/recipe-types/edit");
     },
     update() {
       this.axios

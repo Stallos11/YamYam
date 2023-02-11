@@ -15,6 +15,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "login",
     meta: { title: "Login" },
   },
+  // Users
   {
     path: "/users/",
     component: () => import("../views/users/List.vue"),
@@ -27,6 +28,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "user-edit",
     meta: { title: "User edit" },
   },
+  //Recipe types
   {
     path: "/recipe-types/",
     component: () => import("../views/recipe_types/List.vue"),
@@ -45,6 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "recipe-types-create",
     meta: { title: "Recipe type create" },
   },
+  //Recipe
   {
     path: "/recipe-categories/",
     component: () => import("../views/recipe_categories/List.vue"),
@@ -53,15 +56,36 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/recipe-categories/edit",
-    component: () => import("../views/recipe_categories/RecipeCategoryEdit.vue"),
+    component: () =>
+      import("../views/recipe_categories/RecipeCategoryEdit.vue"),
     name: "recipe-categories-edit",
     meta: { title: "Recipe category edit" },
   },
   {
     path: "/recipe-categories/create",
-    component: () => import("../views/recipe_categories/RecipeCategoryCreate.vue"),
+    component: () =>
+      import("../views/recipe_categories/RecipeCategoryCreate.vue"),
     name: "recipe-categories-create",
     meta: { title: "Recipe category create" },
+  },
+  // Ingredients
+  {
+    path: "/ingredients/",
+    component: () => import("../views/ingredients/List.vue"),
+    name: "ingredients",
+    meta: { title: "Ingredients" },
+  },
+  {
+    path: "/ingredients/edit",
+    component: () => import("../views/ingredients/IngredientEdit.vue"),
+    name: "ingredients-edit",
+    meta: { title: "Ingredient edit" },
+  },
+  {
+    path: "/ingredients/create",
+    component: () => import("../views/ingredients/IngredientCreate.vue"),
+    name: "ingredients-create",
+    meta: { title: "Ingredient create" },
   },
 ];
 

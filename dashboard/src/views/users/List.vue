@@ -3,14 +3,26 @@
     <div>
       <div class="grix xs1 sm2">
         <div>
-          <ApexChart :period="'week'" :url="'users/registrations'" :title="'Registered users'"/>
+          <ApexChart
+            :period="'week'"
+            :url="'users/registrations'"
+            :title="'Registered users'"
+          />
         </div>
         <div>
           <ApexChart
-            :period="'week'" :url="'users/total'" :title="'Total users'"/>
+            :period="'week'"
+            :url="'users/total'"
+            :title="'Total users'"
+          />
         </div>
       </div>
-      <Table :store="'users'" :headers="userTableHeaders"  :filter-key-options="userFilterKeyOptions" />
+      <Table
+        :enable-form="true"
+        :filter-key-options="userFilterKeyOptions"
+        :headers="userTableHeaders"
+        :store="'users'"
+      />
       <UserModal />
     </div>
   </Transition>
@@ -19,5 +31,5 @@
 import UserModal from "./UserModal.vue";
 import Table from "../../components/Table.vue";
 import ApexChart from "../../components/ApexChart.vue";
-import { userTableHeaders, userFilterKeyOptions } from "../../models/user"
+import { userTableHeaders, userFilterKeyOptions } from "../../models/user";
 </script>

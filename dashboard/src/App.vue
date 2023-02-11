@@ -12,9 +12,6 @@
           <router-link class="sidenav-brand" to="/">Home</router-link>
           <div class="navbar-menu ml-auto">
             <a class="navbar-link" href="#">Link 1</a>
-            <a class="navbar-link" href="#">Link 2</a>
-            <a class="navbar-link" href="#">Link 3</a>
-            <a class="navbar-link" href="#">Link 4</a>
             <a
               v-if="authStore.isLoggedIn"
               @click="authStore.logout()"
@@ -96,8 +93,12 @@
         </ax-btn>
         <ax-collapsible v-model="isRecipeTypeCollapsibleOpened">
           <div class="">
-            <router-link class="sidenav-link" to="/recipe-types">List</router-link>
-            <router-link class="sidenav-link" to="/recipe-types/create">Create</router-link>
+            <router-link class="sidenav-link" to="/recipe-types"
+              >List</router-link
+            >
+            <router-link class="sidenav-link" to="/recipe-types/create"
+              >Create</router-link
+            >
           </div>
         </ax-collapsible>
       </div>
@@ -120,8 +121,38 @@
         </ax-btn>
         <ax-collapsible v-model="isRecipeCategoryCollapsibleOpened">
           <div class="">
-            <router-link class="sidenav-link" to="/recipe-categories">List</router-link>
-            <router-link class="sidenav-link" to="/recipe-categories/create">Create</router-link>
+            <router-link class="sidenav-link" to="/recipe-categories"
+              >List</router-link
+            >
+            <router-link class="sidenav-link" to="/recipe-categories/create"
+              >Create</router-link
+            >
+          </div>
+        </ax-collapsible>
+      </div>
+      <div>
+        <ax-btn
+          class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
+          @click="
+            isIngredientCollapsibleOpened = !isIngredientCollapsibleOpened
+          "
+        >
+          <Icon class="mr-2" icon="material-symbols:category" size="50"></Icon>
+          Ingredients
+          <Icon
+            class="ml-auto"
+            icon="ic:round-keyboard-arrow-right"
+            size="50"
+          ></Icon>
+        </ax-btn>
+        <ax-collapsible v-model="isIngredientCollapsibleOpened">
+          <div class="">
+            <router-link class="sidenav-link" to="/ingredients"
+              >List</router-link
+            >
+            <router-link class="sidenav-link" to="/ingredients/create"
+              >Create</router-link
+            >
           </div>
         </ax-collapsible>
       </div>
@@ -144,10 +175,10 @@ const isSidenavOpened = ref(false),
   isUserCollapsibleOpened = ref(false),
   isRecipeCollapsibleOpened = ref(false),
   isRecipeTypeCollapsibleOpened = ref(false),
-  isRecipeCategoryCollapsibleOpened = ref(false);
+  isRecipeCategoryCollapsibleOpened = ref(false),
+  isIngredientCollapsibleOpened = ref(false);
 
 const authStore = useAuthStore();
-
 </script>
 
 <style lang="scss">

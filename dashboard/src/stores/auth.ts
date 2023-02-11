@@ -1,11 +1,10 @@
 import { defineStore } from "pinia";
-import { User } from "../models/user";
+import { IUser } from "../models/user";
 import { useErrorStore } from "./error";
-import { useUserStore } from "./user";
 
 interface State {
   isLoading: boolean;
-  user?: User;
+  user?: IUser;
   token?: {
     token?: string;
     expires_at?: Date;
@@ -38,7 +37,7 @@ export const useAuthStore = defineStore("auth", {
 
       this.axios.defaults.headers.common = {};
     },
-    async login(user: User, token: string) {
+    async login(user: IUser, token: string) {
       this.isLoading = true;
       const errorStore = useErrorStore();
 

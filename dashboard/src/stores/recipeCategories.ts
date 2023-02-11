@@ -1,14 +1,10 @@
 import { defineStore } from "pinia";
 import { ClickRowArgument } from "vue3-easy-data-table";
-
-interface RecipeCategory {
-  id: string;
-  category: string;
-}
+import { IRecipeCategory } from "../models/recipe_categories";
 
 interface State {
   isLoading: boolean;
-  recipe_categories: RecipeCategory[];
+  recipe_categories: IRecipeCategory[];
   selectedRecipeCategory: any;
   isModalOpened: boolean;
   isModalDeleteOpened: boolean;
@@ -107,7 +103,7 @@ export const useRecipeCategoryStore = defineStore("recipe-category", {
     },
     redirEdit() {
       this.isModalOpened = false;
-      this.router.replace('/recipe-categories/edit');
+      this.router.replace("/recipe-categories/edit");
     },
     update() {
       this.axios
