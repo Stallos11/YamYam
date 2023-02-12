@@ -17,28 +17,7 @@
           />
         </div>
       </div>
-      <ax-form class="d-flex fx-col px-5">
-        <p class="text-grey">Search by</p>
-        <div class="grix xs1 sm2">
-          <div>
-            <ax-form-field label="Key">
-              <ax-form-select
-                :items="ingredientsQueryKeyOptions"
-                v-model="queryField"
-              ></ax-form-select>
-            </ax-form-field>
-          </div>
-          <div>
-            <ax-form-field label="Query">
-              <ax-form-control
-                tag="input"
-                v-model="queryValue"
-                type="text"
-              ></ax-form-control>
-            </ax-form-field>
-          </div>
-        </div>
-      </ax-form>
+      <IngredientSearch />
       <Table
         :enable-form="true"
         :filter-key-options="ingredientsFilterKeyOptions"
@@ -50,12 +29,12 @@
   </Transition>
 </template>
 <script setup lang="ts">
+import IngredientSearch from "../../components/IngredientSearch.vue";
 import Table from "../../components/Table.vue";
 import ApexChart from "../../components/ApexChart.vue";
 import {
   ingredientsTableHeaders,
   ingredientsFilterKeyOptions,
-  ingredientsQueryKeyOptions,
 } from "../../models/ingredients";
 import IngredientModal from "./IngredientModal.vue";
 import { ref, watch } from "vue";

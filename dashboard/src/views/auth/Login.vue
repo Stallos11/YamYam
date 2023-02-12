@@ -20,7 +20,7 @@
       </ax-form-field>
     </ax-form>
     <ax-btn
-      class="primary d-flex fx-center vcenter rounded-2 px-5 mt-5"
+      class="primary text-white d-flex fx-center vcenter rounded-2 px-5 mt-5"
       @click="login"
       :disabled="authStore.isLoading"
     >
@@ -77,7 +77,7 @@ const login = () => {
   background-image: url("../../assets/img/home-bg.png");
 
   @media screen and (max-width: 959px) {
-    background-image: url("../../assets/img/bg-mobile.png");
+    background-image: url("src/assets/img/bg-mobile.png");
   }
 
   &::-webkit-scrollbar {

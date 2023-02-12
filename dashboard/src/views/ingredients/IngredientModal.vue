@@ -14,15 +14,24 @@
             "
           />
         </div>
-        <p class="my-0 ml-3 text-primary">
-          {{ ingredientStore.selectedIngredient.product_name }}
-          <Icon
-            @click="ingredientStore.copyIngredientKey('product_name')"
-            class="ml-auto cursor-pointer font-s2"
-            icon="material-symbols:content-copy-outline-sharp"
-            size="50"
-          ></Icon>
-        </p>
+        <!-- mdi:internet -->
+        <div>
+          <p class="my-0 ml-3 text-white">
+            {{ ingredientStore.selectedIngredient.product_name }}
+          </p>
+          <a
+            :href="`https://fr.openfoodfacts.org/produit/${ingredientStore.selectedIngredient.openfoodfact_id}`"
+            target="_blank"
+          >
+            <Icon class="cursor-pointer ml-3 mt-3" icon="mdi:internet" size="50" />
+          </a>
+          <a
+            :href="`https://world.openfoodfacts.org/api/v0/product/${ingredientStore.selectedIngredient.openfoodfact_id}.json`"
+            target="_blank"
+          >
+            <Icon class="cursor-pointer ml-3 mt-3" icon="carbon:json" size="50" />
+          </a>
+        </div>
         <div class="ml-auto font-s5">
           <Icon
             @click="ingredientStore.redirEdit()"
@@ -41,26 +50,7 @@
       <div class="divider white my-3"></div>
     </template>
     <div>
-      <div class="grix xs1 sm2 md3 center">
-        <a
-          class="btn primary rounded-3 px-5 py-2"
-          target="_blank"
-          :href="`https://fr.openfoodfacts.org/produit/${ingredientStore.selectedIngredient.openfoodfact_id}`"
-          >OPEN FOOD FACT</a
-        >
-        <a
-          class="btn primary rounded-3 px-5 py-2"
-          target="_blank"
-          :href="`https://world.openfoodfacts.org/api/v0/product/${ingredientStore.selectedIngredient.openfoodfact_id}.json`"
-          >OPEN FOOD FACT JSON</a
-        >
-        <a
-          class="btn primary rounded-3 px-5 py-2"
-          target="_blank"
-          :href="`https://fr.openfoodfacts.org/produit/${ingredientStore.selectedIngredient.openfoodfact_id}`"
-          >OPEN FOOD FACT</a
-        >
-      </div>
+      product
     </div>
   </ax-modal>
 </template>
