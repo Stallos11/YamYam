@@ -7,6 +7,7 @@ export interface IIngredient {
   product_name_de: string | null;
   product_name_en: string | null;
   product_name_fr: string | null;
+  openfoodfact: any;
 }
 
 export type IIngredientCreate = Omit<IIngredient, "id">;
@@ -19,7 +20,6 @@ export const ingredientsTableHeaders: Header[] = [
   { text: "Product Name DE", value: "product_name_de", sortable: true },
   { text: "Created_at", value: "created_at", sortable: true },
 ];
-
 
 export const ingredientsFilterKeyOptions = [
   "openfoodfact_id",

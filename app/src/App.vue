@@ -9,12 +9,16 @@
         <div class="navbar-menu ml-auto text-white">
           <router-link to="login" class="navbar-link">Login</router-link>
 
-          <span class="font-s7 mx-3" :class="offline ? 'text-green' : 'text-red'">•</span>
+          <span
+            class="font-s7 mx-3"
+            :class="offline ? 'text-green' : 'text-red'"
+            >•</span
+          >
         </div>
       </nav>
     </header>
 
-    <main class="container">
+    <main>
       <router-view></router-view>
 
       <Pwa />
@@ -24,16 +28,16 @@
 
 <script setup lang="ts">
 // @ts-ignore
-import Ping from 'ping.js';
-import { ref } from 'vue';
-import Pwa from './components/Pwa.vue';
+import Ping from "ping.js";
+import { ref } from "vue";
+import Pwa from "./components/Pwa.vue";
 
 const offline = ref(false);
 
 setInterval(() => {
   var p = new Ping();
 
-  p.ping('https://github.com')
+  p.ping("https://github.com")
     .then((data: any) => {
       // console.log('Successful ping: ' + data);
       offline.value = true;
@@ -47,30 +51,31 @@ setInterval(() => {
 
 <style lang="scss">
 @font-face {
-  font-family: 'Quicksand';
-  src: url('/assets/Quicksand-VariableFont_wght.ttf') format('truetype');
+  font-family: "Quicksand";
+  src: url("/assets/Quicksand-VariableFont_wght.ttf") format("truetype");
   font-weight: 1 999;
 }
 
-$font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
-  'Segoe UI Emoji', 'Segoe UI Symbol';
+$font-family: "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol";
 
 $axentix-palette: (
-  'primary': #20acac,
-  'secondary': #53dfdf,
-  'tertiary': #2781e6,
-  'success': #12ad12,
-  'warning': #fccc2e,
-  'error': #df2c29,
-  'white': #fff,
-  'black': #000,
-  'transparent': transparent,
-  'bg-dark': #1c2127,
-  'bg-light': #262a32,
+  "primary": #20acac,
+  "secondary": #53dfdf,
+  "tertiary": #2781e6,
+  "success": #12ad12,
+  "warning": #fccc2e,
+  "error": #df2c29,
+  "white": #fff,
+  "black": #000,
+  "transparent": transparent,
+  "bg-dark": #1c2127,
+  "bg-light": #262a32,
 );
 
-@import 'axentix';
-@import '@axentix/vue/dist/vue3/vue-axentix.css';
+@import "axentix";
+@import "@axentix/vue/dist/vue3/vue-axentix.css";
 
 // Forms hack
 .grix > .form-field {
@@ -87,29 +92,29 @@ $axentix-palette: (
     position: absolute;
     top: -0.5rem;
     margin-bottom: 0;
-    background-color: getColor('bg-light');
+    background-color: getColor("bg-light");
     z-index: 10;
     margin-left: 0.5rem;
     padding: 0 0.25rem;
-    color: getColor('grey', 'light', 3);
+    color: getColor("grey", "light", 3);
   }
 
   .form-control {
     border-radius: 0.5rem;
 
     &:focus {
-      border: 1px solid getColor('primary') !important;
+      border: 1px solid getColor("primary") !important;
       box-shadow: none;
     }
   }
 
   &.not-valid {
     label {
-      color: getColor('error');
+      color: getColor("error");
     }
 
     .form-control {
-      border: 1px solid getColor('error') !important;
+      border: 1px solid getColor("error") !important;
       box-shadow: none;
     }
   }
@@ -125,11 +130,11 @@ $axentix-palette: (
   .card {
     width: 30rem;
 
-    @include responsive('sm') {
+    @include responsive("sm") {
       width: 24rem;
     }
 
-    @include responsive('xs') {
+    @include responsive("xs") {
       width: 95%;
     }
   }
@@ -143,12 +148,12 @@ $axentix-palette: (
       width: 100%;
       left: 0;
       top: 50%;
-      border-bottom: 1px solid getColor('grey', 'dark', 2);
+      border-bottom: 1px solid getColor("grey", "dark", 2);
     }
 
     p {
-      color: getColor('grey', 'light', 3);
-      background-color: getColor('bg-light');
+      color: getColor("grey", "light", 3);
+      background-color: getColor("bg-light");
       display: inline-block;
       position: relative;
       padding: 0 1.25rem;

@@ -11,7 +11,7 @@ interface State {
   isModalEditOpened: boolean;
 }
 
-export const useIngredientStore = defineStore("IIngredient", {
+export const useIngredientStore = defineStore("ingredient", {
   state: (): State => ({
     isLoading: true,
     ingredients: [],
@@ -25,6 +25,7 @@ export const useIngredientStore = defineStore("IIngredient", {
       product_name_de: null,
       product_name_en: null,
       product_name_fr: null,
+      openfoodfact: null,
     },
   }),
 
@@ -50,8 +51,20 @@ export const useIngredientStore = defineStore("IIngredient", {
         .get(`ingredients/${id}`)
         .then((res) => {
           this.selectedIngredient = res.data;
+          this.fetchOpenFoodFact();
         })
         .catch(console.error);
+    },
+    fetchOpenFoodFact() {
+      this.axios
+        .get(
+          `https://world.openfoodfacts.org/api/v1/product/${this.selectedIngredient.openfoodfact_id}.json`
+        )
+        .then((res) => {
+          this.selectedIngredient.openfoodfact = res.data.product;
+          console.log("res", res);
+        })
+        .catch((err) => console.error(err));
     },
     searchIngredientBy(property: string, search: string) {
       this.axios

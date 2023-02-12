@@ -1,6 +1,7 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Ingredient from "App/Models/Ingredient";
 import Database from "@ioc:Adonis/Lucid/Database";
+import axios from "axios";
 
 export default class RecipeCategoriesController {
   public async index({ request, response }) {
@@ -21,11 +22,18 @@ export default class RecipeCategoriesController {
     console.log(params.property, params.search.replace(/%20/g, " "));
 
     const ingredients = await Ingredient.query().whereLike(
-      params.property ? params.property : 'product_name',
+      params.property ? params.property : "product_name",
       `%${params.search.replace(/%20/g, " ")}%`
     );
 
     return response.ok(ingredients);
+  }
+
+  fetchOpenFoodFactProduct({ params, response }) {
+    return axios
+      .get(`https://world.openfoodfacts.org/api/v0/product/9501100305091.json`)
+      .then((res) => response.send(res))
+      .catch((err) => console.error(err));
   }
 
   public async getRegistrations({ params, response }) {

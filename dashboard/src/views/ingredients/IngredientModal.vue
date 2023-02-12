@@ -5,18 +5,24 @@
     v-model="ingredientStore.isModalOpened"
   >
     <template #header>
-      <div class="grix x1 sm2 vcenter">
-        <div class="">
-          <p class="my-0 text-primary">
-            {{ ingredientStore.selectedIngredient.id }}
-            <Icon
-              @click="ingredientStore.copyIngredientKey('id')"
-              class="ml-auto cursor-pointer font-s2"
-              icon="material-symbols:content-copy-outline-sharp"
-              size="50"
-            ></Icon>
-          </p>
+      <div class="d-flex fx-row vcenter">
+        <div>
+          <img
+            :src="
+              ingredientStore.selectedIngredient?.openfoodfact
+                ?.image_front_thumb_url
+            "
+          />
         </div>
+        <p class="my-0 ml-3 text-primary">
+          {{ ingredientStore.selectedIngredient.product_name }}
+          <Icon
+            @click="ingredientStore.copyIngredientKey('product_name')"
+            class="ml-auto cursor-pointer font-s2"
+            icon="material-symbols:content-copy-outline-sharp"
+            size="50"
+          ></Icon>
+        </p>
         <div class="ml-auto font-s5">
           <Icon
             @click="ingredientStore.redirEdit()"
@@ -35,19 +41,25 @@
       <div class="divider white my-3"></div>
     </template>
     <div>
-      <div class="grix xs1 sm2 md3 p-3 gutter-xs5">
-        <div class="d-flex fx-row primary rounded-2 p-3">
-          <div>Recettes consultées</div>
-          <div class="ml-auto">69</div>
-        </div>
-        <div class="d-flex fx-row primary rounded-2 p-3">
-          <div>Recettes crées</div>
-          <div class="ml-auto">69</div>
-        </div>
-        <div class="d-flex fx-row primary rounded-2 p-3">
-          <div>Commentaires</div>
-          <div class="ml-auto">69</div>
-        </div>
+      <div class="grix xs1 sm2 md3 center">
+        <a
+          class="btn primary rounded-3 px-5 py-2"
+          target="_blank"
+          :href="`https://fr.openfoodfacts.org/produit/${ingredientStore.selectedIngredient.openfoodfact_id}`"
+          >OPEN FOOD FACT</a
+        >
+        <a
+          class="btn primary rounded-3 px-5 py-2"
+          target="_blank"
+          :href="`https://world.openfoodfacts.org/api/v0/product/${ingredientStore.selectedIngredient.openfoodfact_id}.json`"
+          >OPEN FOOD FACT JSON</a
+        >
+        <a
+          class="btn primary rounded-3 px-5 py-2"
+          target="_blank"
+          :href="`https://fr.openfoodfacts.org/produit/${ingredientStore.selectedIngredient.openfoodfact_id}`"
+          >OPEN FOOD FACT</a
+        >
       </div>
     </div>
   </ax-modal>
