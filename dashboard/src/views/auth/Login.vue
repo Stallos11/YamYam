@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex fx-col fx-center vcenter h100">
+  <div class="d-flex fx-col fx-center vcenter h100 bg">
     <ax-form ref="form" class="mt-4" @keypress.enter.prevent="login">
       <ax-form-field label="Email*">
         <ax-form-control
@@ -49,13 +49,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, Ref } from "vue";
-import { User } from "../../models/user";
+import { ref, Ref } from "vue";
+import { IUser } from "../../models/user";
 import { useAuthStore } from "../../stores/auth";
 import { required, emailRule, passwordRule } from "../../utils/validation";
 
 const authStore = useAuthStore();
-const user: Ref<User> = ref({});
+const user: Ref<IUser> = ref({});
 const form = ref();
 const captchaToken = ref("");
 
@@ -67,3 +67,21 @@ const login = () => {
   // captcha.value.reset();
 };
 </script>
+
+<style lang="scss">
+.bg {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
+  background-image: url("../../assets/img/home-bg.png");
+
+  @media screen and (max-width: 959px) {
+    background-image: url("../../assets/img/bg-mobile.png");
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+</style>

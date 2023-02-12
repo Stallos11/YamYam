@@ -7,8 +7,8 @@
     class="bg-dark"
   >
     <header>
-      <div class="navbar-fixed">
-        <nav class="navbar shadow-1 bg-dark">
+      <div v-if="authStore.isLoggedIn" class="navbar-fixed">
+        <nav class="navbar">
           <router-link class="sidenav-brand" to="/">Home</router-link>
           <div class="navbar-menu ml-auto">
             <a class="navbar-link" href="#">Link 1</a>
@@ -28,7 +28,7 @@
     <ax-sidenav
       v-if="authStore.isLoggedIn"
       v-model="isSidenavOpened"
-      class="sidenav-fixed bg-dark shadow-1"
+      class="sidenav-fixed shadow-1"
     >
       <!-- Users -->
       <div>
@@ -203,7 +203,7 @@ $font-family: "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
   "Segoe UI Symbol";
 
 $axentix-palette: (
-  "primary": #5893c0,
+  "primary": #00c93f,
   "secondary": #53dfdf,
   "tertiary": #2781e6,
   "success": #12ad12,

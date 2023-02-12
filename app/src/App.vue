@@ -20,7 +20,6 @@
 
     <main>
       <router-view></router-view>
-
       <Pwa />
     </main>
   </div>
@@ -61,7 +60,8 @@ $font-family: "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
   "Segoe UI Symbol";
 
 $axentix-palette: (
-  "primary": #20acac,
+  // "primary": #20acac,
+  "primary": #23bd52,
   "secondary": #53dfdf,
   "tertiary": #2781e6,
   "success": #12ad12,
@@ -71,7 +71,7 @@ $axentix-palette: (
   "black": #000,
   "transparent": transparent,
   "bg-dark": #1c2127,
-  "bg-light": #262a32,
+  "bg-light": #262a32
 );
 
 @import "axentix";

@@ -51,3 +51,7 @@
 <script setup lang="ts">
 import ApexChart from "../components/ApexChart.vue";
 </script>
+
+<style lang="scss">
+
+</style>
