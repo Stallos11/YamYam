@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { ClickRowArgument } from "vue3-easy-data-table";
 import { IRecipe } from "../models/recipes";
+import { IIngredient } from "../models/ingredients";
+import { useIngredientStore } from "./ingredients";
 
 interface State {
   isLoading: boolean;
@@ -9,6 +11,20 @@ interface State {
   isModalOpened: boolean;
   isModalDeleteOpened: boolean;
   isModalEditOpened: boolean;
+  recipeCreate: IRecipeCreate;
+}
+
+interface IRecipeCreate {
+  recipe: Omit<IRecipe, "id">;
+  ingredients: IIngredientCreate[];
+  instructions: any;
+}
+
+interface IIngredientCreate {
+  id: string;
+  product_name: string;
+  quantity: string | number;
+  unit: string;
 }
 
 export const useRecipeStore = defineStore("recipe", {
@@ -21,6 +37,21 @@ export const useRecipeStore = defineStore("recipe", {
     selectedRecipe: {
       id: "",
       name: "",
+    },
+    recipeCreate: {
+      recipe: {
+        name: "",
+        description: "",
+        difficulty: 0,
+        eatersAmount: 0,
+        cookingTime: 0,
+        preparationTime: 0,
+        recipeCategoryId: "",
+        recipeTypeId: "",
+        userId: "",
+      },
+      ingredients: [],
+      instructions: [],
     },
   }),
 
@@ -109,6 +140,17 @@ export const useRecipeStore = defineStore("recipe", {
           this.router.replace("/recipes");
         })
         .catch((err) => console.error(err));
+    },
+    addIngredientToCreateRecipe() {
+      const ingredientStore = useIngredientStore();
+
+      this.recipeCreate.ingredients.push({
+        id: ingredientStore.selectedIngredient.id,
+        product_name: ingredientStore.selectedIngredient.product_name,
+        quantity: "",
+        unit: "",
+      });
+      ingredientStore.isModalDetailOpened = false;
     },
   },
 });

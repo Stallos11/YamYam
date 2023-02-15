@@ -1,7 +1,4 @@
 <template>
-  <!-- <a href="#" class="navbar-logo hide-sm-down">
-          <img src="icon.png" alt="logo" class="navbar-logo" style="filter: brightness(100%)" />
-        </a> -->
   <div
     :class="authStore.isLoggedIn ? 'layout-under-navbar' : 'layout'"
     class="bg-dark"
@@ -209,7 +206,7 @@ $font-family: "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
   "Segoe UI Symbol";
 
 $axentix-palette: (
-  "primary": #42bcc5,
+  "primary": #5893c0,
   "secondary": #53dfdf,
   "tertiary": #2781e6,
   "success": #12ad12,

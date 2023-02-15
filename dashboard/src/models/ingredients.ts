@@ -1,7 +1,7 @@
 import { Header } from "vue3-easy-data-table";
 
 export interface IIngredient {
-  id?: string;
+  id: string;
   openfoodfact_id: string | null;
   product_name: string | null;
   product_name_de: string | null;
@@ -10,7 +10,7 @@ export interface IIngredient {
   openfoodfact: any;
 }
 
-export type IIngredientCreate = Omit<IIngredient, "id">;
+export type IIngredientCreate = Omit<IIngredient, "id" | "openfoodfact">;
 
 export const ingredientsTableHeaders: Header[] = [
   { text: "OpenFoodFactId", value: "openfoodfact_id", sortable: true },
