@@ -152,5 +152,16 @@ export const useRecipeStore = defineStore("recipe", {
       });
       ingredientStore.isModalDetailOpened = false;
     },
+    addInstructionToCreateRecipe(instruction: {
+      title: string;
+      content: string;
+      order: number;
+    }) {
+      this.recipeCreate.instructions.push({
+        title: instruction.title,
+        content: instruction.content,
+        order: this.recipeCreate.instructions.length + 1
+      });
+    },
   },
 });

@@ -3,6 +3,8 @@
     <template #menu>
       <ax-tab-link href="#tab1">General</ax-tab-link>
       <ax-tab-link href="#tab2">Ingrédients</ax-tab-link>
+      <ax-tab-link href="#tab3">Préparation</ax-tab-link>
+      <ax-tab-link href="#tab4">Aperçu</ax-tab-link>
     </template>
 
     <ax-tab-item class="h100" id="tab1">
@@ -13,7 +15,7 @@
               <ax-form-field class="col-md2 col-xs1" label="Recipe name">
                 <ax-form-control
                   tag="input"
-                  v-model="recipe.name"
+                  v-model="recipeStore.recipeCreate.recipe.name"
                   type="text"
                   class="mb-5"
                 ></ax-form-control>
@@ -21,7 +23,7 @@
               <ax-form-field class="col-md2 col-xs1" label="Description">
                 <ax-form-control
                   class="mb-5"
-                  v-model="recipe.description"
+                  v-model="recipeStore.recipeCreate.recipe.description"
                   tag="textarea"
                   >Textarea content</ax-form-control
                 >
@@ -29,14 +31,14 @@
               <div>
                 <Timepicker
                   :label="'Temps de préparation'"
-                  v-model="recipe.preparationTime"
+                  v-model="recipeStore.recipeCreate.recipe.preparationTime"
                   @emit-value="setRecipeProperty('preparationTime', $event)"
                 />
               </div>
               <div>
                 <Timepicker
                   :label="'Temps de cuisson'"
-                  v-model="recipe.cookingTime"
+                  v-model="recipeStore.recipeCreate.recipe.cookingTime"
                   @emit-value="setRecipeProperty('cookingTime', $event)"
                 />
               </div>
@@ -44,7 +46,7 @@
                 <ax-form-field label="Dificulty">
                   <ax-form-select
                     :items="difficultyLevels"
-                    v-model="recipe.difficulty"
+                    v-model="recipeStore.recipeCreate.recipe.difficulty"
                   ></ax-form-select>
                 </ax-form-field>
               </div>
@@ -52,7 +54,7 @@
                 <ax-form-field label="Eaters amount">
                   <ax-form-control
                     tag="input"
-                    v-model="recipe.eatersAmount"
+                    v-model="recipeStore.recipeCreate.recipe.eatersAmount"
                     type="number"
                     min="0"
                     class="mb-5"
@@ -63,7 +65,7 @@
                 <ax-form-field label="Catégorie">
                   <ax-form-select
                     :items="categories"
-                    v-model="recipe.categoryId"
+                    v-model="recipeStore.recipeCreate.recipe.recipeCategoryId"
                   ></ax-form-select>
                 </ax-form-field>
               </div>
@@ -71,7 +73,7 @@
                 <ax-form-field label="Type">
                   <ax-form-select
                     :items="types"
-                    v-model="recipe.typeId"
+                    v-model="recipeStore.recipeCreate.recipe.recipeTypeId"
                   ></ax-form-select>
                 </ax-form-field>
               </div>
@@ -99,7 +101,10 @@
               type="text"
             ></ax-form-control>
           </ax-form-field>
-          <ax-form-field :class="i % 2 == 0 ? 'striped' : ''" label="Unité de mesure">
+          <ax-form-field
+            :class="i % 2 == 0 ? 'striped' : ''"
+            label="Unité de mesure"
+          >
             <ax-form-select
               :items="mesureUnits"
               v-model="ingredient.unit"
@@ -108,6 +113,51 @@
         </div>
       </div>
     </ax-tab-item>
+    <ax-tab-item class="p-3 h100" id="tab3">
+      <div class="mt-5 pt-5 mx-5 mt-3 gutter-xs7">
+        <ax-form-field label="Titre">
+          <ax-form-control
+            tag="input"
+            v-model="instruction.title"
+            type="text"
+          ></ax-form-control>
+        </ax-form-field>
+        <ax-form-field label="Description">
+          <ax-form-control
+            tag="textarea"
+            v-model="instruction.content"
+            type="text"
+          ></ax-form-control>
+        </ax-form-field>
+        <ax-btn
+          @click="addInstructionToCreateRecipe()"
+          class="btn my-5 primary rounded-3 px-5 py-2 text-white d-block mx-auto"
+          >AJOUTER</ax-btn
+        >
+        <div
+          v-for="(instruction, i) in recipeStore.recipeCreate.instructions"
+          :key="instruction.id"
+          class="d-flex fx-col"
+        >
+          <ax-form-field label="Titre">
+            <ax-form-control
+              tag="input"
+              v-model="instruction.title"
+              type="text"
+            ></ax-form-control>
+          </ax-form-field>
+          <ax-form-field label="Description">
+            <ax-form-control
+              tag="textarea"
+              v-model="instruction.content"
+              type="text"
+            ></ax-form-control>
+          </ax-form-field>
+        </div>
+      </div>
+    </ax-tab-item>
+    <ax-tab-item class="h100" id="tab4">Preview</ax-tab-item>
+
     <IngredientDetailModal />
   </ax-tab>
 </template>
@@ -131,6 +181,21 @@ const types = ref();
 const currentTab = ref(0);
 const difficultyLevels = ref([1, 2, 3, 4, 5]);
 
+const instruction = ref({
+  title: "",
+  content: "",
+  order: 0,
+});
+
+const addInstructionToCreateRecipe = () => {
+  recipeStore.addInstructionToCreateRecipe(instruction.value);
+  instruction.value = {
+    title: "",
+    content: "",
+    order: 0,
+  };
+};
+
 const mesureUnits = [
   "mg",
   "g",
@@ -147,23 +212,10 @@ const mesureUnits = [
 ];
 
 const setRecipeProperty = (property: string, e: any) => {
-  console.log("property", property);
-  console.log("event", e);
   //@ts-ignore
-  recipe.value[property] = e;
+  recipeStore.recipeCreate.recipe[property] = e;
 };
 
-const recipe = ref({
-  name: "",
-  description: "",
-  preparationTime: 0,
-  cookingTime: 0,
-  difficulty: 0,
-  eatersAmount: 0,
-  userId: authStore.user?.id,
-  typeId: 0,
-  categoryId: 0,
-});
 onBeforeMount(() => {
   recipeCategoryStore.fetchData().then((e) => {
     categories.value = recipeCategoryStore.recipe_categories.map(
