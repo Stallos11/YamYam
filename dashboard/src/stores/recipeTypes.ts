@@ -30,15 +30,19 @@ export const useRecipeTypeStore = defineStore("recipe-type", {
       navigator.clipboard.writeText(this.selectedRecipeType[key]);
     },
 
-    fetchData() {
+    async fetchData(): Promise<IRecipeType[]> {
       this.isLoading = true;
-      this.axios
+      return await this.axios
         .get("recipe-types")
         .then((res) => {
           this.recipe_types = res.data;
+          return res.data;
         })
-        .catch(console.error)
-        .finally(() => (this.isLoading = false));
+        .catch((err) => err)
+        .finally(() => {
+          this.isLoading = false;
+          return this.recipe_types;
+        });
     },
 
     fetchDataDetails(id: string) {

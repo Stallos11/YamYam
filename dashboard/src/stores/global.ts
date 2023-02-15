@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { useIngredientStore } from "./ingredients";
 import { useRecipeCategoryStore } from "./recipeCategories";
 import { useRecipeTypeStore } from "./recipeTypes";
+import { useRecipeStore } from "./recipes";
 import { useUserStore } from "./user";
 
 interface State {
@@ -18,12 +19,14 @@ export const useGlobalStore = defineStore("global", {
       const recipeTypeStore = useRecipeTypeStore();
       const recipeCategoryStore = useRecipeCategoryStore();
       const ingredientStore = useIngredientStore();
+      const recipeStore = useRecipeStore();
 
       const stores = {
         users: userStore,
         recipe_types: recipeTypeStore,
         recipe_categories: recipeCategoryStore,
         ingredients: ingredientStore,
+        recipes: recipeStore,
       };
 
       //@ts-ignore

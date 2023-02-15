@@ -30,15 +30,19 @@ export const useRecipeCategoryStore = defineStore("recipe-category", {
       navigator.clipboard.writeText(this.selectedRecipeCategory[key]);
     },
 
-    fetchData() {
+    async fetchData(): Promise<IRecipeCategory[]> {
       this.isLoading = true;
-      this.axios
+      return await this.axios
         .get("recipe-categories")
         .then((res) => {
           this.recipe_categories = res.data;
+          return res.data;
         })
-        .catch(console.error)
-        .finally(() => (this.isLoading = false));
+        .catch((err) => err)
+        .finally(() => {
+          this.isLoading = false;
+          return this.recipe_categories;
+        });
     },
 
     fetchDataDetails(id: string) {
