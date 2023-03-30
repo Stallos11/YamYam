@@ -1,12 +1,12 @@
 <template>
-  <div class="layout">
+  <div class="layout" v-if="!authStore.isLoggedIn">
     <header>
       <nav class="navbar">
-        <a href="#" class="navbar-logo mx-0">
+        <a href="/" class="navbar-logo mx-0">
           <img src="/icon.png" alt="logo" class="navbar-logo" />
         </a>
 
-        <div class="navbar-menu ml-auto text-white">
+        <div class="navbar-menu ml-auto text-white lh-normal mr-2">
           <router-link to="login" class="navbar-link">Login</router-link>
         </div>
       </nav>
@@ -17,10 +17,51 @@
       <Pwa />
     </main>
   </div>
+
+  <div class="layout bg-dark" v-else>
+    <div class="navbar-fixed">
+      <header>
+        <nav class="navbar bg-dark text-white shadow-2 rounded-bl2 rounded-br2">
+          <a href="/" class="navbar-logo mx-0">
+            <img src="/icon.png" alt="logo" class="navbar-logo" />
+          </a>
+
+          <div class="navbar-menu ml-auto lh-normal mr-2">
+            <ax-dropdown
+              v-model="isDropdownOpened"
+              @click="isDropdownOpened = !isDropdownOpened"
+              content-classes="airforce dark-4 light-shadow-1 rounded-1 dropdown-right my-auto"
+              animation-type="fade"
+            >
+              <template #trigger>
+                <a href="" @click.prevent class="navbar-link font-w600 d-inline-flex fx-center vcenter pr-0">
+                  <Icon icon="mdi:account-circle" width="30" class="ml-1 mt-1" />
+                </a>
+              </template>
+
+              <a href="" class="dropdown-item" @click.prevent="authStore.logout">
+                <Icon icon="mdi:logout" width="20" class="mr-2" />Log out
+              </a>
+            </ax-dropdown>
+          </div>
+        </nav>
+      </header>
+    </div>
+
+    <main class="bg-dark">
+      <router-view></router-view>
+      <Pwa />
+    </main>
+  </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import Pwa from './components/Pwa.vue';
+import { useAuthStore } from './stores/auth';
+
+const authStore = useAuthStore();
+const isDropdownOpened = ref(false);
 </script>
 
 <style lang="scss">
@@ -35,7 +76,7 @@ $font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto
 
 $axentix-palette: (
   // "primary": #20acac,
-  'primary': #23bd52,
+  'primary': #20ac4a,
   'secondary': #53dfdf,
   'tertiary': #2781e6,
   'success': #12ad12,
@@ -44,8 +85,8 @@ $axentix-palette: (
   'white': #fff,
   'black': #000,
   'transparent': transparent,
-  'bg-dark': #1c2127,
-  'bg-light': #262a32
+  'bg-dark': #323232,
+  'bg-light': #434343
 );
 
 @import 'axentix';
@@ -141,5 +182,10 @@ $axentix-palette: (
       line-height: 3.5rem;
     }
   }
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
 }
 </style>
