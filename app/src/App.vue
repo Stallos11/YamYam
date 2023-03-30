@@ -7,9 +7,7 @@
         </a>
 
         <div class="navbar-menu ml-auto text-white">
-          <router-link to="login" class="navbar-link">Login.</router-link>
-
-          <span class="font-s7 mx-3" :class="offline ? 'text-green' : 'text-red'">•</span>
+          <router-link to="login" class="navbar-link">Login</router-link>
         </div>
       </nav>
     </header>
@@ -22,26 +20,7 @@
 </template>
 
 <script setup lang="ts">
-// @ts-ignore
-import Ping from 'ping.js';
-import { ref } from 'vue';
 import Pwa from './components/Pwa.vue';
-
-const offline = ref(false);
-
-setInterval(() => {
-  var p = new Ping();
-
-  p.ping('https://github.com')
-    .then((data: any) => {
-      // console.log('Successful ping: ' + data);
-      offline.value = true;
-    })
-    .catch((data: any) => {
-      // console.error('Ping failed: ' + data);
-      offline.value = false;
-    });
-}, 2000);
 </script>
 
 <style lang="scss">
