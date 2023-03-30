@@ -35,10 +35,6 @@ export const useAuthStore = defineStore('auth', {
       this.token = {};
 
       this.axios.defaults.headers.common = {};
-
-      const userStore = useUserStore();
-      clearInterval(userStore.balanceIntervalId);
-      userStore.balanceIntervalId = undefined;
     },
     async login(user: User, token: string) {
       this.isLoading = true;
@@ -145,7 +141,7 @@ export const useAuthStore = defineStore('auth', {
         .then((res) => {
           if (res.data) {
             this.clearAuthData();
-            this.router.push('/login');
+            this.router.push('/');
           }
         })
         .catch((err) => {

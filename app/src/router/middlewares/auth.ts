@@ -12,7 +12,7 @@ export const registerAuthMiddleware = (axios: Axios) => {
       else return { name: 'login' };
     }
 
-    if (authRoutes.includes(to.name as string) && to.name !== 'home') return { name: 'home' };
+    if (authRoutes.includes(to.name as string)) return { name: 'feed' };
     return true;
   });
 

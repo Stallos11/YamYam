@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import LoginIndex from '../views/auth/Login.vue';
 import Home from '../views/Home.vue';
+import RecipesIndex from '../views/recipes/List.vue';
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/:pathMatch(.*)*', redirect: '/' },
@@ -39,6 +40,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/auth/Callback.vue'),
     name: 'callback',
     meta: { title: 'Loading' },
+  },
+  {
+    path: '/feed',
+    component: RecipesIndex,
+    name: 'feed',
+    meta: { title: 'feed' },
   },
 ];
 
