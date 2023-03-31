@@ -6,9 +6,11 @@ import {
   column,
   HasMany,
   hasMany,
+  ManyToMany,
+  manyToMany,
 } from "@ioc:Adonis/Lucid/Orm";
-import RecipeIngredient from "./RecipeIngredient";
 import Config from "@ioc:Adonis/Core/Config";
+import Recipe from "./Recipe";
 
 export default class Ingredient extends BaseModel {
   @column({ isPrimary: true })
@@ -25,8 +27,11 @@ export default class Ingredient extends BaseModel {
   @column()
   public product_name_de: string;
 
-  @hasMany(() => RecipeIngredient)
-  public ingredients: HasMany<typeof RecipeIngredient>;
+  @manyToMany(() => Recipe, {
+    pivotTable: 'recipe_ingredients',
+    pivotTimestamps: true,
+  })
+  public recipes: ManyToMany<typeof Recipe>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

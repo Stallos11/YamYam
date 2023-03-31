@@ -97,7 +97,7 @@
           <ax-form-field :class="i % 2 == 0 ? 'striped' : ''" label="Quantité">
             <ax-form-control
               tag="input"
-              v-model="ingredient.quantity"
+              v-model="ingredient.amount"
               type="text"
             ></ax-form-control>
           </ax-form-field>
@@ -125,7 +125,7 @@
         <ax-form-field label="Description">
           <ax-form-control
             tag="textarea"
-            v-model="instruction.content"
+            v-model="instruction.description"
             type="text"
           ></ax-form-control>
         </ax-form-field>
@@ -149,7 +149,7 @@
           <ax-form-field label="Description">
             <ax-form-control
               tag="textarea"
-              v-model="instruction.content"
+              v-model="instruction.description"
               type="text"
             ></ax-form-control>
           </ax-form-field>
@@ -202,7 +202,7 @@
         >
           <p class="mb-0">{{ ingredient.product_name }}</p>
           <p class="mt-0">
-            <span>{{ ingredient.quantity }}</span
+            <span>{{ ingredient.amount }}</span
             ><span>{{ ingredient.unit }}</span>
           </p>
         </div>
@@ -216,9 +216,10 @@
             {{ instruction.title }}
           </p>
           <p class="mt-1">
-            {{  instruction.content }}
+            {{  instruction.description }}
           </p>
         </div>
+        <ax-btn @click="recipeStore.insert()" class="mt-3 d-block mx-auto rounded-2 primary">VALIDER</ax-btn>
       </div>
     </ax-tab-item>
 
@@ -245,16 +246,14 @@ const difficultyLevels = ref([1, 2, 3, 4, 5]);
 
 const instruction = ref({
   title: "",
-  content: "",
-  order: 0,
+  description: "",
 });
 
 const addInstructionToCreateRecipe = () => {
   recipeStore.addInstructionToCreateRecipe(instruction.value);
   instruction.value = {
     title: "",
-    content: "",
-    order: 0,
+    description: "",
   };
 };
 

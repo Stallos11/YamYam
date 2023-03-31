@@ -60,7 +60,6 @@ export default class AuthController {
     try {
       const body = request.body();
       const captchaToken = request.input("token") as string;
-
       let email = body.email;
       let password = body.password;
 

@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import { ClickRowArgument } from "vue3-easy-data-table";
 import { IRecipe } from "../models/recipes";
-import { IIngredient } from "../models/ingredients";
 import { useIngredientStore } from "./ingredients";
+import { useAuthStore } from "./auth";
 
 interface State {
   isLoading: boolean;
@@ -24,6 +24,7 @@ interface IIngredientCreate {
   id: string;
   product_name: string;
   quantity: string | number;
+  amount: string | number;
   unit: string;
 }
 
@@ -87,11 +88,11 @@ export const useRecipeStore = defineStore("recipe", {
       this.isModalOpened = true;
     },
 
-    insert(recipe: any) {
-      console.log("rec", recipe);
+    insert() {
+      this.recipeCreate.recipe.userId = useAuthStore().user?.id as string;
       this.axios
         .post("recipes", {
-          recipe,
+          recipe: this.recipeCreate,
         })
         .then((res) => {
           this.recipes.push(res.data);
@@ -146,21 +147,20 @@ export const useRecipeStore = defineStore("recipe", {
 
       this.recipeCreate.ingredients.push({
         id: ingredientStore.selectedIngredient.id,
+        //@ts-ignore
         product_name: ingredientStore.selectedIngredient.product_name,
-        quantity: "",
+        amount: "",
         unit: "",
       });
       ingredientStore.isModalDetailOpened = false;
     },
     addInstructionToCreateRecipe(instruction: {
       title: string;
-      content: string;
-      order: number;
+      description: string;
     }) {
       this.recipeCreate.instructions.push({
         title: instruction.title,
-        content: instruction.content,
-        order: this.recipeCreate.instructions.length + 1
+        description: instruction.description,
       });
     },
   },

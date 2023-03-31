@@ -5,8 +5,9 @@ export default class extends BaseSchema {
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.uuid("id").primary();
+      table.increments("id").primary();
       table.float("amount");
+      table.string("unit");
 
       // Relations
       table.uuid("recipe_id").references("recipes.id");

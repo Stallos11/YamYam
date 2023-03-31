@@ -37,24 +37,19 @@ export const useAuthStore = defineStore("auth", {
 
       this.axios.defaults.headers.common = {};
     },
-    async login(user: IUser, token: string) {
+    async login(user: any, token: string) {
       this.isLoading = true;
       const errorStore = useErrorStore();
 
       return this.axios
-        .post("auth/login", {
-          email: user.email,
-          password: user.password,
-        })
+        .post('auth/login', { user, token })
         .then((res) => {
           if (res.data) {
             this.user = res.data.user;
-            this.token = res.data.token.token;
+            this.token = res.data.token;
 
-            this.axios.defaults.headers.common[
-              "Authorization"
-            ] = `Bearer ${res.data.token.token}`;
-            this.router.push("/");
+            this.axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token.token}`;
+            this.router.push('/');
           }
         })
         .catch((err) => {

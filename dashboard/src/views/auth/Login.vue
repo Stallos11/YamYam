@@ -19,6 +19,18 @@
         ></ax-form-control>
       </ax-form-field>
     </ax-form>
+
+    <div class="d-flex fx-center my-4 captcha">
+          <VueRecaptcha
+            ref="captcha"
+            :sitekey="siteKey"
+            :load-recaptcha-script="true"
+            theme="dark"
+            @verify="handleSuccess"
+            @expired="handleExpired"
+            @error="handleError"
+          ></VueRecaptcha>
+        </div>
     <ax-btn
       class="primary text-white d-flex fx-center vcenter rounded-2 px-5 mt-5"
       @click="login"
@@ -49,6 +61,7 @@
 </template>
 
 <script setup lang="ts">
+import { VueRecaptcha } from 'vue-recaptcha';
 import { ref, Ref } from "vue";
 import { IUser } from "../../models/user";
 import { useAuthStore } from "../../stores/auth";
@@ -58,13 +71,25 @@ const authStore = useAuthStore();
 const user: Ref<IUser> = ref({});
 const form = ref();
 const captchaToken = ref("");
+const siteKey = import.meta.env.VITE_RECAPTCHA_KEY;
+const captcha = ref(null);
+
+const handleSuccess = (token: string) => {
+  captchaToken.value = token;
+};
+
+const handleError = () => {
+};
+
+const handleExpired = () => {
+};
 
 const login = () => {
   if (!form.value.validate()) return;
 
   authStore.login(user.value, captchaToken.value);
   // @ts-ignore
-  // captcha.value.reset();
+  captcha.value.reset();
 };
 </script>
 
