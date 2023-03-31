@@ -25,6 +25,7 @@ services:
   dashboard:
     stop_grace_period: "1s"
     image: node:16-buster
+    restart: always
     working_dir: /app
     command:
       - sh
@@ -49,10 +50,12 @@ services:
       - ./devstack/certificates:/etc/certs:ro
     environment:
       VITE_API_URL: http://api.yamyam.test/
+      VITE_RECAPTCHA_KEY: 6LcggW0kAAAAAIBPh7SXqoEofNWpSmibvJIfHEoh
 
   app:
     stop_grace_period: "1s"
     image: node:16-buster
+    restart: always
     working_dir: /app
     command:
       - sh
@@ -81,6 +84,7 @@ services:
       VITE_RECAPTCHA_KEY: 6LcggW0kAAAAAIBPh7SXqoEofNWpSmibvJIfHEoh
   api:
     stop_grace_period: "1s"
+    restart: always
     image: node:16-buster
     working_dir: /app
     command:

@@ -8,14 +8,17 @@ import {
   column,
   HasMany,
   hasMany,
+  ManyToMany,
+  manyToMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import User from "./User";
 import RecipeCategory from "./RecipeCategory";
 import RecipeType from "./RecipeType";
-import RecipeIngredient from "./RecipeIngredient";
 import Favourite from "./Favourite";
+import Instruction from "./Instruction";
 import Rating from "./Rating";
 import Config from "@ioc:Adonis/Core/Config";
+import Ingredient from "./Ingredient";
 
 export default class Recipe extends BaseModel {
   @column({ isPrimary: true })
@@ -57,11 +60,17 @@ export default class Recipe extends BaseModel {
   @belongsTo(() => RecipeType)
   public recipeType: BelongsTo<typeof RecipeType>;
 
-  @hasMany(() => RecipeIngredient)
-  public ingredients: HasMany<typeof RecipeIngredient>;
+  @manyToMany(() => Ingredient, {
+    pivotTable: 'recipe_ingredients',
+    pivotTimestamps: true,
+  })
+  public ingredients: ManyToMany<typeof Ingredient>;
 
   @hasMany(() => Favourite)
   public favourites: HasMany<typeof Favourite>;
+
+  @hasMany(() => Instruction)
+  public instructions: HasMany<typeof Instruction>;
 
   @hasMany(() => Rating)
   public ratings: HasMany<typeof Rating>;
