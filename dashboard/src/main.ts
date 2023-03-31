@@ -12,6 +12,9 @@ import VueAxios from "vue-axios";
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
 import VueApexCharts from "vue3-apexcharts";
+import VueTimepicker from "vue3-timepicker";
+import 'vue3-timepicker/dist/VueTimepicker.css'
+import vue3StarRatings from "vue3-star-ratings";
 
 const app = createApp(App);
 app.use(VueAxios, axios);
@@ -27,9 +30,10 @@ pinia.use(({ store }) => {
   store.toast = markRaw(toast);
 });
 pinia.use(piniaPluginPersistedstate);
-
 app.component("Icon", Icon);
+app.component("VueTimepicker", VueTimepicker);
 app.component("EasyDataTable", Vue3EasyDataTable);
+app.component("vue3-star-ratings", vue3StarRatings);
 app.provide("toast", toast);
 
 app.use(router);

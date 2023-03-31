@@ -7,16 +7,18 @@ interface State {
   ingredients: IIngredient[];
   selectedIngredient: IIngredient;
   isModalOpened: boolean;
+  isModalDetailOpened: boolean;
   isModalDeleteOpened: boolean;
   isModalEditOpened: boolean;
 }
 
 export const useIngredientStore = defineStore("ingredient", {
   state: (): State => ({
-    isLoading: true,
+    isLoading: false,
     ingredients: [],
     isModalOpened: false,
     isModalDeleteOpened: false,
+    isModalDetailOpened: false,
     isModalEditOpened: false,
     selectedIngredient: {
       id: "",
@@ -36,14 +38,6 @@ export const useIngredientStore = defineStore("ingredient", {
     },
     fetchData() {
       return;
-      this.isLoading = true;
-      this.axios
-        .get("ingredients")
-        .then((res) => {
-          this.ingredients = res.data;
-        })
-        .catch(console.error)
-        .finally(() => (this.isLoading = false));
     },
 
     fetchDataDetails(id: string) {
@@ -78,6 +72,11 @@ export const useIngredientStore = defineStore("ingredient", {
       this.selectedIngredient = item;
       if (item.id) this.fetchDataDetails(item.id);
       this.isModalOpened = true;
+    },
+    showIngredientDetails(item: IIngredient) {
+      this.selectedIngredient = item;
+      if (item.id) this.fetchDataDetails(item.id);
+      this.isModalDetailOpened = true;
     },
 
     insert(ingredient: IIngredientCreate) {

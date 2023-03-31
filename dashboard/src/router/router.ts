@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     name: "recipe-types-create",
     meta: { title: "Recipe type create" },
   },
-  //Recipe
+  //Recipes
   {
     path: "/recipe-categories/",
     component: () => import("../views/recipe_categories/List.vue"),
@@ -67,6 +67,27 @@ const routes: Array<RouteRecordRaw> = [
       import("../views/recipe_categories/RecipeCategoryCreate.vue"),
     name: "recipe-categories-create",
     meta: { title: "Recipe category create" },
+  },
+  //Recipe
+  {
+    path: "/recipes/",
+    component: () => import("../views/recipes/List.vue"),
+    name: "recipes",
+    meta: { title: "Recipes" },
+  },
+  {
+    path: "/recipes/edit",
+    component: () =>
+      import("../views/recipes/RecipeEdit.vue"),
+    name: "recipes-edit",
+    meta: { title: "Recipe edit" },
+  },
+  {
+    path: "/recipes/create",
+    component: () =>
+      import("../views/recipes/RecipeCreate.vue"),
+    name: "recipes-create",
+    meta: { title: "Recipe create" },
   },
   // Ingredients
   {

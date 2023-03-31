@@ -1,7 +1,4 @@
 <template>
-  <!-- <a href="#" class="navbar-logo hide-sm-down">
-          <img src="icon.png" alt="logo" class="navbar-logo" style="filter: brightness(100%)" />
-        </a> -->
   <div
     :class="authStore.isLoggedIn ? 'layout-under-navbar' : 'layout'"
     class="bg-dark"
@@ -66,8 +63,9 @@
         </ax-btn>
         <ax-collapsible v-model="isRecipeCollapsibleOpened">
           <div class="">
-            <router-link class="sidenav-link" to="/recipes"
-              >List</router-link
+            <router-link class="sidenav-link" to="/recipes">List</router-link>
+            <router-link class="sidenav-link" to="/recipes/create"
+              >Create</router-link
             >
           </div>
         </ax-collapsible>
@@ -183,6 +181,10 @@ const authStore = useAuthStore();
 </script>
 
 <style lang="scss">
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .scale-enter-active,
 .scale-leave-active {
   transition: all 0.5s ease;
@@ -204,7 +206,7 @@ $font-family: "Quicksand", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
   "Segoe UI Symbol";
 
 $axentix-palette: (
-  "primary": #00c93f,
+  "primary": #5893c0,
   "secondary": #53dfdf,
   "tertiary": #2781e6,
   "success": #12ad12,
