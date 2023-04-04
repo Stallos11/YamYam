@@ -6,7 +6,11 @@ import Recipe from "App/Models/Recipe";
 @inject()
 export default class RecipeRepository {
     public async index() {
-        const recipes = await Recipe.all();
+        // const recipes = await Recipe.all();
+        const recipes = await Recipe.query()
+            .preload('recipeCategory')
+            .preload('recipeType')
+            .preload('user');
 
         return recipes;
     }
