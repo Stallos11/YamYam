@@ -145,7 +145,7 @@ export const useAuthStore = defineStore('auth', {
         .then((res) => {
           if (res.data) {
             this.clearAuthData();
-            this.router.push('/login');
+            this.router.push('/');
           }
         })
         .catch((err) => {
