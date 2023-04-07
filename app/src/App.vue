@@ -30,11 +30,11 @@
             <ax-dropdown
               v-model="isDropdownOpened"
               @click="isDropdownOpened = !isDropdownOpened"
-              content-classes="airforce dark-4 light-shadow-1 rounded-1 dropdown-right my-auto"
+              content-classes="bg-light light-shadow-1 rounded-1 dropdown-right my-auto"
               animation-type="fade"
             >
               <template #trigger>
-                <a href="" @click.prevent class="navbar-link font-w600 d-inline-flex fx-center vcenter pr-0">
+                <a href="" @click.prevent class="font-w600 d-inline-flex fx-center vcenter pr-0">
                   <Icon icon="mdi:account-circle" width="30" class="ml-1 mt-1" />
                 </a>
               </template>

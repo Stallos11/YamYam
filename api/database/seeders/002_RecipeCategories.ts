@@ -26,7 +26,7 @@ export default class UserSeeder extends BaseSeeder {
       },
       {
         id: "91bdd636-8b6f-46f9-a59b-318c1901215b",
-        category: "diabetes",
+        category: "sans sucre",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       },
