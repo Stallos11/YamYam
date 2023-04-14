@@ -1,6 +1,7 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import RecipeCategory from "App/Models/RecipeCategory";
 import Database from "@ioc:Adonis/Lucid/Database";
+import Recipe from "App/Models/Recipe";
 
 export default class RecipeCategoriesController {
   public async index({ response }) {
@@ -49,7 +50,7 @@ export default class RecipeCategoriesController {
   public async insert({ request, response }: HttpContextContract) {
     const recipeCategory = new RecipeCategory();
     const body = request.all();
-    
+
     await recipeCategory
       .fill({
         category: body.recipe_category,
@@ -60,9 +61,11 @@ export default class RecipeCategoriesController {
   }
 
   public async find({ params, response }) {
-    const recipeCategory = await RecipeCategory.find(params.id);
+    const recipeCategory = await RecipeCategory.findOrFail(params.id);
 
-    return response.ok(recipeCategory);
+    const usedBy = (await Recipe.query().where('recipeCategoryId', recipeCategory.id)).length
+
+    return response.ok({ ...recipeCategory, usedBy });
   }
 
   public async update({ request, params, response }) {
