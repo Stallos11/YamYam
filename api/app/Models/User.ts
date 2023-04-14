@@ -11,10 +11,7 @@ import {
 } from "@ioc:Adonis/Lucid/Orm";
 import Favourite from "./Favourite";
 import Recipe from "./Recipe";
-import Rating from "./Rating";
 import Config from "@ioc:Adonis/Core/Config";
-
-
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -43,9 +40,6 @@ export default class User extends BaseModel {
 
   @hasMany(() => Recipe)
   public recipes: HasMany<typeof Recipe>;
-
-  @hasMany(() => Rating)
-  public ratings: HasMany<typeof Rating>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

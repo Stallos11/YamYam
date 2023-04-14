@@ -16,7 +16,6 @@ import RecipeCategory from "./RecipeCategory";
 import RecipeType from "./RecipeType";
 import Favourite from "./Favourite";
 import Instruction from "./Instruction";
-import Rating from "./Rating";
 import Config from "@ioc:Adonis/Core/Config";
 import Ingredient from "./Ingredient";
 
@@ -71,9 +70,6 @@ export default class Recipe extends BaseModel {
 
   @hasMany(() => Instruction)
   public instructions: HasMany<typeof Instruction>;
-
-  @hasMany(() => Rating)
-  public ratings: HasMany<typeof Rating>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

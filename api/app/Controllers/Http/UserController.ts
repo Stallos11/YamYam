@@ -154,9 +154,11 @@ export default class UserController {
   public async getUserDetails({ params, response }) {
     const user = await User.findOrFail(params.id);
     await user.load("recipes");
+    await user.load('favourites');
     return response.ok({
       user,
       user_recipes: user.recipes,
+      user_favourites: user.favourites
     });
   }
 

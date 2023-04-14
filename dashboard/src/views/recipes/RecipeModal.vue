@@ -37,16 +37,8 @@
     <div>
       <div class="grix xs1 sm2 md3 p-3 gutter-xs5">
         <div class="d-flex fx-row primary rounded-2 p-3">
-          <div>Recettes consultées</div>
-          <div class="ml-auto">69</div>
-        </div>
-        <div class="d-flex fx-row primary rounded-2 p-3">
-          <div>Recettes crées</div>
-          <div class="ml-auto">69</div>
-        </div>
-        <div class="d-flex fx-row primary rounded-2 p-3">
-          <div>Commentaires</div>
-          <div class="ml-auto">69</div>
+          <div>Favoris</div>
+          <div class="ml-auto">{{ recipeStore.selectedRecipe?.favourites?.length  }}</div>
         </div>
       </div>
     </div>

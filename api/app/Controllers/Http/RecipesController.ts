@@ -34,6 +34,8 @@ export default class RecipesController {
   public async find({ params, response }) {
     const recipe = await this.recipeRepository.find(params.id);
 
+    await recipe.load('favourites');
+    
     return response.ok(recipe);
   }
 

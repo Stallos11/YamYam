@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { nextTick } from "vue";
 import { ClickRowArgument } from "vue3-easy-data-table";
-import { User } from "../models/user";
+import { IUser } from "../models/user";
 
 interface Recipe {
   name: string;
@@ -12,11 +12,12 @@ interface Recipe {
 interface ISelectedUser {
   user: any;
   recipes: Recipe[] | null;
+  favourites: any[];
 }
 
 interface State {
   isLoading: boolean;
-  users: User[];
+  users: IUser[];
   selectedUser: ISelectedUser;
   isModalOpened: boolean;
   isModalDeleteOpened: boolean;
@@ -33,6 +34,7 @@ export const useUserStore = defineStore("user", {
     selectedUser: {
       user: {},
       recipes: [],
+      favourites: [],
     },
   }),
 
