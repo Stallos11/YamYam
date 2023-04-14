@@ -98,6 +98,21 @@ export const useRecipeStore = defineStore("recipe", {
           this.recipes.push(res.data);
           this.toast.showToast("Info", "recipe created", "bg-dark", "bg-dark");
           this.router.replace("/recipes");
+          this.recipeCreate = {
+            recipe: {
+              name: "",
+              description: "",
+              difficulty: 0,
+              eatersAmount: 0,
+              cookingTime: 0,
+              preparationTime: 0,
+              recipeCategoryId: "",
+              recipeTypeId: "",
+              userId: "",
+            },
+            ingredients: [],
+            instructions: [],
+          }
         })
         .catch((err) => console.error(err));
     },
