@@ -6,6 +6,7 @@ import {
   BelongsTo,
   belongsTo,
   column,
+  computed,
   HasMany,
   hasMany,
   ManyToMany,
@@ -61,6 +62,7 @@ export default class Recipe extends BaseModel {
 
   @manyToMany(() => Ingredient, {
     pivotTable: 'recipe_ingredients',
+    pivotColumns: ['amount', 'unit'],
     pivotTimestamps: true,
   })
   public ingredients: ManyToMany<typeof Ingredient>;

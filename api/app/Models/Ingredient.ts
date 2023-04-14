@@ -4,6 +4,7 @@ import {
   BaseModel,
   beforeCreate,
   column,
+  computed,
   HasMany,
   hasMany,
   ManyToMany,
@@ -38,6 +39,18 @@ export default class Ingredient extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
+
+  @computed()
+  public get unit() {
+    const ingredientUnit = this.$extras.pivot_unit
+    return ingredientUnit
+  }
+
+  @computed()
+  public get amount() {
+    const ingredientAmount = this.$extras.pivot_amount
+    return ingredientAmount
+  }
 
   @beforeCreate()
   public static async createUUID(ingredient: Ingredient) {

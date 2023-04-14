@@ -123,7 +123,11 @@ export default class RecipeRepository {
     }
 
     public async find(_id: string) {
-        const recipe = await Recipe.findOrFail(_id);
+        const recipe = await Recipe.query()
+            .where('id', _id)
+            .preload('ingredients', (query) => {
+                query.pivotColumns(['amount', 'unit'])
+            }).firstOrFail();
 
         return recipe;
     }

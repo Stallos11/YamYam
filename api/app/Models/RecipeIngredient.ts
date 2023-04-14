@@ -19,6 +19,9 @@ export default class RecipeIngredient extends BaseModel {
   public amount: number;
 
   @column()
+  public unit: string;
+
+  @column()
   public recipeId: string;
 
   @belongsTo(() => Recipe)
