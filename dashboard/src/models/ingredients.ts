@@ -8,6 +8,7 @@ export interface IIngredient {
   product_name_en: string | null;
   product_name_fr: string | null;
   openfoodfact: any;
+  nutriments?: any;
 }
 
 export type IIngredientCreate = Omit<IIngredient, "id" | "openfoodfact">;

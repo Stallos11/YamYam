@@ -28,6 +28,7 @@ export const useIngredientStore = defineStore("ingredient", {
       product_name_en: null,
       product_name_fr: null,
       openfoodfact: null,
+      nutriments: {}
     },
   }),
 
@@ -41,7 +42,7 @@ export const useIngredientStore = defineStore("ingredient", {
     },
 
     fetchDataDetails(id: string) {
-      this.axios
+      return this.axios
         .get(`ingredients/${id}`)
         .then((res) => {
           this.selectedIngredient = res.data;
@@ -56,7 +57,7 @@ export const useIngredientStore = defineStore("ingredient", {
         )
         .then((res) => {
           this.selectedIngredient.openfoodfact = res.data.product;
-          console.log("res", res);
+          this.selectedIngredient.nutriments = res.data.product.nutriments
         })
         .catch((err) => console.error(err));
     },
@@ -68,9 +69,10 @@ export const useIngredientStore = defineStore("ingredient", {
         })
         .catch((err) => console.error(err));
     },
-    showDetails(item: IIngredient) {
+    async showDetails(item: IIngredient) {
       this.selectedIngredient = item;
-      if (item.id) this.fetchDataDetails(item.id);
+      if (item.id) await this.fetchDataDetails(item.id);
+
       this.isModalOpened = true;
     },
     showIngredientDetails(item: IIngredient) {
