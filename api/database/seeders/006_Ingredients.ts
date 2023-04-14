@@ -46,7 +46,6 @@ export default class IngredientSeeder extends BaseSeeder {
     //@ts-ignore
     while (products.length > 0) arrays.push(products.splice(0, size));
 
-    console.log(arrays.length);
 
     var promises = arrays.map(async (arr, i) => {
       await Ingredient.updateOrCreateMany("id", arr).then((e) => {
@@ -59,7 +58,6 @@ export default class IngredientSeeder extends BaseSeeder {
     });
 
     await Promise.allSettled(promises).then((res) => {
-      console.log("Ingredients seeder done");
     });
   }
 }

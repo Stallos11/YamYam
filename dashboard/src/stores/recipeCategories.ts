@@ -61,7 +61,6 @@ export const useRecipeCategoryStore = defineStore("recipe-category", {
     },
 
     insert(recipe_category: string) {
-      console.log("rec", recipe_category);
       this.axios
         .post("recipe-categories", {
           recipe_category,

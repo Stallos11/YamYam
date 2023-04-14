@@ -19,7 +19,6 @@ export default class RecipeCategoriesController {
 
   public async searchBy({ params, response }) {
     // const ingredients = await Ingredient.all();
-    console.log(params.property, params.search.replace(/%20/g, " "));
 
     const ingredients = await Ingredient.query().whereLike(
       params.property ? params.property : "product_name",
