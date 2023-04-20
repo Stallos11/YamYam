@@ -36,14 +36,14 @@ export default class RecipesController {
 
     await recipe.load('favourites');
     await recipe.load('instructions');
-    
+
     return response.ok(recipe);
   }
 
-  public async update({ request, params, response }) {
+  public async update({ params, request, response }: HttpContextContract) {
     const body = request.all();
-    const recipe_id = params.id;
-    const recipe = await this.recipeRepository.update(recipe_id, body);
+    const id = params.id;
+    const recipe = await this.recipeRepository.update(id, body);
 
     return response.ok(recipe);
   }

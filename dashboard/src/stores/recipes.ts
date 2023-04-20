@@ -12,10 +12,26 @@ interface State {
   isModalDeleteOpened: boolean;
   isModalEditOpened: boolean;
   recipeCreate: IRecipeCreate;
+  recipeEdit: IRecipeEdit;
 }
 
 interface IRecipeCreate {
   recipe: Omit<IRecipe, "id">;
+  ingredients: IIngredientCreate[];
+  instructions: any;
+}
+
+interface IRecipeEdit {
+  id?: string;
+  name: string;
+  description: string;
+  preparation_time: number | string;
+  cooking_time: number;
+  difficulty: number;
+  eaters_amount: number;
+  userId: string;
+  recipe_type_id: string;
+  recipe_category_id: string;
   ingredients: IIngredientCreate[];
   instructions: any;
 }
@@ -44,13 +60,26 @@ export const useRecipeStore = defineStore("recipe", {
         name: "",
         description: "",
         difficulty: 0,
-        eatersAmount: 0,
-        cookingTime: 0,
-        preparationTime: 0,
-        recipeCategoryId: "",
-        recipeTypeId: "",
+        eaters_amount: 0,
+        cooking_time: 0,
+        preparation_time: 0,
+        recipe_category_id: "",
+        recipe_type_id: "",
         userId: "",
       },
+      ingredients: [],
+      instructions: [],
+    },
+    recipeEdit: {
+      name: "",
+      description: "",
+      difficulty: 0,
+      eaters_amount: 0,
+      cooking_time: 0,
+      preparation_time: 0,
+      recipe_category_id: "",
+      recipe_type_id: "",
+      userId: "",
       ingredients: [],
       instructions: [],
     },
@@ -103,11 +132,11 @@ export const useRecipeStore = defineStore("recipe", {
               name: "",
               description: "",
               difficulty: 0,
-              eatersAmount: 0,
-              cookingTime: 0,
-              preparationTime: 0,
-              recipeCategoryId: "",
-              recipeTypeId: "",
+              eaters_amount: 0,
+              cooking_time: 0,
+              preparation_time: 0,
+              recipe_category_id: "",
+              recipe_type_id: "",
               userId: "",
             },
             ingredients: [],
@@ -144,23 +173,41 @@ export const useRecipeStore = defineStore("recipe", {
     },
     redirEdit() {
       this.isModalOpened = false;
+      console.log(this.selectedRecipe)
+      this.recipeEdit = this.selectedRecipe
+      //@ts-ignore
+      this.recipeEdit.preparation_time = this.secToMins(this.recipeEdit.preparation_time)
+      //@ts-ignore
+      this.recipeEdit.cooking_time = this.secToMins(this.recipeEdit.cooking_time)
+      //@ts-ignore
+      this.recipeEdit.difficulty = parseInt(this.recipeEdit.difficulty)
       this.router.replace("/recipes/edit");
     },
-    update() {
-      this.axios
-        .put(`recipes/${this.selectedRecipe.id}`, {
-          name: this.selectedRecipe.name,
-        })
-        .then((res) => {
-          this.toast.showToast("Info", "recipe updated", "bg-dark", "bg-dark");
-          this.router.replace("/recipes");
-        })
-        .catch((err) => console.error(err));
+    secToMins(secs: number) {
+      const hours = Math.floor(secs / 3600)
+      const minutes = Math.floor(secs / 60) % 60
+
+      return [hours, minutes]
+        .map(v => v < 10 ? "0" + v : v)
+        .filter((v, i) => v !== "00" || i > 0)
+        .join(":")
     },
     addIngredientToCreateRecipe() {
       const ingredientStore = useIngredientStore();
 
       this.recipeCreate.ingredients.push({
+        id: ingredientStore.selectedIngredient.id,
+        //@ts-ignore
+        product_name: ingredientStore.selectedIngredient.product_name,
+        amount: "",
+        unit: "",
+      });
+      ingredientStore.isModalDetailOpened = false;
+    },
+    addIngredientToEditRecipe() {
+      const ingredientStore = useIngredientStore();
+
+      this.recipeEdit.ingredients.push({
         id: ingredientStore.selectedIngredient.id,
         //@ts-ignore
         product_name: ingredientStore.selectedIngredient.product_name,
@@ -177,6 +224,47 @@ export const useRecipeStore = defineStore("recipe", {
         title: instruction.title,
         description: instruction.description,
       });
+    },
+    addInstructionToEditRecipe(instruction: {
+      title: string;
+      description: string;
+    }) {
+      this.recipeEdit.instructions.push({
+        title: instruction.title,
+        description: instruction.description,
+      });
+    },
+    deleteInstruction(id: string) {
+      this.recipeEdit.instructions = this.recipeEdit.instructions.filter(inst => inst.id != id)
+    },
+    deleteIngredient(id: string) {
+      this.recipeEdit.ingredients = this.recipeEdit.ingredients.filter(ing => ing.id != id)
+    },
+    update() {
+      this.recipeEdit.userId = useAuthStore().user?.id as string;
+      this.axios
+        .put(`recipes/${this.recipeEdit.id}`, {
+          recipe: this.recipeEdit,
+        })
+        .then((res) => {
+          this.fetchData()
+          this.toast.showToast("Info", "recipe updated", "bg-dark", "bg-dark");
+          this.router.replace("/recipes");
+          this.recipeEdit = {
+            name: "",
+            description: "",
+            difficulty: 0,
+            eaters_amount: 0,
+            cooking_time: 0,
+            preparation_time: 0,
+            recipe_category_id: "",
+            recipe_type_id: "",
+            userId: "",
+            ingredients: [],
+            instructions: [],
+          }
+        })
+        .catch((err) => console.error(err));
     },
   },
 });

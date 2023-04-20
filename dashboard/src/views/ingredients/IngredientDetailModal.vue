@@ -42,7 +42,7 @@
         </div>
         <div class="ml-auto font-s5">
           <Icon
-            @click="recipeStore.addIngredientToCreateRecipe()"
+            @click="props.type === 'edit' ? recipeStore.addIngredientToEditRecipe() : recipeStore.addIngredientToCreateRecipe()"
             class="ml-auto mr-2 cursor-pointer"
             icon="ri:ball-pen-fill"
             size="100"
@@ -61,4 +61,6 @@ import { useIngredientStore } from "../../stores/ingredients";
 import { useRecipeStore } from "../../stores/recipes";
 const ingredientStore = useIngredientStore();
 const recipeStore = useRecipeStore();
+
+const props = defineProps(['type'])
 </script>

@@ -4,13 +4,13 @@ export interface IRecipe {
   id?: string;
   name: string;
   description: string;
-  preparationTime: number;
-  cookingTime: number;
+  preparation_time: number;
+  cooking_time: number;
   difficulty: number;
-  eatersAmount: number;
+  eaters_amount: number;
   userId: string;
-  recipeTypeId: string;
-  recipeCategoryId: string;
+  recipe_type_id: string;
+  recipe_category_id: string;
 }
 
 export const recipeTableHeaders: Header[] = [
@@ -27,14 +27,14 @@ export const recipeTableHeaders: Header[] = [
 ];
 
 export const recipeFilterKeyOptions = [
-  {name: "Name", value:"name"},
-  {name: "Description", value:"description"},
-  {name: "Preparation time", value: "preparation_time"},
-  {name: "Cooking time", value:"cookingTime"},
-  {name: "Difficulty", value:"difficulty"},
-  {name: "Eaters amout", value:"eaters_amount"},
-  {name: "Email", value:"user.email"},
-  {name: "Type", value:"recipe_type_id"},
-  {name: "Category", value:"recipe_category_id"},
-  {name: "Created at", value:"created_at"}
+  { name: "Name", value: "name" },
+  { name: "Description", value: "description" },
+  { name: "Preparation time", value: "preparation_time" },
+  { name: "Cooking time", value: "cookingTime" },
+  { name: "Difficulty", value: "difficulty" },
+  { name: "Eaters amout", value: "eaters_amount" },
+  { name: "Email", value: "user.email" },
+  { name: "Type", value: "recipe_type_id" },
+  { name: "Category", value: "recipe_category_id" },
+  { name: "Created at", value: "created_at" }
 ];

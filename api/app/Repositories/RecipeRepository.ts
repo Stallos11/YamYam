@@ -122,6 +122,23 @@ export default class RecipeRepository {
         }
     }
 
+    private async updateRecipeIngredients(_recipe, _ingredients) {
+
+        console.log('ingrediets', _ingredients)
+        try {
+            _ingredients.map(async ing => {
+                const ingr = {
+                    amount: ing.amount,
+                    unit: ing.unit,
+                }
+
+                await _recipe.related('ingredients').sync({ [ing.id]: ingr }, true)
+            })
+        } catch (err) {
+            return err
+        }
+    }
+
     public async find(_id: string) {
         const recipe = await Recipe.query()
             .where('id', _id)
@@ -132,24 +149,32 @@ export default class RecipeRepository {
         return recipe;
     }
 
-    public async update(_id, _recipe) {
+    public async update(_id, _body) {
         try {
             await Recipe.query().where("id", _id).update({
-                name: _recipe.name,
-                description: _recipe.description,
-                preparationTime: _recipe.preparation_time,
-                cookingTime: _recipe.cooking_time,
-                difficulty: _recipe.difficulty,
-                eatersAmount: _recipe.eaters_amount,
-                userId: _recipe.userId,
-                recipeTypeId: _recipe.recipe_type_id,
-                recipeCategoryId: _recipe.recipe_category_id,
+                name: _body.recipe.name,
+                description: _body.recipe.description,
+                preparationTime: this.convertToSeconds(_body.recipe.preparation_time),
+                cookingTime: this.convertToSeconds(_body.recipe.cooking_time),
+                difficulty: _body.recipe.difficulty,
+                eatersAmount: +_body.recipe.eaters_amount,
+                userId: _body.recipe.userId,
+                recipeTypeId: _body.recipe.recipe_type_id,
+                recipeCategoryId: _body.recipe.recipe_category_id,
             });
 
-            const recipe = await Recipe.find(_id);
+            const recipe = await Recipe.findOrFail(_id);
 
-            return recipe;
+            await this.updateRecipeIngredients(recipe, _body.recipe.ingredients)
+
+            _body.recipe.instructions.map(async inst => {
+                console.log(inst.id)
+                await Instruction.query().where('recipe_id', recipe.id).delete()
+            })
+            await this.createRecipeInstructions(recipe.id, _body.recipe.instructions)
+
         } catch (err) {
+            console.error(err)
             return err
         }
     }
