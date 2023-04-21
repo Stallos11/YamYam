@@ -6,15 +6,12 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-22.04
+    container: 
+      image: node:16-alpine
 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
-    - name: Install node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
 
     - name: Install dependencies
       run: npm ci
@@ -27,8 +24,13 @@ jobs:
         VITE_ENV: production
         VITE_RECAPTCHA_KEY: 6LcggW0kAAAAAIBPh7SXqoEofNWpSmibvJIfHEoh
 
+
+    - name: Install rsync 📚
+      run: |
+        apt-get update && apt-get install -y rsync
+
     - name: Deploy docs
-      uses: JamesIves/github-pages-deploy-action@4.1.8
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
         folder: app/dist
