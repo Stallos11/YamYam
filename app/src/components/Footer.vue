@@ -4,7 +4,7 @@
       <Icon icon="material-symbols:dynamic-feed-rounded" width="30" class="" />
       <Icon icon="fluent:bowl-salad-20-filled" width="30" class="" />
       <Icon icon="mdi:plus" width="60" class="primary rounded-full center-icon" />
-      <Icon icon="material-symbols:star-outline-rounded" width="30" class="pos-xs4" />
+      <Icon icon="mdi:cards-heart-outline" width="30" class="pos-xs4" />
       <Icon icon="uil:setting" width="30" class="" />
     </div>
   </footer>
