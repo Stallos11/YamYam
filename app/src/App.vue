@@ -18,7 +18,7 @@
     </main>
   </div>
 
-  <div class="layout bg-dark" v-else>
+  <div class="layout bg-dark relative-pos" v-else>
     <div class="navbar-fixed">
       <header>
         <nav class="navbar bg-dark text-white shadow-2 rounded-bl2 rounded-br2">
@@ -52,6 +52,8 @@
       <router-view></router-view>
       <Pwa />
     </main>
+
+    <Footer />
   </div>
 </template>
 
@@ -59,6 +61,7 @@
 import { ref } from 'vue';
 import Pwa from './components/Pwa.vue';
 import { useAuthStore } from './stores/auth';
+import Footer from './components/Footer.vue';
 
 const authStore = useAuthStore();
 const isDropdownOpened = ref(false);
@@ -95,6 +98,14 @@ $axentix-palette: (
 // Forms hack
 .grix > .form-field {
   margin-top: 0.5rem !important;
+}
+
+.layout {
+  margin-bottom: 5rem;
+}
+
+body {
+  background-color: #323232;
 }
 
 .form-field {
