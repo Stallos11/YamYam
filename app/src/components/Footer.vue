@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer primary rounded-tl2 rounded-tr2">
+  <footer class="footer rounded-tl3 rounded-tr3 shadow-3">
     <div class="footer-inner grix xs5 w100 center p-2 mx-3 rounded-4">
       <Icon icon="material-symbols:dynamic-feed-rounded" width="30" class="" />
       <Icon icon="fluent:bowl-salad-20-filled" width="30" class="" />

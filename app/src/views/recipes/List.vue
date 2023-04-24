@@ -22,31 +22,41 @@
       </ax-collapsible>
 
       <div class="container mt-4">
-        <div v-for="recipe in recipeStore.recipes" class="bg-light rounded-1 my-2 p-3">
-          <h2 class="my-0">
+        <div v-for="recipe in recipeStore.recipes" class="recipe-card relative-pos grey light-4 light-shadow-2 rounded-1 my-2">
+          <ax-btn class="like-btn d-flex vcenter fx-center absolute-pos transparent text-white" size="" circle>
+            <Icon icon="ri:heart-add-line" width="30" />
+          </ax-btn>
+
+          <h2 class="font-w400 font-s4 mt-2 ml-1 text-white">
             {{ recipe.name }}
           </h2>
 
-          <p>
-            {{ recipe.description }}
-          </p>
+          <div
+            class="rounded-tl1 rounded-tr1 rounded-bl4 rounded-br4"
+            style="
+              min-height: 15rem;
+              background-size: cover;
+              background-image: linear-gradient(0deg, rgba(150, 150, 150, 0) 0%, rgba(0, 0, 0, 1) 100%),
+                url(https://www.invaluable.com/blog/wp-content/uploads/sites/77/2018/10/02-creative-color.png);
+            "
+          ></div>
 
-          <div class="d-flex fx-col">
-            <div class="d-flex vcenter">
-              <Icon icon="ic:baseline-access-time" width="20" class="mr-2" />
-              {{ Math.floor((recipe.preparation_time as number) / 60) % 60 }}min
-            </div>
+          <div class="p-3">
+            <div class="grix xs3 center">
+              <div class="d-flex vcenter">
+                <Icon icon="ic:baseline-access-time" width="20" class="mr-2" />
+                {{ Math.floor((recipe.preparation_time as number) / 60) % 60 }}min
+              </div>
 
-            <div class="d-flex vcenter mt-2">
-              <Icon icon="icon-park-outline:cook" width="20" class="mr-2" />
-              {{ Math.floor((recipe.cooking_time as number) / 60) % 60 }}min
-            </div>
+              <div class="d-flex vcenter">
+                <Icon icon="icon-park-outline:cook" width="20" class="mr-2" />
+                {{ Math.floor((recipe.cooking_time as number) / 60) % 60 }}min
+              </div>
 
-            <div class="d-flex vcenter mt-3">
-              <Icon v-for="difficulty in +(recipe.difficulty as number)" icon="ph:fork-knife-light" width="20" class="mr-2 text-primary" />
-              <Icon v-for="dif in 5 - +(recipe.difficulty as number)" icon="ph:fork-knife-light" width="20" class="mr-2 text-grey" />
-
-              <div class="d-flex vcenter ml-auto"><Icon icon="mdi:user" width="20" class="mr-2" /> {{ recipe.eaters_amount }}</div>
+              <div class="d-flex vcenter">
+                <Icon icon="mdi:cards-heart-outline" width="20" class="mr-2" />
+                69
+              </div>
             </div>
           </div>
         </div>
@@ -79,10 +89,21 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import 'axentix';
 
 .form-field label:not(.form-switch) {
   background-color: #323232 !important;
+}
+
+h2 {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+.like-btn {
+  right: 10px;
+  top: 10px;
 }
 </style>
