@@ -1,5 +1,5 @@
 <template>
-  <div class="layout" v-if="!authStore.isLoggedIn">
+  <div class="layout auth-layout" v-if="!authStore.isLoggedIn">
     <header>
       <nav class="navbar">
         <a href="/" class="navbar-logo mx-0">
@@ -19,7 +19,7 @@
   </div>
 
   <div class="layout bg-dark relative-pos" v-else>
-    <div class="navbar-fixed">
+    <!-- <div class="navbar-fixed">
       <header>
         <nav class="navbar bg-dark text-white shadow-2 rounded-bl2 rounded-br2">
           <a href="/" class="navbar-logo mx-0">
@@ -46,9 +46,9 @@
           </div>
         </nav>
       </header>
-    </div>
+    </div> -->
 
-    <main class="bg-dark">
+    <main class="bg-dark" style="margin-bottom: 5rem">
       <router-view></router-view>
       <Pwa />
     </main>
@@ -198,6 +198,13 @@ body {
 .dropdown-item {
   display: flex;
   align-items: center;
+}
+
+.auth-layout {
+  background: linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 69%)), url('/img/bg-mobile.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .home {
