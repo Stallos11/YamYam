@@ -199,4 +199,60 @@ body {
   display: flex;
   align-items: center;
 }
+
+.home {
+  margin-top: -11rem;
+  background-image: url(../assets/img/home-bg.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: black;
+  height: 130vh;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (max-width: 959px) {
+    background: linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 69%)), url('/src/assets/img/bg-mobile.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: black;
+  }
+}
+
+.pres {
+  background: #070606;
+
+  .pres-left {
+    background: radial-gradient(circle, #3d2208 0%, #2e1b07 20%, #080606 60%);
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+
+    @media screen and (max-width: 959px) {
+      padding-top: 2rem;
+      height: 50vh;
+    }
+  }
+
+  .orange1-bg {
+    background-image: url(../assets/img/orange.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
+    width: 35vw;
+    max-height: 40vh !important;
+
+    @media screen and (max-width: 959px) {
+      width: 100vw;
+    }
+  }
+}
 </style>
