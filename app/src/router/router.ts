@@ -47,6 +47,36 @@ const routes: Array<RouteRecordRaw> = [
     name: 'feed',
     meta: { title: 'feed' },
   },
+  {
+    path: '/recipes/create',
+    component: () => import('../views/recipes/Create.vue'),
+    name: 'create',
+    meta: { title: 'create' },
+  },
+  {
+    path: '/profile',
+    component: () => import('../views/Profile.vue'),
+    name: 'profile',
+    meta: { title: 'profile' },
+  },
+  {
+    path: '/my-recipes',
+    component: () => import('../views/recipes/MyRecipes.vue'),
+    name: 'my-recipes',
+    meta: { title: 'My Recipes' },
+  },
+  {
+    path: '/recipes/favourites',
+    component: () => import('../views/recipes/Favourites.vue'),
+    name: 'favourites',
+    meta: { title: 'Favourites' },
+  },
+  {
+    path: '/recipes/:id',
+    component: () => import('../views/recipes/View.vue'),
+    name: 'recipe-details',
+    meta: { title: 'Recipe details' },
+  },
 ];
 
 export const router = createRouter({

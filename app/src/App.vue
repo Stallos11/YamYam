@@ -101,7 +101,7 @@ $axentix-palette: (
 }
 
 .layout {
-  margin-bottom: 5rem;
+  padding-bottom: 5rem;
 }
 
 body {

@@ -35,6 +35,12 @@
   <!-- 3rd section -->
 </template>
 
+<style scoped>
+.layout {
+  padding-bottom: 0;
+}
+</style>
+
 <style lang="scss">
 body {
   background: black;
