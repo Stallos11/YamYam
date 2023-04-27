@@ -1,11 +1,25 @@
 <template>
   <footer class="footer rounded-tl3 rounded-tr3 shadow-3">
     <div class="footer-inner grix xs5 w100 center p-2 mx-3 rounded-4">
-      <Icon icon="material-symbols:dynamic-feed-rounded" width="30" class="" />
-      <Icon icon="fluent:bowl-salad-20-filled" width="30" class="" />
-      <Icon icon="mdi:plus" width="60" class="primary rounded-full center-icon" />
-      <Icon icon="mdi:cards-heart-outline" width="30" class="pos-xs4" />
-      <Icon icon="uil:setting" width="30" class="" />
+      <router-link to="/feed">
+        <Icon icon="material-symbols:dynamic-feed-rounded" width="30" class="" />
+      </router-link>
+
+      <router-link to="/my-recipes">
+        <Icon icon="fluent:bowl-salad-20-filled" width="30" class="" />
+      </router-link>
+
+      <router-link to="/recipes/create">
+        <Icon icon="mdi:plus" width="60" class="primary rounded-full center-icon" />
+      </router-link>
+
+      <router-link to="/recipes/favourites">
+        <Icon icon="mdi:cards-heart-outline" width="30" class="pos-xs4" />
+      </router-link>
+
+      <router-link to="/profile">
+        <Icon icon="uil:setting" width="30" class="" />
+      </router-link>
     </div>
   </footer>
 </template>

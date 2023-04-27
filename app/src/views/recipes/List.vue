@@ -22,7 +22,7 @@
       </ax-collapsible>
 
       <div class="container mt-4">
-        <div v-for="recipe in recipeStore.recipes" class="recipe-card relative-pos grey light-4 light-shadow-2 rounded-1 my-2">
+        <div v-for="recipe in recipeStore.recipes" class="recipe-card relative-pos grey light-4 light-shadow-2 rounded-1 my-2 mx-3">
           <ax-btn class="like-btn d-flex vcenter fx-center absolute-pos transparent text-white" size="" circle>
             <Icon icon="ri:heart-add-line" width="30" />
           </ax-btn>
@@ -32,9 +32,9 @@
           </h2>
 
           <div
-            class="rounded-tl1 rounded-tr1 rounded-bl4 rounded-br4"
+            class="rounded-tl1 rounded-tr1 rounded-bl3 rounded-br3 shadow-3"
             style="
-              min-height: 15rem;
+              min-height: 12rem;
               background-size: cover;
               background-image: linear-gradient(0deg, rgba(150, 150, 150, 0) 0%, rgba(0, 0, 0, 1) 100%),
                 url(https://www.invaluable.com/blog/wp-content/uploads/sites/77/2018/10/02-creative-color.png);
