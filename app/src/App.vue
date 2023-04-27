@@ -202,7 +202,7 @@ body {
 
 .home {
   margin-top: -11rem;
-  background-image: url(../assets/img/home-bg.png);
+  background-image: url(/img/home-bg.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -214,7 +214,7 @@ body {
   }
 
   @media screen and (max-width: 959px) {
-    background: linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 69%)), url('/src/assets/img/bg-mobile.png');
+    background: linear-gradient(rgb(0 0 0 / 15%), rgb(0 0 0 / 69%)), url('/img/bg-mobile.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -242,7 +242,7 @@ body {
   }
 
   .orange1-bg {
-    background-image: url(../assets/img/orange.png);
+    background-image: url(/img/orange.png);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
