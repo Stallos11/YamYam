@@ -9,6 +9,10 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import axios from 'axios';
 import { Icon } from '@iconify/vue';
 import VueAxios from 'vue-axios';
+import Vue3EasyDataTable from "vue3-easy-data-table";
+import "vue3-easy-data-table/dist/style.css";
+import VueTimepicker from "vue3-timepicker";
+import 'vue3-timepicker/dist/VueTimepicker.css'
 
 const app = createApp(App);
 app.use(VueAxios, axios);
@@ -28,6 +32,8 @@ pinia.use(piniaPluginPersistedstate);
 
 app.component('Icon', Icon);
 app.provide('toast', toast);
+app.component("VueTimepicker", VueTimepicker);
+app.component("EasyDataTable", Vue3EasyDataTable);
 
 app.use(router);
 app.use(pinia);

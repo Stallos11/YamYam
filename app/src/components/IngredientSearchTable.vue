@@ -11,7 +11,7 @@
       :headers="ingredientsTableHeaders"
       :items="ingredientStore.ingredients"
       alternating
-      @click-row="ingredientStore.showIngredientDetails"
+      @click-row="selectIngredient"
     />
   </div>
   <div v-else class="spinner text-blue mx-auto my-5">
@@ -31,11 +31,18 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useIngredientStore } from "../stores/ingredients";
-import { ingredientsTableHeaders } from "../models/ingredients";
+import { IIngredient, ingredientsTableHeaders } from "../models/ingredients";
+import { useRecipeStore } from "../stores/recipes";
 
 const searchField = ref("");
 const searchValue = ref("");
 const ingredientStore = useIngredientStore();
+const recipeStore = useRecipeStore();
+
+const selectIngredient = (item: IIngredient) => {
+  ingredientStore.selectedIngredient = item;
+  recipeStore.addIngredientToCreateRecipe()
+}
 </script>
 
 <style lang="scss">

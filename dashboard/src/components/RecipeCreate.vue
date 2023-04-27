@@ -32,14 +32,14 @@
                 <Timepicker
                   :label="'Temps de préparation'"
                   v-model="recipeStore.recipeCreate.recipe.preparation_time"
-                  @emit-value="setRecipeProperty('preparationTime', $event)"
+                  @emit-value="setRecipeProperty('preparation_time', $event)"
                 />
               </div>
               <div>
                 <Timepicker
                   :label="'Temps de cuisson'"
                   v-model="recipeStore.recipeCreate.recipe.cooking_time"
-                  @emit-value="setRecipeProperty('cookingTime', $event)"
+                  @emit-value="setRecipeProperty('cooking_time', $event)"
                 />
               </div>
               <div>

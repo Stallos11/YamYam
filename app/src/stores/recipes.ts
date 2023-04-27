@@ -41,7 +41,20 @@ export const useRecipeStore = defineStore('recipe', {
   state: (): State => ({
     isLoading: true,
     recipes: [],
-    recipeCreate: {},
+    recipeCreate: {
+      recipe: {
+        name: "",
+        description: "",
+        difficulty: 0,
+        eaters_amount: 0,
+        cooking_time: 0,
+        preparation_time: 0,
+        recipe_type_id: "",
+        userId: "",
+      },
+      ingredients: [],
+      instructions: [],
+    },
   }),
   actions: {
     async createRecipe() {

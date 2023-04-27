@@ -77,9 +77,9 @@ export default class RecipeRepository {
         try {
             const recipe = new Recipe();
 
-            _recipe.preparationTime = this.convertToSeconds(_recipe.preparationTime);
-            _recipe.cookingTime = this.convertToSeconds(_recipe.cookingTime);
-            _recipe.eatersAmount = +_recipe.eatersAmount
+            _recipe.preparationTime = this.convertToSeconds(_recipe.preparation_time);
+            _recipe.cookingTime = this.convertToSeconds(_recipe.cooking_time);
+            _recipe.eatersAmount = +_recipe.eaters_amount
 
             await recipe.fill(_recipe).save();
 

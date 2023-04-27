@@ -63,7 +63,7 @@ export default class RecipeCategoriesController {
   public async find({ params, response }) {
     const recipeCategory = await RecipeCategory.findOrFail(params.id);
 
-    const usedBy = (await Recipe.query().where('recipeCategoryId', recipeCategory.id)).length
+    const usedBy = (await Recipe.query().where('recipe_category_id', recipeCategory.id)).length
 
     return response.ok({ ...recipeCategory, usedBy });
   }

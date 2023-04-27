@@ -30,7 +30,7 @@ export const recipeFilterKeyOptions = [
   { name: "Name", value: "name" },
   { name: "Description", value: "description" },
   { name: "Preparation time", value: "preparation_time" },
-  { name: "Cooking time", value: "cookingTime" },
+  { name: "Cooking time", value: "cooking_time" },
   { name: "Difficulty", value: "difficulty" },
   { name: "Eaters amout", value: "eaters_amount" },
   { name: "Email", value: "user.email" },

@@ -20,7 +20,8 @@
     "vue-axios": "^3.5.2",
     "vue-recaptcha": "^2.0.3",
     "vue-router": "^4.1.6",
-    "vue3-easy-data-table": "^1.5.42"
+    "vue3-easy-data-table": "^1.5.42",
+    "vue3-timepicker": "^1.0.0-beta.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

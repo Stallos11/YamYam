@@ -26,6 +26,8 @@ export default class RecipesController {
 
   public async insert({ request, response }: HttpContextContract) {
     const body = request.all();
+
+    console.log('body', body)
     const recipe = await this.recipeRepository.insert(body);
 
     return response.ok(recipe);

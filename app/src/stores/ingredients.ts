@@ -59,10 +59,5 @@ export const useIngredientStore = defineStore('ingredient', {
         })
         .catch((err) => console.error(err));
     },
-    showIngredientDetails(item: IIngredient) {
-      this.selectedIngredient = item;
-      if (item.id) this.fetchDataDetails(item.id);
-      this.isModalDetailOpened = true;
-    },
   },
 });

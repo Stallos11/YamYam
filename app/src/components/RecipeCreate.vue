@@ -6,44 +6,44 @@
       <ax-tab-link href="#tab3">Préparation</ax-tab-link>
       <ax-tab-link href="#tab4">Aperçu</ax-tab-link>
     </template>
-    <!-- 
+    
     <ax-tab-item class="h100" id="tab1">
       <div class="d-flex h100">
         <div class="tab-left">
           <ax-form class="">
             <div class="grix xs1 md2 gutter-xs5 p-5">
               <ax-form-field class="col-md2 col-xs1" label="Recipe name">
-                <ax-form-control tag="input" v-model="recipeStore.recipeCreate?.recipe?.name" type="text" class="mb-5"></ax-form-control>
+                <ax-form-control tag="input" v-model="recipeStore.recipeCreate.recipe.name" type="text" class="mb-5"></ax-form-control>
               </ax-form-field>
               <ax-form-field class="col-md2 col-xs1" label="Description">
-                <ax-form-control class="mb-5" v-model="recipeStore.recipeCreate?.recipe?.description" tag="textarea"
+                <ax-form-control class="mb-5" v-model="recipeStore.recipeCreate.recipe.description" tag="textarea"
                   >Textarea content</ax-form-control
                 >
               </ax-form-field>
               <div>
                 <Timepicker
                   :label="'Temps de préparation'"
-                  v-model="recipeStore.recipeCreate?.recipe?.preparation_time"
-                  @emit-value="setRecipeProperty('preparationTime', $event)"
+                  v-model="recipeStore.recipeCreate.recipe.preparation_time"
+                  @emit-value="setRecipeProperty('preparation_time', $event)"
                 />
               </div>
               <div>
                 <Timepicker
                   :label="'Temps de cuisson'"
-                  v-model="recipeStore.recipeCreate?.recipe?.cooking_time"
-                  @emit-value="setRecipeProperty('cookingTime', $event)"
+                  v-model="recipeStore.recipeCreate.recipe.cooking_time"
+                  @emit-value="setRecipeProperty('cooking_time', $event)"
                 />
               </div>
               <div>
                 <ax-form-field label="Dificulty">
-                  <ax-form-select :items="difficultyLevels" v-model="recipeStore.recipeCreate?.recipe?.difficulty"></ax-form-select>
+                  <ax-form-select :items="difficultyLevels" v-model="recipeStore.recipeCreate.recipe.difficulty"></ax-form-select>
                 </ax-form-field>
               </div>
               <div>
                 <ax-form-field label="Eaters amount">
                   <ax-form-control
                     tag="input"
-                    v-model="recipeStore.recipeCreate?.recipe?.eaters_amount"
+                    v-model="recipeStore.recipeCreate.recipe.eaters_amount"
                     type="number"
                     min="0"
                     class="mb-5"
@@ -52,12 +52,12 @@
               </div>
               <div>
                 <ax-form-field label="Catégorie">
-                  <ax-form-select :items="categories" v-model="recipeStore.recipeCreate?.recipe?.recipe_category_id"></ax-form-select>
+                  <ax-form-select :items="categories" v-model="recipeStore.recipeCreate.recipe.recipe_category_id"></ax-form-select>
                 </ax-form-field>
               </div>
               <div>
                 <ax-form-field label="Type">
-                  <ax-form-select :items="types" v-model="recipeStore.recipeCreate?.recipe?.recipe_type_id"></ax-form-select>
+                  <ax-form-select :items="types" v-model="recipeStore.recipeCreate.recipe.recipe_type_id"></ax-form-select>
                 </ax-form-field>
               </div>
             </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="tab-img hide-sm-down"></div>
       </div>
-    </ax-tab-item> -->
+    </ax-tab-item>
     <ax-tab-item class="p-3 h100" id="tab2">
       <IngredientSearch />
       <IngredientSearchTable />
@@ -110,36 +110,36 @@
     <ax-tab-item class="h100" id="tab4">
       <div class="p-4">
         <p class="font-s5">
-          {{ recipeStore.recipeCreate?.recipe?.name }}
+          {{ recipeStore.recipeCreate.recipe.name }}
         </p>
         <div class="">
           <ax-btn class="btn primary px-4 py-1 rounded-3 font-s2 mr-3 mb-3">{{
-            recipeCategoryStore.recipe_categories.find((rc) => rc.id === recipeStore.recipeCreate?.recipe?.recipe_category_id)?.category
+            recipeCategoryStore.recipe_categories.find((rc) => rc.id === recipeStore.recipeCreate.recipe.recipe_category_id)?.category
           }}</ax-btn>
           <ax-btn class="btn tertiary px-4 py-1 rounded-3 font-s2">{{
-            recipeTypeStore.recipe_types.find((rc) => rc.id === recipeStore.recipeCreate?.recipe?.recipe_type_id)?.type
+            recipeTypeStore.recipe_types.find((rc) => rc.id === recipeStore.recipeCreate.recipe.recipe_type_id)?.type
           }}</ax-btn>
         </div>
         <div class="grix xs2 md12 gutter-xs5 font-s3 mt-4">
           <div class="d-flex">
             <Icon icon="ic:outline-access-time" class="mr-2"></Icon>
-            <span>{{ recipeStore.recipeCreate?.recipe?.preparation_time }}</span>
+            <span>{{ recipeStore.recipeCreate.recipe.preparation_time }}</span>
           </div>
           <div class="d-flex">
             <Icon icon="icon-park-outline:cook" class="mr-2"></Icon>
-            <span>{{ recipeStore.recipeCreate?.recipe?.cooking_time }}</span>
+            <span>{{ recipeStore.recipeCreate.recipe.cooking_time }}</span>
           </div>
           <div class="d-flex">
             <Icon icon="mdi:flame" class="mr-2"></Icon>
-            <span>{{ recipeStore.recipeCreate?.recipe?.difficulty }}</span>
+            <span>{{ recipeStore.recipeCreate.recipe.difficulty }}</span>
           </div>
           <div class="d-flex">
             <Icon icon="mdi:users-group" class="mr-2"></Icon>
-            <span>{{ recipeStore.recipeCreate?.recipe?.eaters_amount }}</span>
+            <span>{{ recipeStore.recipeCreate.recipe.eaters_amount }}</span>
           </div>
         </div>
         <p class="pb-5">
-          {{ recipeStore.recipeCreate?.recipe?.description }}
+          {{ recipeStore.recipeCreate.recipe.description }}
         </p>
         <p class="font-s3 mt-5 text-primary">Ingrédients</p>
         <div class="divider white"></div>
@@ -163,8 +163,6 @@
         <ax-btn @click="recipeStore.createRecipe()" class="mt-3 d-block mx-auto rounded-2 primary">VALIDER</ax-btn>
       </div>
     </ax-tab-item>
-
-    <IngredientDetailModal type="create" />
   </ax-tab>
 </template>
 
@@ -176,7 +174,6 @@ import { useRecipeTypeStore } from '../stores/recipeTypes';
 import { useRecipeCategoryStore } from '../stores/recipeCategories';
 import IngredientSearch from './IngredientSearch.vue';
 import IngredientSearchTable from './IngredientSearchTable.vue';
-import IngredientDetailModal from './IngredientDetailModal.vue';
 
 const recipeStore = useRecipeStore();
 const recipeTypeStore = useRecipeTypeStore();
