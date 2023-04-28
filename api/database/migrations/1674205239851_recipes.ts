@@ -12,7 +12,7 @@ export default class extends BaseSchema {
       table.integer("cooking_time");
       table.enum("difficulty", [1, 2, 3, 4, 5]).defaultTo(1).notNullable();
       table.integer("eaters_amount");
-
+      table.text('image');
       // relations
       table.uuid("user_id").references("users.id").defaultTo('34353531-c3a0-4eb9-8b87-28cc3147c5f7');
       table.uuid("recipe_category_id").references("recipe_categories.id");

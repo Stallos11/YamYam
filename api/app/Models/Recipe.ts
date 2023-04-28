@@ -55,6 +55,9 @@ export default class Recipe extends BaseModel {
   public recipeTypeId: string;
 
   @column()
+  public image: string;
+
+  @column()
   public recipeCategoryId: string;
 
   @belongsTo(() => RecipeType)

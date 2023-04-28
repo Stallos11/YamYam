@@ -27,8 +27,8 @@ export default class RecipesController {
   public async insert({ request, response }: HttpContextContract) {
     const body = request.all();
 
-    console.log('body', body)
-    const recipe = await this.recipeRepository.insert(body);
+    const file = request.allFiles().recipe.recipe.image;
+    const recipe = await this.recipeRepository.insert(body, file);
 
     return response.ok(recipe);
   }

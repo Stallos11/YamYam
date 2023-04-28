@@ -2,6 +2,7 @@ import { inject } from "@adonisjs/core/build/standalone";
 import Database from "@ioc:Adonis/Lucid/Database";
 import Instruction from "App/Models/Instruction";
 import Recipe from "App/Models/Recipe";
+import fs from "fs";
 
 @inject()
 export default class RecipeRepository {
@@ -60,9 +61,10 @@ export default class RecipeRepository {
         return +times[0] * 3600 + +times[1] * 60;
     }
 
-    public async insert(_body) {
+    public async insert(_body, _file) {
         try {
-            const recipe = await this.createRecipe(_body.recipe.recipe);
+            console.log('body', _body)
+            const recipe = await this.createRecipe(_body.recipe.recipe, _file);
 
             await this.createRecipeInstructions(recipe.id, _body.recipe.instructions);
             await this.createRecipeIngredients(recipe, _body.recipe.ingredients)
@@ -73,18 +75,23 @@ export default class RecipeRepository {
         }
     }
 
-    private async createRecipe(_recipe) {
+    private async createRecipe(_recipe, _file) {
         try {
             const recipe = new Recipe();
+
+            const data = await fs.promises.readFile(_file.tmpPath)
+            const base64 =  data.toString('base64')
 
             _recipe.preparationTime = this.convertToSeconds(_recipe.preparation_time);
             _recipe.cookingTime = this.convertToSeconds(_recipe.cooking_time);
             _recipe.eatersAmount = +_recipe.eaters_amount
+            _recipe.image = base64;
 
             await recipe.fill(_recipe).save();
 
             return recipe
         } catch (err) {
+            console.error('eer', err)
             return err
         }
     }
