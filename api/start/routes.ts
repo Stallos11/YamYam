@@ -25,6 +25,7 @@ import "./routes/recipe_types";
 import "./routes/favourites";
 import "./routes/recipes";
 import "./routes/users";
+import "./routes/tickets";
 import "./routes/ingredients";
 
 Route.get("/", async () => {

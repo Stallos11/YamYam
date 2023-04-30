@@ -13,7 +13,7 @@ interface State {
 
 export const useRecipeCategoryStore = defineStore("recipe-category", {
   state: (): State => ({
-    isLoading: true,
+    isLoading: false,
     recipe_categories: [],
     isModalOpened: false,
     isModalDeleteOpened: false,

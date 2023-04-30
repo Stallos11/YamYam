@@ -16,17 +16,21 @@
 
       <ax-form @submit.prevent="submit" class="mt-4">
         <ax-form-field label="Title">
-          <ax-form-control tag="input" v-model="title" type="text"></ax-form-control>
+          <ax-form-control tag="input" :rules=[required] v-model="ticketStore.ticketCreate.title" type="text"></ax-form-control>
         </ax-form-field>
 
         <ax-form-field label="Messsage">
-          <ax-form-control v-model="message" tag="textarea">Message</ax-form-control>
+          <ax-form-control :rules=[required] v-model="ticketStore.ticketCreate.message" tag="textarea">Message</ax-form-control>
         </ax-form-field>
 
         <ax-btn class="primary d-flex rounded-1 mx-auto mt-3" size="small">
           <Icon class="mr-1" icon="material-symbols:mail-outline" width="20" /> Send
         </ax-btn>
       </ax-form>
+    </div>
+
+    <div class="my-5 d-flex fx-center">
+      <router-link class="py-2 px-5 rounded-2 tertiary mx-auto text-white" to="/tickets">Show my tickets</router-link>
     </div>
 
     <ax-btn @click.prevent="authStore.logout" class="red dark-1 d-flex rounded-1 mx-auto mt-3" size="small">
@@ -36,16 +40,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useAuthStore } from '../stores/auth';
+import { useTicketstore } from '../stores/ticket';
+import { required } from '../utils/validation';
 
 const authStore = useAuthStore();
+const ticketStore = useTicketstore();
 
-const title = ref('');
-const message = ref('');
 
-const submit = () => {
-  console.log({ title: title.value, message: message.value });
+const submit = async () => {
+  await ticketStore.createTicket();
+
 };
 </script>
 

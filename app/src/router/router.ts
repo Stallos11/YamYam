@@ -77,6 +77,12 @@ const routes: Array<RouteRecordRaw> = [
     name: 'recipe-details',
     meta: { title: 'Recipe details' },
   },
+  {
+    path: '/tickets',
+    component: () => import('../views/Ticket.vue'),
+    name: 'tickets',
+    meta: { title: 'Tickets' },
+  },
 ];
 
 export const router = createRouter({

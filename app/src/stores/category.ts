@@ -9,7 +9,7 @@ interface State {
 
 export const useCategoryStore = defineStore('category', {
   state: (): State => ({
-    isLoading: true,
+    isLoading: false,
     categories: [],
   }),
   actions: {

@@ -9,7 +9,7 @@ interface State {
 
 export const useTypeStore = defineStore('type', {
   state: (): State => ({
-    isLoading: true,
+    isLoading: false,
     types: [],
   }),
   actions: {

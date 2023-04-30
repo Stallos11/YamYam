@@ -12,7 +12,7 @@ export interface IRecipeCategory {
 
 export const useRecipeCategoryStore = defineStore('recipe-category', {
   state: (): State => ({
-    isLoading: true,
+    isLoading: false,
     recipe_categories: [],
   }),
   actions: {

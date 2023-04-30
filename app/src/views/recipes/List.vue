@@ -20,7 +20,7 @@
       </ax-collapsible>
 
       <div class="container mt-4">
-        <div v-for="recipe in    recipeStore.recipes   "
+        <div v-for="recipe in recipeStore.recipes"
           class="recipe-card relative-pos grey light-4 light-shadow-2 rounded-1 my-2 mx-3">
           <ax-btn class="like-btn d-flex vcenter fx-center absolute-pos transparent text-white" size="" circle>
             <Icon icon="ri:heart-add-line" width="30" />
@@ -32,8 +32,7 @@
           <div class="rounded-tl1 rounded-tr1 rounded-bl3 rounded-br3 shadow-3" style="
               min-height: 12rem;
               background-size: cover;
-              background-position: center;" 
-              :style="`background-image: url('data:image/png;base64, ${recipe.image}')`">
+              background-position: center;" :style="`background-image: url('data:image/png;base64, ${recipe.image}')`">
           </div>
 
           <div class="p-3">

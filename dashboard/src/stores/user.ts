@@ -26,7 +26,7 @@ interface State {
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
-    isLoading: true,
+    isLoading: false,
     users: [],
     isModalOpened: false,
     isModalDeleteOpened: false,

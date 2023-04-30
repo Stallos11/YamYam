@@ -40,7 +40,7 @@ interface IRecipeCreate {
 
 export const useRecipeStore = defineStore('recipe', {
   state: (): State => ({
-    isLoading: true,
+    isLoading: false,
     recipes: [],
     recipeCreate: {
       recipe: {

@@ -13,7 +13,7 @@ interface State {
 
 export const useRecipeTypeStore = defineStore("recipe-type", {
   state: (): State => ({
-    isLoading: true,
+    isLoading: false,
     recipe_types: [],
     isModalOpened: false,
     isModalDeleteOpened: false,
