@@ -11,6 +11,7 @@ export interface IRecipe {
   userId: string;
   recipe_type_id: string;
   recipe_category_id: string;
+  image: any;
 }
 
 export const recipeTableHeaders: Header[] = [

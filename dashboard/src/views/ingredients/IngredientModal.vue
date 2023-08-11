@@ -45,12 +45,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{{ +ingredientStore.selectedIngredient.nutriments['energy-kcal'].toFixed(2) }}</td>
-              <td>{{ +ingredientStore.selectedIngredient.nutriments.fat.toFixed(2) }}</td>
-              <td>{{ +ingredientStore.selectedIngredient.nutriments.carbohydrates.toFixed(2) }}</td>
-              <td>{{ +ingredientStore.selectedIngredient.nutriments.proteins.toFixed(2) }}</td>
-              <td>{{ +ingredientStore.selectedIngredient.nutriments.fiber.toFixed(2) }}</td>
+            <tr v-if="ingredientStore.selectedIngredient.id">
+              <td>{{ +ingredientStore.selectedIngredient.openfoodfact.nutriments['energy-kcal'].toFixed(2) }}</td>
+              <td>{{ +ingredientStore.selectedIngredient.openfoodfact.nutriments.fat.toFixed(2) }}</td>
+              <td>{{ +ingredientStore.selectedIngredient.openfoodfact.nutriments.carbohydrates.toFixed(2) }}</td>
+              <td>{{ +ingredientStore.selectedIngredient.openfoodfact.nutriments.proteins.toFixed(2) }}</td>
+              <td>{{ +ingredientStore.selectedIngredient.openfoodfact.nutriments.fiber.toFixed(2) }}</td>
             </tr>
           </tbody>
         </table>

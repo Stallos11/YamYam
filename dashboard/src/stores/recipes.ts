@@ -66,6 +66,7 @@ export const useRecipeStore = defineStore("recipe", {
         recipe_category_id: "",
         recipe_type_id: "",
         userId: "",
+        image: null
       },
       ingredients: [],
       instructions: [],
@@ -122,6 +123,10 @@ export const useRecipeStore = defineStore("recipe", {
       this.axios
         .post("recipes", {
           recipe: this.recipeCreate,
+        }, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         })
         .then((res) => {
           this.recipes.push(res.data);
@@ -138,6 +143,7 @@ export const useRecipeStore = defineStore("recipe", {
               recipe_category_id: "",
               recipe_type_id: "",
               userId: "",
+              image: null
             },
             ingredients: [],
             instructions: [],
