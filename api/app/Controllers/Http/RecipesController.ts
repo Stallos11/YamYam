@@ -1,6 +1,7 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import RecipeRepository from "App/Repositories/RecipeRepository";
 import { inject } from "@adonisjs/core/build/standalone";
+import Setting from "App/Models/Setting";
 
 @inject()
 export default class RecipesController {
@@ -26,9 +27,14 @@ export default class RecipesController {
 
   public async insert({ request, response }: HttpContextContract) {
     const body = request.all();
-    console.log('logfilllleesss', request.allFiles())
-    const file = request.allFiles().recipe.recipe.image;
-    const recipe = await this.recipeRepository.insert(body, file);
+    const defimg = (await Setting.firstOrFail()).defaultRecipeImage;
+
+    let file = null;
+    if(request.allFiles().recipe){
+      file = request.allFiles().recipe.recipe.image;
+    }
+
+    const recipe = await this.recipeRepository.insert(body, file || defimg);
 
     return response.ok(recipe);
   }
