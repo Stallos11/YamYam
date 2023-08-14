@@ -17,7 +17,7 @@ export const useTicketStore = defineStore("tickets", {
   }),
 
   actions: {
-    getTicket(id: string) {
+    async getTicket(id: string) {
       this.isLoading = true
 
       this.axios
@@ -28,7 +28,7 @@ export const useTicketStore = defineStore("tickets", {
         .catch((err) => console.error(err))
         .finally(() => this.isLoading = false);
     },
-    getTicketResponses(id: string) {
+    async getTicketResponses(id: string) {
       this.isLoading = true
 
       this.axios
@@ -50,7 +50,7 @@ export const useTicketStore = defineStore("tickets", {
         .catch((err) => console.error(err))
         .finally(() => this.isLoading = false);
     },
-    insertResponse(msg: string) {
+    async insertResponse(msg: string) {
       this.isLoading = true;
 
       this.axios

@@ -4,11 +4,12 @@
         <p>{{ ticketStore.selectedTicket.status }}</p>
         <p>{{ ticketStore.selectedTicket.title }}</p>
 
-        <div class="conv px-5">
+        <div @update="test" ref="conv" class="conv px-5">
             <div class="grey dark-1 p-3 rounded-2 my-2 light-shadow-2 mr-5">
                 <p>{{ ticketStore.selectedTicket.message }}</p>
-                <p class="text-right font-s1 mb-0">{{ new Date(ticketStore.selectedTicket.created_at).toLocaleTimeString() + ' ' + new
-                    Date(ticketStore.selectedTicket.created_at).toLocaleDateString() }}</p>
+                <p class="text-right font-s1 mb-0">{{ new Date(ticketStore.selectedTicket.created_at).toLocaleTimeString() +
+                    ' ' + new
+                        Date(ticketStore.selectedTicket.created_at).toLocaleDateString() }}</p>
             </div>
 
             <div v-for="response in ticketStore.selectedTicketResponses"
@@ -32,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, onMounted, ref } from 'vue';
 import { useTicketStore } from "../../stores/tickets";
 import { useAuthStore } from "../../stores/auth";
 import { useErrorStore } from "../../stores/error";
@@ -44,20 +45,33 @@ const toastStore = useErrorStore()
 const route = useRoute();
 
 const response = ref('');
+const conv = ref();
 
-onBeforeMount(() => {
+
+onMounted(() => {
     ticketStore.getTicket(route.params.id as string)
     ticketStore.getTicketResponses(route.params.id as string)
+
+    setTimeout(() => {
+        conv.value.scrollTop = conv.value.scrollHeight
+        response.value = '';
+    }, 300)
 })
 
-const sendResponse = () => {
-    if (response.value.length < 3) {
+const sendResponse = async () => {
+    if (response.value.length < 2) {
         toastStore.setError('Invalid response')
         return;
     }
-    ticketStore.insertResponse(response.value)
-    response.value = '';
+
+    await ticketStore.insertResponse(response.value)
+
+    setTimeout(() => {
+        conv.value.scrollTop = conv.value.scrollHeight
+        response.value = '';
+    }, 300)
 }
+
 
 </script>
 
@@ -65,5 +79,6 @@ const sendResponse = () => {
 .conv {
     max-height: 60vh;
     overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 </style>
