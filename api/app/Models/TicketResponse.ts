@@ -6,37 +6,29 @@ import {
   BelongsTo,
   belongsTo,
   column,
-  HasMany,
-  hasMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import User from "./User";
 import Config from "@ioc:Adonis/Core/Config";
-import TicketResponse from "./TicketResponse";
+import Ticket from "./Ticket";
 
-export default class Ticket extends BaseModel {
+export default class TicketResponse extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
-
-  @column()
-  public title: string;
 
   @column()
   public message: string;
 
   @column()
-  public status: 'in progress' | 'closed';
-
-  @column()
-  public priority: 'low' | 'medium' | 'high';
-
-  @column()
   public userId: string;
+
+  @column()
+  public ticketId: string;
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>;
 
-  @hasMany(() => TicketResponse)
-  public responses: HasMany<typeof TicketResponse>;
+  @belongsTo(() => Ticket)
+  public ticket: BelongsTo<typeof Ticket>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
@@ -45,7 +37,7 @@ export default class Ticket extends BaseModel {
   public updatedAt: DateTime;
 
   @beforeCreate()
-  public static async createUUID(ticket: Ticket) {
-    if (Config.get("app.enableUuidGeneration")) ticket.id = uuidv4();
+  public static async createUUID(ticketResponse: TicketResponse) {
+    if (Config.get("app.enableUuidGeneration")) ticketResponse.id = uuidv4();
   }
 }

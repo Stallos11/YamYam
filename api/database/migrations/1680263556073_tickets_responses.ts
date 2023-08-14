@@ -1,17 +1,14 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
 export default class extends BaseSchema {
-  protected tableName = "tickets";
+  protected tableName = "ticket_responses";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
-      table.string("title");
       table.text("message");
-      table.enum('status', ['in progress', 'closed']).notNullable();
-      table.enum('priority', ['low', 'medium', 'high']).nullable();
-
       table.uuid("user_id").references("users.id");
+      table.uuid("ticket_id").references("tickets.id");
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

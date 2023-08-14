@@ -14,7 +14,7 @@ export const useErrorStore = defineStore('error', {
       this.error = error;
       if (!useAuthStore().isLoggedIn && !forceToast) return;
 
-      this.toast.showToast('Error', error, 'red', '');
+      this.toast.showToast('Error', error, 'red', 'black');
     },
   },
 });

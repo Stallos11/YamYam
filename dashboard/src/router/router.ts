@@ -108,6 +108,19 @@ const routes: Array<RouteRecordRaw> = [
     name: "ingredients-create",
     meta: { title: "Ingredient create" },
   },
+  // Tickets
+  {
+    path: "/tickets/",
+    component: () => import("../views/tickets/List.vue"),
+    name: "tickets",
+    meta: { title: "Tickets" },
+  },
+  {
+    path: "/tickets/:id",
+    component: () => import("../views/tickets/Ticket.vue"),
+    name: "tickets-edit",
+    meta: { title: "Tickets edit" },
+  },
 ];
 
 export const router = createRouter({

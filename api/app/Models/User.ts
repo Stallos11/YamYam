@@ -12,6 +12,7 @@ import {
 import Favourite from "./Favourite";
 import Recipe from "./Recipe";
 import Config from "@ioc:Adonis/Core/Config";
+import Ticket from "./Ticket";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -40,6 +41,9 @@ export default class User extends BaseModel {
 
   @hasMany(() => Recipe)
   public recipes: HasMany<typeof Recipe>;
+
+  @hasMany(() => Ticket)
+  public tickets: HasMany<typeof Ticket>;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

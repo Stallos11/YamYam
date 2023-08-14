@@ -1,20 +1,11 @@
 <template>
-  <div
-    :class="authStore.isLoggedIn ? 'layout-under-navbar' : 'layout'"
-    class="bg-dark"
-  >
+  <div :class="authStore.isLoggedIn ? 'layout-under-navbar' : 'layout'" class="bg-dark">
     <header>
       <div v-if="authStore.isLoggedIn" class="navbar-fixed">
         <nav class="navbar">
           <router-link class="sidenav-brand" to="/">Home</router-link>
           <div class="navbar-menu ml-auto">
-            <a class="navbar-link" href="#">Link 1</a>
-            <a
-              v-if="authStore.isLoggedIn"
-              @click="authStore.logout()"
-              class="navbar-link"
-              href="#"
-            >
+            <a v-if="authStore.isLoggedIn" @click="authStore.logout()" class="navbar-link" href="#">
               <Icon class="" icon="fa-solid:power-off" size="50"></Icon>
             </a>
           </div>
@@ -22,24 +13,14 @@
       </div>
     </header>
 
-    <ax-sidenav
-      v-if="authStore.isLoggedIn"
-      v-model="isSidenavOpened"
-      class="sidenav-fixed shadow-1"
-    >
+    <ax-sidenav v-if="authStore.isLoggedIn" v-model="isSidenavOpened" class="sidenav-fixed shadow-1">
       <!-- Users -->
       <div>
-        <ax-btn
-          class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
-          @click="isUserCollapsibleOpened = !isUserCollapsibleOpened"
-        >
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
+          @click="isUserCollapsibleOpened = !isUserCollapsibleOpened">
           <Icon class="mr-2" icon="heroicons:users-20-solid" size="50"></Icon>
           Users
-          <Icon
-            class="ml-auto"
-            icon="ic:round-keyboard-arrow-right"
-            size="50"
-          ></Icon>
+          <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
         </ax-btn>
         <ax-collapsible v-model="isUserCollapsibleOpened">
           <div class="">
@@ -49,109 +30,79 @@
       </div>
       <!-- Recipes -->
       <div>
-        <ax-btn
-          class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
-          @click="isRecipeCollapsibleOpened = !isRecipeCollapsibleOpened"
-        >
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
+          @click="isRecipeCollapsibleOpened = !isRecipeCollapsibleOpened">
           <Icon class="mr-2" icon="mdi:cook" size="50"></Icon>
           Recipes
-          <Icon
-            class="ml-auto"
-            icon="ic:round-keyboard-arrow-right"
-            size="50"
-          ></Icon>
+          <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
         </ax-btn>
         <ax-collapsible v-model="isRecipeCollapsibleOpened">
           <div class="">
             <router-link class="sidenav-link" to="/recipes">List</router-link>
-            <router-link class="sidenav-link" to="/recipes/create"
-              >Create</router-link
-            >
+            <router-link class="sidenav-link" to="/recipes/create">Create</router-link>
           </div>
         </ax-collapsible>
       </div>
       <!-- Recipes Types -->
       <div>
-        <ax-btn
-          class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
-          @click="
-            isRecipeTypeCollapsibleOpened = !isRecipeTypeCollapsibleOpened
-          "
-        >
-          <Icon
-            class="mr-2"
-            icon="mdi:format-list-bulleted-type"
-            size="50"
-          ></Icon>
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter" @click="
+          isRecipeTypeCollapsibleOpened = !isRecipeTypeCollapsibleOpened
+          ">
+          <Icon class="mr-2" icon="mdi:format-list-bulleted-type" size="50"></Icon>
           Types
-          <Icon
-            class="ml-auto"
-            icon="ic:round-keyboard-arrow-right"
-            size="50"
-          ></Icon>
+          <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
         </ax-btn>
         <ax-collapsible v-model="isRecipeTypeCollapsibleOpened">
           <div class="">
-            <router-link class="sidenav-link" to="/recipe-types"
-              >List</router-link
-            >
-            <router-link class="sidenav-link" to="/recipe-types/create"
-              >Create</router-link
-            >
+            <router-link class="sidenav-link" to="/recipe-types">List</router-link>
+            <router-link class="sidenav-link" to="/recipe-types/create">Create</router-link>
           </div>
         </ax-collapsible>
       </div>
       <!-- Recipes Types -->
       <div>
-        <ax-btn
-          class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
-          @click="
-            isRecipeCategoryCollapsibleOpened =
-              !isRecipeCategoryCollapsibleOpened
-          "
-        >
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter" @click="
+          isRecipeCategoryCollapsibleOpened =
+          !isRecipeCategoryCollapsibleOpened
+          ">
           <Icon class="mr-2" icon="material-symbols:category" size="50"></Icon>
           Categories
-          <Icon
-            class="ml-auto"
-            icon="ic:round-keyboard-arrow-right"
-            size="50"
-          ></Icon>
+          <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
         </ax-btn>
         <ax-collapsible v-model="isRecipeCategoryCollapsibleOpened">
           <div class="">
-            <router-link class="sidenav-link" to="/recipe-categories"
-              >List</router-link
-            >
-            <router-link class="sidenav-link" to="/recipe-categories/create"
-              >Create</router-link
-            >
+            <router-link class="sidenav-link" to="/recipe-categories">List</router-link>
+            <router-link class="sidenav-link" to="/recipe-categories/create">Create</router-link>
           </div>
         </ax-collapsible>
       </div>
       <div>
-        <ax-btn
-          class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
-          @click="
-            isIngredientCollapsibleOpened = !isIngredientCollapsibleOpened
-          "
-        >
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter" @click="
+          isIngredientCollapsibleOpened = !isIngredientCollapsibleOpened
+          ">
           <Icon class="mr-2" icon="material-symbols:category" size="50"></Icon>
           Ingredients
-          <Icon
-            class="ml-auto"
-            icon="ic:round-keyboard-arrow-right"
-            size="50"
-          ></Icon>
+          <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
         </ax-btn>
         <ax-collapsible v-model="isIngredientCollapsibleOpened">
           <div class="">
-            <router-link class="sidenav-link" to="/ingredients"
-              >List</router-link
-            >
-            <router-link class="sidenav-link" to="/ingredients/create"
-              >Create</router-link
-            >
+            <router-link class="sidenav-link" to="/ingredients">List</router-link>
+            <router-link class="sidenav-link" to="/ingredients/create">Create</router-link>
+          </div>
+        </ax-collapsible>
+      </div>
+      <!-- Tickets -->
+      <div>
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter" @click="
+          isTicketCollapsibleOpened = !isTicketCollapsibleOpened
+          ">
+          <Icon class="mr-2" icon="material-symbols:category" size="50"></Icon>
+          Tickets
+          <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
+        </ax-btn>
+        <ax-collapsible v-model="isTicketCollapsibleOpened">
+          <div class="">
+            <router-link class="sidenav-link" to="/tickets">List</router-link>
           </div>
         </ax-collapsible>
       </div>
@@ -173,9 +124,10 @@ import Pwa from "./components/Pwa.vue";
 const isSidenavOpened = ref(false),
   isUserCollapsibleOpened = ref(false),
   isRecipeCollapsibleOpened = ref(false),
+  isTicketCollapsibleOpened = ref(false),
   isRecipeTypeCollapsibleOpened = ref(false),
-  isRecipeCategoryCollapsibleOpened = ref(false),
-  isIngredientCollapsibleOpened = ref(false);
+  isIngredientCollapsibleOpened = ref(false),
+  isRecipeCategoryCollapsibleOpened = ref(false);
 
 const authStore = useAuthStore();
 </script>
@@ -189,6 +141,7 @@ body::-webkit-scrollbar {
 .scale-leave-active {
   transition: all 0.5s ease;
 }
+
 .scale-enter-from,
 .scale-leave-to {
   opacity: 0;
@@ -223,7 +176,7 @@ $axentix-palette: (
 @import "@axentix/vue/dist/vue3/vue-axentix.css";
 
 // Forms hack
-.grix > .form-field {
+.grix>.form-field {
   margin-top: 0.5rem !important;
 }
 
