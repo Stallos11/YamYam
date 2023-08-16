@@ -16,11 +16,13 @@
 
       <ax-form @submit.prevent="submit" class="mt-4">
         <ax-form-field label="Title">
-          <ax-form-control tag="input" :rules=[required] v-model="ticketStore.ticketCreate.title" type="text"></ax-form-control>
+          <ax-form-control tag="input" :rules=[required] v-model="ticketStore.ticketCreate.title"
+            type="text"></ax-form-control>
         </ax-form-field>
 
         <ax-form-field label="Messsage">
-          <ax-form-control :rules=[required] v-model="ticketStore.ticketCreate.message" tag="textarea">Message</ax-form-control>
+          <ax-form-control :rules=[required] v-model="ticketStore.ticketCreate.message"
+            tag="textarea">Message</ax-form-control>
         </ax-form-field>
 
         <ax-btn class="primary d-flex rounded-1 mx-auto mt-3" size="small">
@@ -41,11 +43,11 @@
 
 <script setup lang="ts">
 import { useAuthStore } from '../stores/auth';
-import { useTicketstore } from '../stores/ticket';
+import { useTicketStore } from '../stores/ticket';
 import { required } from '../utils/validation';
 
 const authStore = useAuthStore();
-const ticketStore = useTicketstore();
+const ticketStore = useTicketStore();
 
 
 const submit = async () => {

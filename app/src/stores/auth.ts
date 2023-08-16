@@ -16,7 +16,7 @@ interface State {
 
 export const useAuthStore = defineStore('auth', {
   persist: {
-    storage: sessionStorage,
+    storage: localStorage,
   },
   state: (): State => ({
     isLoading: false,

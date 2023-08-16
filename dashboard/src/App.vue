@@ -3,7 +3,7 @@
     <header>
       <div v-if="authStore.isLoggedIn" class="navbar-fixed">
         <nav class="navbar">
-          <router-link class="sidenav-brand" to="/">Home</router-link>
+          <router-link class="sidenav-brand ml-3" to="/">Dashboard</router-link>
           <div class="navbar-menu ml-auto">
             <a v-if="authStore.isLoggedIn" @click="authStore.logout()" class="navbar-link" href="#">
               <Icon class="" icon="fa-solid:power-off" size="50"></Icon>
@@ -16,7 +16,7 @@
     <ax-sidenav v-if="authStore.isLoggedIn" v-model="isSidenavOpened" class="sidenav-fixed shadow-1">
       <!-- Users -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3"
           @click="isUserCollapsibleOpened = !isUserCollapsibleOpened">
           <Icon class="mr-2" icon="heroicons:users-20-solid" size="50"></Icon>
           Users
@@ -30,7 +30,7 @@
       </div>
       <!-- Recipes -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter"
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3"
           @click="isRecipeCollapsibleOpened = !isRecipeCollapsibleOpened">
           <Icon class="mr-2" icon="mdi:cook" size="50"></Icon>
           Recipes
@@ -45,7 +45,7 @@
       </div>
       <!-- Recipes Types -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter" @click="
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3" @click="
           isRecipeTypeCollapsibleOpened = !isRecipeTypeCollapsibleOpened
           ">
           <Icon class="mr-2" icon="mdi:format-list-bulleted-type" size="50"></Icon>
@@ -61,11 +61,11 @@
       </div>
       <!-- Recipes Types -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter" @click="
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3" @click="
           isRecipeCategoryCollapsibleOpened =
           !isRecipeCategoryCollapsibleOpened
           ">
-          <Icon class="mr-2" icon="material-symbols:category" size="50"></Icon>
+          <Icon class="mr-2" icon="iconamoon:category-light" size="50"></Icon>
           Categories
           <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
         </ax-btn>
@@ -77,10 +77,10 @@
         </ax-collapsible>
       </div>
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter" @click="
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3" @click="
           isIngredientCollapsibleOpened = !isIngredientCollapsibleOpened
           ">
-          <Icon class="mr-2" icon="material-symbols:category" size="50"></Icon>
+          <Icon class="mr-2" icon="fluent:bowl-salad-20-regular" size="50"></Icon>
           Ingredients
           <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
         </ax-btn>
@@ -93,10 +93,10 @@
       </div>
       <!-- Tickets -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter" @click="
+        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3" @click="
           isTicketCollapsibleOpened = !isTicketCollapsibleOpened
           ">
-          <Icon class="mr-2" icon="material-symbols:category" size="50"></Icon>
+          <Icon class="mr-2" icon="ion:ticket-outline" size="50"></Icon>
           Tickets
           <Icon class="ml-auto" icon="ic:round-keyboard-arrow-right" size="50"></Icon>
         </ax-btn>
@@ -133,6 +133,10 @@ const authStore = useAuthStore();
 </script>
 
 <style lang="scss">
+:root {
+  --ax-sidenav-width: 15rem !important;
+}
+
 body::-webkit-scrollbar {
   display: none;
 }

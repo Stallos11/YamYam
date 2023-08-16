@@ -16,6 +16,23 @@ export const registerAuthMiddleware = (axios: Axios) => {
     return true;
   });
 
+  axios.interceptors.request.use(
+    function (config) {
+      const authStore = useAuthStore();
+      const token = authStore.token?.token;
+
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      return config;
+    },
+
+    function (error) {
+      return Promise.reject(error);
+    }
+  );
+
   axios.interceptors.response.use(
     function (response) {
       return response;

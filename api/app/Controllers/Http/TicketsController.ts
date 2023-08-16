@@ -6,6 +6,23 @@ export default class TicketsController {
   public async index({ response }) {
     const tickets = await Ticket.all();
 
+    const data = await Promise.all(tickets.map(async (ticket) => {
+      await ticket.load('user');
+
+      return {
+        id: ticket.id,
+        title: ticket.title,
+        user: ticket.user.email,
+        created_at: ticket.createdAt,
+        status: ticket.status
+      }
+    }))
+
+    return response.ok(data);
+  }
+
+  public async getTicketsByUser({ auth, response }) {
+    const tickets = await Ticket.query().where('user_id', auth.user.id);
     return response.ok(tickets);
   }
 
@@ -26,7 +43,10 @@ export default class TicketsController {
   }
 
   public async insertResponse({ auth, request, response }: HttpContextContract) {
+    const ticket = await Ticket.findOrFail(request.params().id);
 
+    if (ticket.status != 'in progress') return response.badRequest({ msg: 'Ticket already closed' });
+    
     const ticketResponse = new TicketResponse();
 
     ticketResponse.ticketId = request.params().id;
@@ -62,7 +82,7 @@ export default class TicketsController {
     const body = request.all();
 
     await Ticket.query().where("id", params.id).update({
-      type: body.type,
+      status: body.status,
     });
 
     const ticket = await Ticket.find(params.id);

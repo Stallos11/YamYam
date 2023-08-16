@@ -3,29 +3,21 @@
     <p class="font-s5 bd-b bd-b-solid bd-white pb-3">My tickets</p>
 
     <div v-if="!ticketStore.isLoading" class="d-flex fx-col">
-      <div v-for="ticket in ticketStore.tickets" :key="ticket.id" class="mb-5">
-        <ax-btn class="primary rounded-1 shadow-1" @click="showCollapsible(ticket.id as string)">
-          {{ ticket.title }}
-        </ax-btn>
-
-        <ax-collapsible v-model="(collapsibles.find(col => col.id === (ticket.id)) as ICollapsible).isOpened">
-          <div class="p-3 my-2 rounded-1 grey light-4">
-            <p class="my-1 text-tertiary font-s2 font-w600 bd-b-solid bd-1 bd-tertiary mb-4">
-              Status: {{ ticket.status }}
+      <div v-for="ticket in ticketStore.tickets" :key="ticket.id"
+        class="card shadow-1 rounded-bl2 rounded-br2 mb-5 white">
+        <div class="ticket-card card-content rounded-bl3 rounded-br3 shadow-2 mb-2">
+          <p class="mt-0 mb-2 font-s3 text-white truncate">{{ ticket.title }}</p>
+          <div class="d-flex mb-1">
+            <p class="mt-0 text-grey text-light-1 font-s2">
+              {{ ticket.status }}
             </p>
-
-            <div class="mb-3">
-              {{ ticket.message }}
-            </div>
-
-            <div v-if="ticket.response">
-              <p class="my-1 text-tertiary font-s2 font-w600 bd-b-solid bd-1 bd-tertiary mb-4">
-                Answer:
-              </p>
-              {{ ticket.response }}
-            </div>
+            <p class="ml-auto text-grey text-light-1">{{ new Date(ticket.created_at).toLocaleDateString() }}</p>
           </div>
-        </ax-collapsible>
+        </div>
+
+        <div class="card-footer p-0">
+          <router-link :to="`tickets/${ticket.id}`" class="btn btn-small d-block w100">Show</router-link>
+        </div>
       </div>
     </div>
     <Icon v-else icon="eos-icons:bubble-loading" width="40" class="text-white" />
@@ -34,14 +26,15 @@
 
 <script setup lang="ts">
 import { Ref, onMounted, ref } from 'vue';
-import { useTicketstore } from '../stores/ticket';
+import { useTicketStore } from '../../stores/ticket';
 
-const ticketStore = useTicketstore();
+const ticketStore = useTicketStore();
 
 interface ICollapsible {
   id: string,
   isOpened: boolean
 }
+
 
 //@ts-ignore
 const collapsibles: Ref<ICollapsible[]> = ref([])
@@ -79,4 +72,9 @@ const showCollapsible = (id: string) => {
 
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.ticket-card {
+  background-color: #292929;
+
+}
+</style>

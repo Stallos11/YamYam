@@ -6,4 +6,5 @@ export interface ITicket {
   userId?: string;
   response: string;
   priority?: string;
+  created_at?: any;
 }

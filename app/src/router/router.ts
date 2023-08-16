@@ -79,9 +79,15 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/tickets',
-    component: () => import('../views/Ticket.vue'),
+    component: () => import('../views/tickets/Ticket.vue'),
     name: 'tickets',
     meta: { title: 'Tickets' },
+  },
+  {
+    path: '/tickets/:id',
+    component: () => import('../views/tickets/TicketDetails.vue'),
+    name: 'tickets-details',
+    meta: { title: 'Ticket detail' },
   },
 ];
 

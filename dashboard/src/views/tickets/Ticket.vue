@@ -1,10 +1,15 @@
 <template>
     <div class="container">
-        <button @click="ticketStore.closeTicket(ticketStore.selectedTicket.id as string)" class="btn red">Close</button>
-        <p>{{ ticketStore.selectedTicket.status }}</p>
-        <p>{{ ticketStore.selectedTicket.title }}</p>
+        <div class="d-flex vcenter">
+            <div>
+                <h1>{{ ticketStore.selectedTicket.title }}</h1>
+                <p class="mt-0">Status: {{ ticketStore.selectedTicket.status }}</p>
+            </div>
+            <button v-if="ticketStore.selectedTicket.status == 'in progress'" @click="ticketStore.closeTicket(ticketStore.selectedTicket.id as string)"
+                class=" btn ml-auto rounded-2 px-3 py-1 red">Close</button>
+        </div>
 
-        <div @update="test" ref="conv" class="conv px-5">
+        <div ref="conv" class="conv px-5">
             <div class="grey dark-1 p-3 rounded-2 my-2 light-shadow-2 mr-5">
                 <p>{{ ticketStore.selectedTicket.message }}</p>
                 <p class="text-right font-s1 mb-0">{{ new Date(ticketStore.selectedTicket.created_at).toLocaleTimeString() +
@@ -33,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useTicketStore } from "../../stores/tickets";
 import { useAuthStore } from "../../stores/auth";
 import { useErrorStore } from "../../stores/error";

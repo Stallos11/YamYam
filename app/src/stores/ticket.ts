@@ -7,9 +7,11 @@ interface State {
   isLoading: boolean;
   tickets?: ITicket[];
   ticketCreate?: Omit<ITicket, 'id' | 'response'>
+  selectedTicket: any,
+  selectedTicketResponses: any,
 }
 
-export const useTicketstore = defineStore('tickets', {
+export const useTicketStore = defineStore('tickets', {
   state: (): State => ({
     isLoading: false,
     tickets: [],
@@ -17,18 +19,54 @@ export const useTicketstore = defineStore('tickets', {
       title: '',
       message: '',
       userId: '',
-    }
+    },
+    selectedTicket: {},
+    selectedTicketResponses: [],
   }),
   actions: {
+    async getTicket(id: string) {
+      this.isLoading = true
+
+      this.axios
+        .get(`tickets/${id}`)
+        .then((res) => {
+          this.selectedTicket = res.data.ticket
+        })
+        .catch((err) => console.error(err))
+        .finally(() => this.isLoading = false);
+    },
+    async getTicketResponses(id: string) {
+      this.isLoading = true
+
+      this.axios
+        .get(`tickets/${id}/responses`)
+        .then((res) => {
+          this.selectedTicketResponses = res.data.responses
+        })
+        .catch((err) => console.error(err))
+        .finally(() => this.isLoading = false);
+    },
+    async insertResponse(msg: string) {
+      this.isLoading = true;
+
+      this.axios
+        .post(`tickets/${this.selectedTicket.id}/responses`, {
+          msg,
+        })
+        .then(() => {
+          this.getTicketResponses(this.selectedTicket.id as string);
+        })
+        .catch((err) => console.error(err))
+        .finally(() => this.isLoading = false);
+    },
     async getTickets() {
       this.isLoading = true;
       const errorStore = useErrorStore();
-      const authStore = useAuthStore()
 
       return await this.axios
-        .get(`tickets/from/${authStore.user?.id}`)
+        .get(`tickets/from`)
         .then((res) => {
-          this.tickets = res.data.tickets;
+          this.tickets = res.data;
         })
         .catch((err) => {
           console.error(err);

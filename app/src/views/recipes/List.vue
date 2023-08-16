@@ -77,8 +77,7 @@ const categories = computed(() => {
 });
 
 const bg = computed(() => {
-  return (img) => {
-    console.log()
+  return (img:any) => {
     return `linear-gradient(0deg, rgba(150, 150, 150, 0) 0 %, rgba(0, 0, 0, 1) 100 %), url("data:image/png;base64, ${img}")`
   }
 })

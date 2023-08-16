@@ -79,6 +79,8 @@ export const useTicketStore = defineStore("tickets", {
             "bg-dark",
             "bg-dark"
           );
+
+          this.router.push('/tickets')
         })
         .catch((err) => console.error(err))
         .finally(() => this.isLoading = false);
