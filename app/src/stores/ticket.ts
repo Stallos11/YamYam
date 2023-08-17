@@ -6,9 +6,9 @@ import { useAuthStore } from './auth';
 interface State {
   isLoading: boolean;
   tickets?: ITicket[];
-  ticketCreate?: Omit<ITicket, 'id' | 'response'>
-  selectedTicket: any,
-  selectedTicketResponses: any,
+  ticketCreate?: Omit<ITicket, 'id' | 'response'>;
+  selectedTicket: any;
+  selectedTicketResponses: any;
 }
 
 export const useTicketStore = defineStore('tickets', {
@@ -25,26 +25,26 @@ export const useTicketStore = defineStore('tickets', {
   }),
   actions: {
     async getTicket(id: string) {
-      this.isLoading = true
+      this.isLoading = true;
 
       this.axios
         .get(`tickets/${id}`)
         .then((res) => {
-          this.selectedTicket = res.data.ticket
+          this.selectedTicket = res.data.ticket;
         })
         .catch((err) => console.error(err))
-        .finally(() => this.isLoading = false);
+        .finally(() => (this.isLoading = false));
     },
     async getTicketResponses(id: string) {
-      this.isLoading = true
+      this.isLoading = true;
 
       this.axios
         .get(`tickets/${id}/responses`)
         .then((res) => {
-          this.selectedTicketResponses = res.data.responses
+          this.selectedTicketResponses = res.data.responses;
         })
         .catch((err) => console.error(err))
-        .finally(() => this.isLoading = false);
+        .finally(() => (this.isLoading = false));
     },
     async insertResponse(msg: string) {
       this.isLoading = true;
@@ -57,7 +57,7 @@ export const useTicketStore = defineStore('tickets', {
           this.getTicketResponses(this.selectedTicket.id as string);
         })
         .catch((err) => console.error(err))
-        .finally(() => this.isLoading = false);
+        .finally(() => (this.isLoading = false));
     },
     async getTickets() {
       this.isLoading = true;
@@ -81,12 +81,13 @@ export const useTicketStore = defineStore('tickets', {
       const errorStore = useErrorStore();
       const authStore = useAuthStore();
 
+      if ((this.ticketCreate?.message?.length || 0) < 3 || (this.ticketCreate?.title?.length || 0) < 5) return;
       //@ts-ignore
-      this.ticketCreate.userId = authStore.user.id
+      this.ticketCreate.userId = authStore.user.id;
 
       return await this.axios
         .post('tickets', {
-          ticket: this.ticketCreate
+          ticket: this.ticketCreate,
         })
         .then((res) => {
           this.toast.showToast('Info', res.data.msg, 'blue', '');
@@ -98,10 +99,10 @@ export const useTicketStore = defineStore('tickets', {
         .finally(() => {
           this.ticketCreate = {
             title: '',
-            message: ''
-          }
+            message: '',
+          };
           this.isLoading = false;
         });
-    }
+    },
   },
 });

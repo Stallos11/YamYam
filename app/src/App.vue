@@ -118,7 +118,7 @@ body {
     position: absolute;
     top: -0.5rem;
     margin-bottom: 0;
-    background-color: getColor('bg-light');
+    background-color: getColor('bg-dark');
     z-index: 10;
     margin-left: 0.5rem;
     padding: 0 0.25rem;
@@ -179,7 +179,7 @@ body {
 
     p {
       color: getColor('grey', 'light', 3);
-      background-color: getColor('bg-light');
+      background-color: getColor('bg-dark');
       display: inline-block;
       position: relative;
       padding: 0 1.25rem;

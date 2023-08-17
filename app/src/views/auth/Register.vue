@@ -1,6 +1,6 @@
 <template>
   <div class="h100 d-flex fx-center vcenter auth-card">
-    <div class="card bg-light rounded-2 overflow-visible mt-5 light-shadow-4">
+    <div class="card bg-dark rounded-2 overflow-visible mt-5 light-shadow-4">
       <div class="robot"></div>
       <h1 class="card-header text-center my-2 font-s5 font-w500">Register</h1>
 

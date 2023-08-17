@@ -13,17 +13,24 @@
     <div ref="conv" class="conv px-2">
       <div class="grey dark-1 p-3 rounded-2 my-2 light-shadow-2 ml-5">
         <p>{{ ticketStore.selectedTicket.message }}</p>
-        <p class="text-right font-s1 mb-0">{{ new Date(ticketStore.selectedTicket.created_at).toLocaleTimeString() +
-          ' ' + new
-            Date(ticketStore.selectedTicket.created_at).toLocaleDateString() }}</p>
+        <p class="text-right font-s1 mb-0">
+          {{
+            new Date(ticketStore.selectedTicket.created_at).toLocaleTimeString() +
+            ' ' +
+            new Date(ticketStore.selectedTicket.created_at).toLocaleDateString()
+          }}
+        </p>
       </div>
 
-      <div v-for="response in ticketStore.selectedTicketResponses"
+      <div
+        v-for="response in ticketStore.selectedTicketResponses"
         :class="response.user_id == authStore.user?.id ? 'ml-5 grey dark-1' : 'mr-5 grey dark-4'"
-        class=" p-3 rounded-2 my-2 light-shadow-2">
+        class="p-3 rounded-2 my-2 light-shadow-2"
+      >
         <p>{{ response.message }}</p>
-        <p class="text-right font-s1 mb-0">{{ new Date(response.created_at).toLocaleTimeString() + ' ' + new
-          Date(response.created_at).toLocaleDateString() }}</p>
+        <p class="text-right font-s1 mb-0">
+          {{ new Date(response.created_at).toLocaleTimeString() + ' ' + new Date(response.created_at).toLocaleDateString() }}
+        </p>
       </div>
     </div>
 
@@ -40,48 +47,45 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { useTicketStore } from "../../stores/ticket";
-import { useAuthStore } from "../../stores/auth";
-import { useErrorStore } from "../../stores/error";
+import { useTicketStore } from '../../stores/ticket';
+import { useAuthStore } from '../../stores/auth';
+import { useErrorStore } from '../../stores/error';
 import { useRoute } from 'vue-router';
 
-const ticketStore = useTicketStore()
-const authStore = useAuthStore()
-const toastStore = useErrorStore()
+const ticketStore = useTicketStore();
+const authStore = useAuthStore();
+const toastStore = useErrorStore();
 const route = useRoute();
 
 const response = ref('');
 const conv = ref();
 
-
 onMounted(() => {
-  ticketStore.getTicket(route.params.id as string)
-  ticketStore.getTicketResponses(route.params.id as string)
+  ticketStore.getTicket(route.params.id as string);
+  ticketStore.getTicketResponses(route.params.id as string);
 
   setTimeout(() => {
-    conv.value.scrollTop = conv.value.scrollHeight
+    conv.value.scrollTop = conv.value.scrollHeight;
     response.value = '';
-  }, 300)
-})
+  }, 300);
+});
 
 const sendResponse = async () => {
   if (response.value.length < 2) {
-    toastStore.setError('Invalid response')
+    toastStore.setError('Invalid response');
     return;
   }
 
-  await ticketStore.insertResponse(response.value)
+  await ticketStore.insertResponse(response.value);
 
   setTimeout(() => {
-    conv.value.scrollTop = conv.value.scrollHeight
+    conv.value.scrollTop = conv.value.scrollHeight;
     response.value = '';
-  }, 300)
-}
-
-
+  }, 300);
+};
 </script>
 
-<style>
+<style lang="scss">
 .conv {
   max-height: 50vh;
   overflow-y: scroll;
