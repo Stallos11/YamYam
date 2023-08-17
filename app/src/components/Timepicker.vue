@@ -2,26 +2,20 @@
   <ax-form>
     <div class="time-field">
       <label>{{ props.label }}</label>
-      <VueTimepicker
-        @close="emitValue($event)"
-        class="mb-5 time-control"
-        close-on-complete
-        v-model="time"
-        :minute-interval="5"
-      />
+      <VueTimepicker @close="emitValue($event)" class="mb-3 time-control" close-on-complete v-model="time" :minute-interval="5" />
     </div>
   </ax-form>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from "vue";
+import { ref, defineProps } from 'vue';
 
-const props = defineProps(["label"]);
-const emit = defineEmits(["emitValue"]);
-const time = ref("");
+const props = defineProps(['label']);
+const emit = defineEmits(['emitValue']);
+const time = ref('');
 
 const emitValue = (a: any) => {
-  emit("emitValue", time.value);
+  emit('emitValue', time.value);
 };
 </script>
 
@@ -38,7 +32,7 @@ const emitValue = (a: any) => {
     position: absolute;
     top: -0.5rem;
     margin-bottom: 0;
-    background-color: #181818;
+    background-color: #313131;
     z-index: 10;
     margin-left: 0.5rem;
     padding: 0 0.25rem;

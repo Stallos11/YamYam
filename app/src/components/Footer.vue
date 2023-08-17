@@ -32,6 +32,7 @@
   background-color: #292929;
   height: 5rem;
   bottom: 0;
+  z-index: 999;
 
   .footer-inner {
     border: thin rgb(61, 61, 61) solid;
