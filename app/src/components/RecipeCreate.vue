@@ -150,28 +150,38 @@
             <span>{{ recipeStore.recipeCreate.recipe.eaters_amount }}</span>
           </div>
         </div>
+
         <p class="pb-5">
           {{ recipeStore.recipeCreate.recipe.description }}
         </p>
+
         <p class="font-s3 mt-5 text-primary">Ingrédients</p>
+
         <div class="divider white"></div>
+
         <div v-for="ingredient in recipeStore.recipeCreate?.ingredients" :key="ingredient.id" class="mt-5">
           <p class="mb-0">{{ ingredient.product_name }}</p>
+
           <p class="mt-0">
             <span>{{ ingredient.amount }}</span
             ><span>{{ ingredient.unit }}</span>
           </p>
         </div>
+
         <p class="font-s3 mt-5 text-primary">Instructions</p>
+
         <div class="divider white"></div>
+
         <div v-for="instruction in recipeStore.recipeCreate?.instructions" :key="instruction.id" class="mt-5">
           <p class="mb-0 font-s">
             {{ instruction.title }}
           </p>
+
           <p class="mt-1">
             {{ instruction.description }}
           </p>
         </div>
+
         <ax-btn @click="recipeStore.createRecipe()" class="mt-3 d-block mx-auto rounded-2 primary">VALIDER</ax-btn>
       </div>
     </ax-tab-item>
