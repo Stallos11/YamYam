@@ -10,22 +10,22 @@ export default class RecipesController {
   /**
    * @swagger
    * /recipes:
-   * get:
-   *     tags:
-   *      - Recipes
-   *    summary: Retrieve all recipes
-   *   description: Retrieve all recipes
-   *  produces:
-   *   - application/json
-   * responses:
-   *  200:
-   *   description: Return array of recipes
-   *   content:
-   *   application/json:
-   *   schema:
-   *   type: array
-   *  items:
-   * $ref: '#/components/schemas/Recipe'
+   *  get:
+   *      tags:
+   *        - Recipes
+   *      summary: Retrieve all recipes
+   *      description: Retrieve all recipes
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return array of recipes
+   *          content:
+   *            application/json:
+   *              schema:
+   *                    type: array
+   *                    items:
+   *                      $ref: '#/components/schemas/Recipe'
    */
   public async index({ response }) {
     let recipes = await this.recipeRepository.index();
@@ -43,31 +43,31 @@ export default class RecipesController {
   /**
    * @swagger
    * /recipes/total/{period}:
-   * get:
-   *    tags:
-   *     - Recipes
-   *  summary: Retrieve total recipes by period
-   * description: Retrieve all recipes by period
-   * parameters:
-   *    - name: period
-   *     in: path
-   *    description: Period
-   *   required: true
-   * schema:
-   * type: string
-   * enum: ['day', 'week', 'month', 'year']
-   * produces:
-   * - application/json
-   * responses:
-   * 200:
-   * description: Return array of objects
-   * content:
-   * application/json:
-   * schema:
-   * type: array
-   * items:
-   * $ref: '#/components/schemas/ChartResponse'
-   *  */
+   *  get:
+   *     tags:
+   *        - Recipes
+   *      summary: Retrieve total recipes by period
+   *      description: Retrieve all recipes by period
+   *      parameters:
+   *          - name: period
+   *            in: path
+   *            description: Period
+   *            required: true
+   *            schema:
+   *              type: string
+   *              enum: ['day', 'week', 'month', 'year']
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return array of objects
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: array
+   *                items:
+   *                  $ref: '#/components/schemas/ChartResponse'
+   */
   public async getRegistrations({ params, response }) {
     const recipes = await this.recipeRepository.getRegistrations(params.period);
 
@@ -77,32 +77,31 @@ export default class RecipesController {
   /**
    * @swagger
    * /recipes/per/{period}:
-   * get:
-   *   tags:
-   *    - Recipes
-   * summary: Retrieve recipes per period
-   * description: Retrieve recipes per period
-   * parameters:
-   * - name: period
-   * in: path
-   * description: Period
-   * required: true
-   * schema:
-   * 
-   * type: string
-   * enum: ['day', 'week', 'month', 'year']
-   * produces:
-   * - application/json
-   * responses:
-   * 200:
-   * description: Return array of objects
-   * content:
-   * application/json:
-   * schema:
-   * type: array
-   * items:
-   * $ref: '#/components/schemas/ChartResponse'
-   * */
+   *  get:
+   *      tags:
+   *        - Recipes
+   *      summary: Retrieve recipes per period
+   *      description: Retrieve recipes per period
+   *      parameters:
+   *          - name: period
+   *            in: path
+   *            description: Period
+   *            required: true
+   *            schema: 
+   *              type: string
+   *              enum: ['day', 'week', 'month', 'year']
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return array of objects
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: array
+   *                items:
+   *                  $ref: '#/components/schemas/Recipe'
+   */
   public async getRecipesPer({ params, response }) {
     const data = await this.recipeRepository.getRecipesPer(params.period);
 
@@ -126,28 +125,27 @@ export default class RecipesController {
   /**
    * @swagger
    * /recipes/{id}:
-   * get:
-   *  tags:
-   *  - Recipes
-   * summary: Retrieve recipe by id
-   * description: Retrieve recipe by id
-   * parameters:
-   * - name: id
-   * 
-   *  in: path
-   * description: Recipe id
-   * required: true
-   * schema:
-   * type: integer
-   * produces:
-   * - application/json
-   * responses:
-   * 200:
-   * description: Return recipe object
-   * content:
-   * application/json:
-   * schema:
-   * $ref: '#/components/schemas/Recipe'
+   *  get:
+   *      tags:
+   *        - Recipes
+   *      summary: Retrieve recipe by id
+   *      description: Retrieve recipe by id
+   *      parameters:
+   *          - name: id
+   *            in: path
+   *            description: Recipe id
+   *            required: true
+   *            schema:
+   *              type: integer
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return recipe object
+   *          content:
+   *            application/json:
+   *              schema:
+   *                 $ref: '#/components/schemas/Recipe'
    */
   public async find({ params, response }) {
     const recipe = await this.recipeRepository.find(params.id);
@@ -161,33 +159,33 @@ export default class RecipesController {
   /**
    * @swagger
    * /recipes/{id}:
-   * put:
-   * tags:
-   * - Recipes
-   * summary: Update recipe by id
-   * description: Update recipe by id
-   * parameters:
-   * - name: id
-   * in: path
-   * description: Recipe id
-   * required: true
-   * schema:
-   * type: integer
-   * produces:
-   * - application/json
-   * requestBody:
-   * content:
-   * application/json:
-   * schema:
-   * $ref: '#/components/schemas/Recipe'
-   * responses:
-   * 200:
-   * description: Return recipe object
-   * content:
-   * application/json:
-   * schema:
-   *  $ref: '#/components/schemas/Recipe'
-   * */
+   *  put:
+   *      tags:
+   *        - Recipes
+   *      summary: Update recipe by id
+   *      description: Update recipe by id
+   *      parameters:
+   *          - name: id
+   *            in: path
+   *            description: Recipe id
+   *            required: true
+   *            schema:
+   *              type: integer
+   *      produces:
+   *        - application/json
+   *      requestBody:
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/Recipe'
+   *      responses:
+   *        200:
+   *          description: Return recipe object
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Recipe'
+   */
   public async update({ params, request, response }: HttpContextContract) {
     const body = request.all();
     const id = params.id;
@@ -199,27 +197,27 @@ export default class RecipesController {
   /**
    * @swagger
    * /recipes/{id}:
-   * delete:
-   * tags:
-   * - Recipes
-   * summary: Delete recipe by id
-   * description: Delete recipe by id
-   * parameters:
-   * - name: id
-   * in: path
-   * description: Recipe id
-   * required: true
-   * schema:
-   * type: integer
-   * produces:
-   * - application/json
-   * responses:
-   * 200:
-   * description: Return recipe object
-   * content:
-   * application/json:
-   * schema:
-   * $ref: '#/components/schemas/Recipe'
+   *  delete:
+   *      tags:
+   *        - Recipes
+   *      summary: Delete recipe by id
+   *      description: Delete recipe by id
+   *      parameters:
+   *          - name: id
+   *            in: path
+   *            description: Recipe id
+   *            required: true
+   *            schema:
+   *              type: integer
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return recipe object
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/Recipe'
    * */
   public async delete({ params, response }) {
     const recipe_id = params.id;

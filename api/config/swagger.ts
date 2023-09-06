@@ -1,5 +1,6 @@
 import { SwaggerConfig } from "@ioc:Adonis/Addons/Swagger";
 import { chartResponseSchema } from "App/Models/Schemas/Chart";
+import { recipeSchema } from "App/Models/Schemas/Recipe";
 import { userSchema } from "App/Models/Schemas/User";
 
 export default {
@@ -19,12 +20,13 @@ export default {
       components: {
         schemas: {
           User: userSchema,
+          Recipe: recipeSchema,
           ChartResponse: chartResponseSchema,
         },
       },
     },
 
-    apis: ["app/Controllers/Http/UserController.ts"],
+    apis: ["app/Controllers/Http/UserController.ts", "app/Controllers/Http/RecipesController.ts"],
 
     basePath: "/",
   },

@@ -48,6 +48,63 @@
           }
         }
       },
+      "Recipe": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "fba03160-e9c7-42de-aac6-ac26f50f52d2"
+          },
+          "name": {
+            "type": "string",
+            "example": "Sherman_Flatley56"
+          },
+          "description": {
+            "type": "string",
+            "example": "Sherman_Flatley56"
+          },
+          "preparationTime": {
+            "type": "string",
+            "example": "Sherman_Flatley56"
+          },
+          "cookingTime": {
+            "type": "number",
+            "example": "Sherman_Flatley56"
+          },
+          "difficulty": {
+            "type": "number",
+            "example": 1
+          },
+          "eatersAmount": {
+            "type": "number",
+            "example": 1
+          },
+          "userId": {
+            "type": "string",
+            "example": "fba03160-e9c7-42de-aac6-ac26f50f52d2"
+          },
+          "recipeTypeId": {
+            "type": "string",
+            "example": "fba03160-e9c7-42de-aac6-ac26f50f52d2"
+          },
+          "image": {
+            "type": "string",
+            "example": "Sherman_Flatley56"
+          },
+          "recipeCategoryId": {
+            "type": "string",
+            "example": "Sherman_Flatley56"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2023-01-29T04:24:59.000+01:00"
+          },
+          "updated_at": {
+            "type": "string",
+            "example": "2023-01-29T04:24:59.000+01:00"
+          }
+        }
+      },
       "ChartResponse": {
         "type": "object",
         "properties": {
@@ -225,6 +282,272 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Retrieve user by id",
+        "description": "Retrieve user by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/recipes": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Retrieve user recipes",
+        "description": "Retrieve user recipes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return array of recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Recipe"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Retrieve all recipes",
+        "description": "Retrieve all recipes",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return array of recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Recipe"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes/total/{period}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Retrieve total recipes by period",
+        "description": "Retrieve all recipes by period",
+        "parameters": [
+          {
+            "name": "period",
+            "in": "path",
+            "description": "Period",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ]
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return array of objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ChartResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes/per/{period}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Retrieve recipes per period",
+        "description": "Retrieve recipes per period",
+        "parameters": [
+          {
+            "name": "period",
+            "in": "path",
+            "description": "Period",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ]
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return array of objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ChartResponse"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Retrieve recipe by id",
+        "description": "Retrieve recipe by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Recipe id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return recipe",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipes/{id}": {
+      "delete": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Delete recipe by id",
+        "description": "Delete recipe by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Recipe id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return recipe",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recipe"
                 }
               }
             }
