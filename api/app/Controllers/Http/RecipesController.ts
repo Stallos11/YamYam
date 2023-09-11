@@ -1,11 +1,11 @@
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import RecipeRepository from "App/Repositories/RecipeRepository";
-import { inject } from "@adonisjs/core/build/standalone";
-import Setting from "App/Models/Setting";
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import RecipeRepository from 'App/Repositories/RecipeRepository';
+import { inject } from '@adonisjs/core/build/standalone';
+import Setting from 'App/Models/Setting';
 
 @inject()
 export default class RecipesController {
-  constructor(private recipeRepository: RecipeRepository) { }
+  constructor(private recipeRepository: RecipeRepository) {}
 
   public async index({ response }) {
     const recipes = await this.recipeRepository.index();
@@ -13,14 +13,20 @@ export default class RecipesController {
     return response.ok(recipes);
   }
 
+  public async favourites({ auth, response }) {
+    const recipes = await this.recipeRepository.favourites(auth.user);
+
+    return response.ok(recipes);
+  }
+
   public async getRegistrations({ params, response }) {
-    const recipes = await this.recipeRepository.getRegistrations(params.period)
+    const recipes = await this.recipeRepository.getRegistrations(params.period);
 
     return response.ok(recipes);
   }
 
   public async getRecipesPer({ params, response }) {
-    const data = await this.recipeRepository.getRecipesPer(params.period)
+    const data = await this.recipeRepository.getRecipesPer(params.period);
 
     return response.ok(data);
   }
@@ -30,7 +36,7 @@ export default class RecipesController {
     const defimg = (await Setting.firstOrFail()).defaultRecipeImage;
 
     let file = null;
-    if(request.allFiles().recipe){
+    if (request.allFiles().recipe) {
       file = request.allFiles().recipe.recipe.image;
     }
 
@@ -58,7 +64,7 @@ export default class RecipesController {
 
   public async delete({ params, response }) {
     const recipe_id = params.id;
-    const recipe = await this.recipeRepository.delete(recipe_id)
+    const recipe = await this.recipeRepository.delete(recipe_id);
 
     return response.ok(recipe);
   }

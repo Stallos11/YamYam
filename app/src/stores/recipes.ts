@@ -7,6 +7,7 @@ import { useIngredientStore } from './ingredients';
 interface State {
   isLoading: boolean;
   recipes?: Recipe[];
+  favourites?: Recipe[];
   recipeCreate?: IRecipeCreate;
 }
 
@@ -42,17 +43,18 @@ export const useRecipeStore = defineStore('recipe', {
   state: (): State => ({
     isLoading: false,
     recipes: [],
+    favourites: [],
     recipeCreate: {
       recipe: {
-        name: "",
-        description: "",
+        name: '',
+        description: '',
         difficulty: 0,
         eaters_amount: 0,
         cooking_time: 0,
         preparation_time: 0,
-        recipe_type_id: "",
-        userId: "",
-        image: null
+        recipe_type_id: '',
+        userId: '',
+        image: null,
       },
       ingredients: [],
       instructions: [],
@@ -63,13 +65,17 @@ export const useRecipeStore = defineStore('recipe', {
       // @ts-ignore
       this.recipeCreate.recipe.userId = useAuthStore().user?.id as string;
       this.axios
-        .post('recipes', {
-          recipe: this.recipeCreate,
-        }, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
+        .post(
+          'recipes',
+          {
+            recipe: this.recipeCreate,
+          },
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
           }
-        })
+        )
         .then((res) => {
           // this.toast.showToast('Info', 'recipe created', 'bg-dark', 'bg-dark');
           // this.router.push('/recipes');
@@ -86,6 +92,25 @@ export const useRecipeStore = defineStore('recipe', {
         .then((res) => {
           if (res.data) {
             this.recipes = res.data;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          if (err.response) errorStore.setError(err.response.data.msg);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    async getFavourites() {
+      this.isLoading = true;
+      const errorStore = useErrorStore();
+
+      return this.axios
+        .get(`/recipes/favourites`)
+        .then((res) => {
+          if (res.data) {
+            this.favourites = res.data;
           }
         })
         .catch((err) => {
