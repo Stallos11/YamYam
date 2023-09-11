@@ -145,7 +145,7 @@ export default class RecipesController {
    *          content:
    *            application/json:
    *              schema:
-   *                 $ref: '#/components/schemas/Recipe'
+   *                $ref: '#/components/schemas/Recipe'
    */
   public async find({ params, response }) {
     const recipe = await this.recipeRepository.find(params.id);
@@ -218,7 +218,7 @@ export default class RecipesController {
    *            application/json:
    *              schema:
    *                $ref: '#/components/schemas/Recipe'
-   * */
+   */
   public async delete({ params, response }) {
     const recipe_id = params.id;
     const recipe = await this.recipeRepository.delete(recipe_id);

@@ -554,7 +554,468 @@
           }
         }
       }
+    },
+    "/favourites/{id}": {
+      "get": {
+        "tags": [
+          "Favourites"
+        ],
+        "summary": "Retrieve all favourites by user id",
+        "description": "Retrieve all favourites by user id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return array of recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Recipe"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favourites/{id}": {
+      "get": {
+        "tags": [
+          "Favourites"
+        ],
+        "summary": "Retrieve favourite by id",
+        "description": "Retrieve favourite by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Favourite id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Return favourite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favourites": {
+      "post": {
+        "tags": [
+          "Favourites"
+        ],
+        "summary": "Create new favourite",
+        "description": "Create new favourite",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "description": "Favourite payload",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "fba03160-e9c7-42de-aac6-ac26f50f52d2"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "example": "fba03160-e9c7-42de-aac6-ac26f50f52d2"
+                  },
+                  "recipeId": {
+                    "type": "string",
+                    "example": "fba03160-e9c7-42de-aac6-ac26f50f52d2"
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "example": "2023-01-29T04:24:59.000+01:00"
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "example": "2023-01-29T04:24:59.000+01:00"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Return favourite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favourites/{id}": {
+      "delete": {
+        "tags": [
+          "Favourites"
+        ],
+        "summary": "Delete favourite by id",
+        "description": "Delete favourite by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Favourite id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/recipe-categories": {
+    "get": {
+      "tags": [
+        "RecipeCategories"
+      ],
+      "summary": "Retrieve all recipe categories",
+      "description": "Retrieve all recipe categories",
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "200": {
+          "description": "Return array of recipe categories",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/RecipeCategory"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
+  "/recipe-categories/total/{period}": {
+    "get": {
+      "tags": [
+        "RecipeCategories"
+      ],
+      "summary": "Retrieve total recipe categories by period",
+      "description": "Retrieve total recipe categories by period",
+      "parameters": [
+        {
+          "name": "period",
+          "in": "path",
+          "description": "Period",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "200": {
+          "description": "Return array of objects",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ChartResponse"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe-categories/per/{period}": {
+    "get": {
+      "tags": [
+        "RecipeCategories"
+      ],
+      "summary": "Retrieve recipe categories per period",
+      "description": "Retrieve recipe categories per period",
+      "parameters": [
+        {
+          "name": "period",
+          "in": "path",
+          "description": "Period",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ]
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "200": {
+          "description": "Return array of objects",
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ChartResponse"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe-categories": {
+    "post": {
+      "tags": [
+        "RecipeCategories"
+      ],
+      "summary": "Create new recipe category",
+      "description": "Create new recipe category",
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "description": "Recipe category payload",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "fba03160-e9c7-42de-aac6-ac26f50f52d2"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "Diabétique"
+                },
+                "created_at": {
+                  "type": "string",
+                  "example": "2023-01-29T04:24:59.000+01:00"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "example": "2023-01-29T04:24:59.000+01:00"
+                }
+              }
+            }
+          }
+        }
+      },
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "201": {
+          "description": "Return recipe category",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipeCategory"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe-categories/{id}": {
+    "get": {
+      "tags": [
+        "RecipeCategories"
+      ],
+      "summary": "Retrieve recipe category by id",
+      "description": "Retrieve recipe category by id",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Recipe category id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "200": {
+          "description": "Return recipe category",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipeCategory"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe-categories/{id}": {
+    "put": {
+      "tags": [
+        "RecipeCategories"
+      ],
+      "summary": "Update recipe category by id",
+      "description": "Update recipe category by id",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Recipe category id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "description": "Recipe category payload",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "fba03160-e9c7-42de-aac6-ac26f50f52d2"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "Diabétique"
+                },
+                "created_at": {
+                  "type": "string",
+                  "example": "2023-01-29T04:24:59.000+01:00"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "example": "2023-01-29T04:24:59.000+01:00"
+                }
+              }
+            }
+          }
+        }
+      },
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "200": {
+          "description": "Return recipe category",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipeCategory"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe-categories/{id}": {
+    "delete": {
+      "tags": [
+        "RecipeCategories"
+      ],
+      "summary": "Delete recipe category by id",
+      "description": "Delete recipe category by id",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Recipe category id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "204": {
+          "description": "Success"
+        }
+      }
+    }
+  }
+}
   "tags": []
 }
