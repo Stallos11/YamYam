@@ -199,12 +199,6 @@ const mesureUnits = [
   "mL",
   "cL",
   "L",
-  "Cuillère à soupe",
-  "Cuillère à café",
-  "Poignée",
-  "Pincée",
-  "Pincette",
-  "Trait",
 ];
 
 const setRecipeProperty = (property: string, e: any) => {

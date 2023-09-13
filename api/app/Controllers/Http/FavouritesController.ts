@@ -3,37 +3,22 @@ import Favourite from "App/Models/Favourite";
 import User from "App/Models/User";
 
 export default class FavouritesController {
-  public async index({ params, response }) {
-    const user_id = params.id;
-
-    const user = await User.findOrFail(user_id);
-
-    await user.load("favourites");
-
-    return response.ok(user.favourites);
-  }
-
-  public async find({ params, response }) {
-    const favourite = await Favourite.findOrFail(params.id);
-
-    return response.ok(favourite);
-  }
-
-  public async insert({ request, response }: HttpContextContract) {
+  public async insert({ auth, params, response }: HttpContextContract) {
     const favourite = new Favourite();
 
     await favourite
       .fill({
-        userId: request.input("user_id"),
-        recipeId: request.input("recipe_id"),
+        userId: auth.user.id,
+        recipeId: params.id,
       })
       .save();
 
     return response.ok(favourite);
   }
 
-  public async delete({ params, response }) {
+  public async delete({ auth, params, response }) {
     const favourite = await Favourite.findOrFail(params.id);
+    if (favourite.userId != auth.user.id) return response.badRequest({ msg: 'Unauthorized' })
     await favourite.delete();
 
     return response.ok({ msg: "favourite deleted" });

@@ -23,10 +23,10 @@ export default class UserSeeder extends BaseSeeder {
       {
         id: "8baa40c3-1eb6-4ee0-a2e7-b0b3df37965a",
         provider: "database",
-        firstname: "b",
+        firstname: "Test",
         role: "user",
-        email: "b@b.b",
-        password: "bbbbbbbb",
+        email: "test@test.test",
+        password: "!Password31",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       },

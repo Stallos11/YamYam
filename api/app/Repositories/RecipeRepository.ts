@@ -13,14 +13,13 @@ export default class RecipeRepository {
       .preload('recipeCategory')
       .preload('recipeType')
       .preload('user');
-
+    
     return recipes;
   }
 
   public async favourites(user: User) {
-    const recipes = await user.favourites;
-
-    return recipes;
+    await user.load('favourites');
+    return user.favourites;
   }
 
   public async getRegistrations(_period: string) {
@@ -87,8 +86,15 @@ export default class RecipeRepository {
     try {
       const recipe = new Recipe();
 
-      const data = await fs.promises.readFile(_file.tmpPath);
-      const base64 = data.toString('base64');
+      let data;
+      let base64;
+
+      if(typeof _file == 'string'){
+        base64 =  _file;
+      }else{
+        data = await fs.promises.readFile(_file.tmpPath);
+        base64 = data.toString('base64');
+      }
 
       _recipe.preparationTime = this.convertToSeconds(_recipe.preparation_time);
       _recipe.cookingTime = this.convertToSeconds(_recipe.cooking_time);

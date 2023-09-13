@@ -22,8 +22,9 @@
       <div class="container mt-4">
         <div v-for="recipe in recipeStore.recipes"
           class="recipe-card relative-pos grey light-4 light-shadow-2 rounded-1 my-2 mx-3">
-          <ax-btn class="like-btn d-flex vcenter fx-center absolute-pos transparent text-white" size="" circle>
-            <Icon icon="ri:heart-add-line" width="30" />
+          <ax-btn @click="recipeStore.toggleFavourite(recipe.id as string)" class="like-btn d-flex vcenter fx-center absolute-pos transparent text-white" size="" circle>
+            <Icon v-if="recipeStore.favourites?.some(fav => fav.recipe_id === recipe.id)" icon="basil:heart-solid" width="30" />
+            <Icon v-else icon="ri:heart-add-line" width="30" />
           </ax-btn>
 
           <h2 class="font-w400 font-s4 mt-2 ml-1 text-white">
@@ -83,6 +84,7 @@ const bg = computed(() => {
 })
 
 onMounted(() => {
+  recipeStore.getFavourites();
   recipeStore.getRecipes();
   typeStore.getTypes();
   categoryStore.getCategories();
@@ -105,5 +107,9 @@ h2 {
 .like-btn {
   right: 10px;
   top: 10px;
+}
+
+.fav{
+  color: green
 }
 </style>

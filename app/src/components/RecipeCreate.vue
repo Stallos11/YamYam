@@ -226,7 +226,7 @@ const addInstructionToCreateRecipe = () => {
   };
 };
 
-const mesureUnits = ['mg', 'g', 'kg', 'mL', 'cL', 'L', 'Cuillère à soupe', 'Cuillère à café', 'Poignée', 'Pincée', 'Pincette', 'Trait'];
+const mesureUnits = ['mg', 'g', 'kg', 'mL', 'cL', 'L'];
 
 const setRecipeProperty = (property: string, e: any) => {
   //@ts-ignore

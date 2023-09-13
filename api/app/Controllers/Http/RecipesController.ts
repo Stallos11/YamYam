@@ -8,7 +8,7 @@ export default class RecipesController {
   constructor(private recipeRepository: RecipeRepository) {}
 
   public async index({ response }) {
-    const recipes = await this.recipeRepository.index();
+    let recipes = await this.recipeRepository.index();
 
     return response.ok(recipes);
   }

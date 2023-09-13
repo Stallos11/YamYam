@@ -3,11 +3,12 @@ import { Recipe } from '../models/recipe';
 import { useErrorStore } from './error';
 import { useAuthStore } from './auth';
 import { useIngredientStore } from './ingredients';
+import { Favourite } from '../models/favourites';
 
 interface State {
   isLoading: boolean;
   recipes?: Recipe[];
-  favourites?: Recipe[];
+  favourites?: Favourite[];
   recipeCreate?: IRecipeCreate;
 }
 
@@ -139,5 +140,44 @@ export const useRecipeStore = defineStore('recipe', {
         description: instruction.description,
       });
     },
+    toggleFavourite(id: string) {
+      this.isLoading = true;
+      const errorStore = useErrorStore();
+
+      const isFavourite = this.favourites?.some(fav => fav.recipe_id === id);
+
+      if (isFavourite) {
+        const favId = this.favourites?.find(fav => fav.recipe_id == id)?.id;
+
+        this.axios
+          .delete(`/favourites/${favId}`)
+          .then(() => {
+            this.getFavourites()
+            this.getRecipes()
+          })
+          .catch((err) => {
+            console.error(err);
+            if (err.response) errorStore.setError(err.response.data.msg);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+      } else{
+         this.axios
+          .post(`/favourites/${id}`)
+          .then(() => {
+            this.getFavourites()
+            this.getRecipes()
+          })
+          .catch((err) => {
+            console.error(err);
+            if (err.response) errorStore.setError(err.response.data.msg);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+      }
+
+    }
   },
 });
