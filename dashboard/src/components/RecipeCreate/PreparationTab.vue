@@ -40,6 +40,9 @@ const instruction = ref({
 });
 
 const addInstructionToCreateRecipe = () => {
+    instruction.value.title = instruction.value.title.trim()
+    instruction.value.description = instruction.value.description.trim();
+    
     if (!instruction.value.title.length || !instruction.value.description.length) return;
 
     recipeStore.addInstructionToCreateRecipe(instruction.value);

@@ -3,7 +3,7 @@
     <template #menu>
       <ax-tab-link href="#tab1">General</ax-tab-link>
       <ax-tab-link href="#tab2">Ingredients</ax-tab-link>
-      <ax-tab-link href="#tab3">Preparation</ax-tab-link>
+      <ax-tab-link href="#tab3">Instructions</ax-tab-link>
       <ax-tab-link href="#tab4">Preview</ax-tab-link>
     </template>
 
@@ -17,7 +17,7 @@
       <PreparationTab />
     </ax-tab-item>
     <ax-tab-item class="h100" id="tab4">
-      <PreviewTab />
+      <PreviewTab @switch-tab="switchTab" />
     </ax-tab-item>
 
     <IngredientDetailModal type="create" />
@@ -31,7 +31,11 @@ import IngredientTab from "../components/RecipeCreate/IngredientTab.vue";
 import PreparationTab from "../components/RecipeCreate/PreparationTab.vue";
 import PreviewTab from "./RecipeCreate/PreviewTab.vue";
 
-const currentTab = ref(0);
+const currentTab = ref();
+
+const switchTab = (tab: string) => {
+  currentTab.value = tab;
+}
 
 </script>
 
