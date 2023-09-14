@@ -13,7 +13,6 @@ export default class Setting extends BaseModel {
 
   @column()
   public defaultRecipeImage: string;
-
   
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

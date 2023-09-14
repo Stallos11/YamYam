@@ -4,22 +4,22 @@ import Database from "@ioc:Adonis/Lucid/Database";
 import axios from "axios";
 
 export default class RecipeCategoriesController {
-  public async index({ request, response }) {
-    // const ingredients = await Ingredient.all();
-    const page = request.input("page", 2);
-    const limit = 100;
+  // public async index({ request, response }) {
+  //   // const ingredients = await Ingredient.all();
+  //   const page = request.input("page", 2);
+  //   const limit = 100;
 
-    const ingredients = await Database.from("ingredients").paginate(
-      page,
-      limit
-    );
+  //   const ingredients = await Database.from("ingredients").paginate(
+  //     page,
+  //     limit
+  //   );
 
-    return response.ok(ingredients.rows);
-  }
+  //   return response.ok(ingredients.rows);
+  // }
 
   public async searchBy({ params, response }) {
     // const ingredients = await Ingredient.all();
-
+    console.log(params.property)
     const ingredients = await Ingredient.query().whereLike(
       params.property ? params.property : "product_name",
       `%${params.search.replace(/%20/g, " ")}%`
@@ -70,23 +70,6 @@ export default class RecipeCategoriesController {
     });
 
     return response.ok(data);
-  }
-
-  public async insert({ request, response }: HttpContextContract) {
-    const ingredient = new Ingredient();
-    const body = request.all();
-
-    await ingredient
-      .fill({
-        openfoodfact_id: body.openfoodfact_id,
-        product_name: body.product_name,
-        product_name_fr: body.product_name_fr,
-        product_name_en: body.product_name_en,
-        product_name_de: body.product_name_de,
-      })
-      .save();
-
-    return response.ok(ingredient);
   }
 
   public async find({ params, response }) {

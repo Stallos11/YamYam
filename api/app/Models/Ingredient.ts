@@ -5,12 +5,9 @@ import {
   beforeCreate,
   column,
   computed,
-  HasMany,
-  hasMany,
   ManyToMany,
   manyToMany,
 } from "@ioc:Adonis/Lucid/Orm";
-import Config from "@ioc:Adonis/Core/Config";
 import Recipe from "./Recipe";
 
 export default class Ingredient extends BaseModel {
@@ -18,15 +15,34 @@ export default class Ingredient extends BaseModel {
   public id: string;
 
   @column()
-  public openfoodfact_id: string;
+  public openfoodfactId: string;
+
   @column()
-  public product_name: string;
+  public productName: string;
+
   @column()
-  public product_name_fr: string;
+  public kcal: number;
+
   @column()
-  public product_name_en: string;
+  public fat: number;
+
   @column()
-  public product_name_de: string;
+  public saturatedFat: number;
+
+  @column()
+  public carbohydrates: number;
+
+  @column()
+  public sugars: number;
+
+  @column()
+  public proteins: number;
+
+  @column()
+  public salt: number;
+
+  @column()
+  public img: string;
 
   @manyToMany(() => Recipe, {
     pivotTable: 'recipe_ingredients',
@@ -54,6 +70,6 @@ export default class Ingredient extends BaseModel {
 
   @beforeCreate()
   public static async createUUID(ingredient: Ingredient) {
-    if (Config.get("app.enableUuidGeneration")) ingredient.id = uuidv4();
+    ingredient.id = uuidv4();
   }
 }

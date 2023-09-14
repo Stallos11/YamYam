@@ -14,7 +14,6 @@ import { ingredientsQueryKeyOptions } from '../models/ingredients';
 import { ref, watch } from 'vue';
 import { useIngredientStore } from '../stores/ingredients';
 
-const queryField = ref('');
 const queryValue = ref('');
 const ingredientStore = useIngredientStore();
 

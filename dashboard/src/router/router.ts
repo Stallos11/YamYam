@@ -102,12 +102,6 @@ const routes: Array<RouteRecordRaw> = [
     name: "ingredients-edit",
     meta: { title: "Ingredient edit" },
   },
-  {
-    path: "/ingredients/create",
-    component: () => import("../views/ingredients/IngredientCreate.vue"),
-    name: "ingredients-create",
-    meta: { title: "Ingredient create" },
-  },
   // Tickets
   {
     path: "/tickets/",

@@ -10,7 +10,6 @@ Route.group(() => {
   Route.get("/total/:period", "IngredientsController.getIngredientsPer");
   Route.get("/registrations/:period", "IngredientsController.getRegistrations");
 
-  Route.post("/", "IngredientsController.insert");
   Route.post("/search/:property/:search", "IngredientsController.searchBy");
 
   Route.put("/:id", "IngredientsController.update");

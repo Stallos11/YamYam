@@ -37,16 +37,4 @@ import {
   ingredientsFilterKeyOptions,
 } from "../../models/ingredients";
 import IngredientModal from "./IngredientModal.vue";
-import { ref, watch } from "vue";
-import { useIngredientStore } from "../../stores/ingredients";
-
-const queryField = ref("");
-const queryValue = ref("");
-const ingredientStore = useIngredientStore();
-
-watch(queryValue, (first: string, second: string) => {
-  if (first.length > 2) {
-    ingredientStore.searchIngredientBy(queryField.value, queryValue.value);
-  }
-});
 </script>

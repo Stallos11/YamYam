@@ -6,11 +6,17 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
-      table.string("openfoodfact_id").nullable();
-      table.string("product_name").nullable();
-      table.string("product_name_en").nullable();
-      table.string("product_name_fr").nullable();
-      table.string("product_name_de").nullable();
+      table.string("openfoodfact_id").notNullable();
+      table.string("product_name").notNullable();
+      table.float("kcal").notNullable();
+      table.float("fat").notNullable();
+      table.float("saturated_fat").notNullable();
+      table.float("carbohydrates").notNullable();
+      table.float("sugars").notNullable();
+      table.float("proteins").notNullable();
+      table.float("salt").notNullable();
+      table.text("img").notNullable();
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

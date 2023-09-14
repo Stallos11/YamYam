@@ -87,7 +87,6 @@
         <ax-collapsible v-model="isIngredientCollapsibleOpened">
           <div class="">
             <router-link class="sidenav-link" to="/ingredients">List</router-link>
-            <router-link class="sidenav-link" to="/ingredients/create">Create</router-link>
           </div>
         </ax-collapsible>
       </div>

@@ -21,14 +21,17 @@ export const useIngredientStore = defineStore("ingredient", {
     isModalDetailOpened: false,
     isModalEditOpened: false,
     selectedIngredient: {
-      id: "",
-      openfoodfact_id: null,
-      product_name: null,
-      product_name_de: null,
-      product_name_en: null,
-      product_name_fr: null,
-      openfoodfact: null,
-      nutriments: {}
+      id: '',
+      openfoodfact_id: '',
+      product_name: '',
+      kcal: 0,
+      fat: 0,
+      saturated_fat: 0,
+      carbohydrates: 0,
+      sugars: 0,
+      proteins: 0,
+      salt: 0,
+      img: ''
     },
   }),
 
@@ -40,26 +43,13 @@ export const useIngredientStore = defineStore("ingredient", {
     fetchData() {
       return;
     },
-
     fetchDataDetails(id: string) {
       return this.axios
         .get(`ingredients/${id}`)
         .then((res) => {
           this.selectedIngredient = res.data;
-          this.fetchOpenFoodFact();
         })
         .catch(console.error);
-    },
-    fetchOpenFoodFact() {
-      this.axios
-        .get(
-          `https://world.openfoodfacts.org/api/v1/product/${this.selectedIngredient.openfoodfact_id}.json`
-        )
-        .then((res) => {
-          this.selectedIngredient.openfoodfact = res.data.product;
-          this.selectedIngredient.nutriments = res.data.product.nutriments
-        })
-        .catch((err) => console.error(err));
     },
     searchIngredientBy(property: string, search: string) {
       this.axios
@@ -80,35 +70,19 @@ export const useIngredientStore = defineStore("ingredient", {
       if (item.id) this.fetchDataDetails(item.id);
       this.isModalDetailOpened = true;
     },
-
-    insert(ingredient: IIngredientCreate) {
-      this.axios
-        .post("ingredients", ingredient)
-        .then((res) => {
-          this.ingredients.push(res.data);
-          this.toast.showToast(
-            "Info",
-            "IIngredient type created",
-            "bg-dark",
-            "bg-dark"
-          );
-          this.router.replace("/ingredients");
-        })
-        .catch((err) => console.error(err));
-    },
     delete() {
       this.axios
-        .delete(`ingredients/${this.selectedIngredient.id}`)
+        .delete(`ingredients/${this.selectedIngredient?.id}`)
         .then((res) => {
           if (res.status == 200) {
             this.ingredients = this.ingredients.filter(
-              (IIngredient) => IIngredient.id != this.selectedIngredient.id
+              (IIngredient) => IIngredient.id != this.selectedIngredient?.id
             );
             this.isModalOpened = false;
             this.isModalDeleteOpened = false;
             this.toast.showToast(
               "Info",
-              "IIngredient type deleted",
+              "Ingredient deleted",
               "bg-dark",
               "bg-dark"
             );
