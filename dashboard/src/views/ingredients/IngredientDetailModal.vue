@@ -22,8 +22,11 @@
           </a>
         </div>
         <div class="ml-auto font-s5">
-          <Icon
-            @click="props.type === 'edit' ? recipeStore.addIngredientToEditRecipe() : recipeStore.addIngredientToCreateRecipe()"
+          <Icon v-if="props.type != 'edit' && recipeStore.recipeCreate.ingredients.find(ingr => ingr.id == ingredientStore.selectedIngredient.id) == null"
+            @click="recipeStore.addIngredientToCreateRecipe()"
+            class="ml-auto mr-2 cursor-pointer" icon="gridicons:add-outline" size="100"></Icon>
+          <Icon v-if="props.type === 'edit'"
+            @click="recipeStore.addIngredientToEditRecipe()"
             class="ml-auto mr-2 cursor-pointer" icon="gridicons:add-outline" size="100"></Icon>
         </div>
       </div>

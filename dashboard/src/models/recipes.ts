@@ -4,8 +4,8 @@ export interface IRecipe {
   id?: string;
   name: string;
   description: string;
-  preparation_time: number;
-  cooking_time: number;
+  preparation_time: number | string;
+  cooking_time: number | string;
   difficulty: number;
   eaters_amount: number;
   userId: string;

@@ -1,38 +1,16 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Ingredient from "App/Models/Ingredient";
 import Database from "@ioc:Adonis/Lucid/Database";
-import axios from "axios";
 
 export default class RecipeCategoriesController {
-  // public async index({ request, response }) {
-  //   // const ingredients = await Ingredient.all();
-  //   const page = request.input("page", 2);
-  //   const limit = 100;
-
-  //   const ingredients = await Database.from("ingredients").paginate(
-  //     page,
-  //     limit
-  //   );
-
-  //   return response.ok(ingredients.rows);
-  // }
-
-  public async searchBy({ params, response }) {
+  public async searchBy({ request, params, response }: HttpContextContract) {
     // const ingredients = await Ingredient.all();
-    console.log(params.property)
     const ingredients = await Ingredient.query().whereLike(
       params.property ? params.property : "product_name",
-      `%${params.search.replace(/%20/g, " ")}%`
+      `%${request.body().search.replace(/%20/g, " ")}%`
     );
 
     return response.ok(ingredients);
-  }
-
-  fetchOpenFoodFactProduct({ params, response }) {
-    return axios
-      .get(`https://world.openfoodfacts.org/api/v0/product/9501100305091.json`)
-      .then((res) => response.send(res))
-      .catch((err) => console.error(err));
   }
 
   public async getRegistrations({ params, response }) {
@@ -48,7 +26,7 @@ export default class RecipeCategoriesController {
     return await response.ok(ingredients.rows);
   }
 
-  public async getIngredientsPer({ params, response }) {
+  public async getIngredientsPer({ params, response }: HttpContextContract) {
     const ingredients = await Database.rawQuery(`
       SELECT 
       (DATE_TRUNC('${params.period}', created_at)) as x,
@@ -72,7 +50,7 @@ export default class RecipeCategoriesController {
     return response.ok(data);
   }
 
-  public async find({ params, response }) {
+  public async find({ params, response }: HttpContextContract) {
     const ingredient = await Ingredient.find(params.id);
 
     return response.ok(ingredient);
@@ -90,7 +68,7 @@ export default class RecipeCategoriesController {
     return response.ok(ingredient);
   }
 
-  public async delete({ params, response }) {
+  public async delete({ params, response }: HttpContextContract) {
     const ingredient = await Ingredient.findOrFail(params.id);
     await ingredient.delete();
 

@@ -27,7 +27,7 @@
                 </ax-form-field>
               </div>
               <div>
-                <ax-form-field label="Cooking ti">
+                <ax-form-field label="Cooking time">
                   <ax-form-control tag="input" v-model="recipeStore.recipeEdit.cooking_time"
                     type="time"></ax-form-control>
                 </ax-form-field>
@@ -64,8 +64,8 @@
       <IngredientSearch />
       <IngredientSearchTable />
       <div class="mt-5 pt-5 mx-5 mt-3 gutter-xs7">
-        <div v-for="(ingredient, i) in recipeStore.recipeEdit.ingredients" :key="ingredient.id" class="grix md4 vcenter xs1"
-          :class="i % 2 == 0 ? 'primary' : ''">
+        <div v-for="(ingredient, i) in recipeStore.recipeEdit.ingredients" :key="ingredient.id"
+          class="grix md4 vcenter xs1" :class="i % 2 == 0 ? 'primary' : ''">
           <p>{{ ingredient.product_name }}</p>
           <ax-form-field :class="i % 2 == 0 ? 'striped' : ''" label="Quantité">
             <ax-form-control tag="input" v-model="ingredient.amount" type="text"></ax-form-control>
@@ -73,7 +73,8 @@
           <ax-form-field :class="i % 2 == 0 ? 'striped' : ''" label="Unité de mesure">
             <ax-form-select :items="mesureUnits" v-model="ingredient.unit"></ax-form-select>
           </ax-form-field>
-          <ax-btn class="rounded-2 px-5 py-2 red text-white d-block mx-auto" @click="recipeStore.deleteIngredient(ingredient.id)">SUPPRIMER</ax-btn>
+          <ax-btn class="rounded-2 px-5 py-2 red text-white d-block mx-auto"
+            @click="recipeStore.deleteIngredient(ingredient.id)">SUPPRIMER</ax-btn>
         </div>
       </div>
     </ax-tab-item>
@@ -88,7 +89,8 @@
         <ax-btn @click="addInstructionToEditRecipe()"
           class="btn my-5 primary rounded-3 px-5 py-2 text-white d-block mx-auto">AJOUTER</ax-btn>
         <div v-for="(instruction, i) in recipeStore.recipeEdit.instructions" :key="instruction.id" class="d-flex fx-col">
-          <ax-btn class="rounded-2 px-5 py-2 red text-white" @click="recipeStore.deleteInstruction(instruction.id)">SUPPRIMER</ax-btn>
+          <ax-btn class="rounded-2 px-5 py-2 red text-white"
+            @click="recipeStore.deleteInstruction(instruction.id)">SUPPRIMER</ax-btn>
           <ax-form-field label="Titre">
             <ax-form-control tag="input" v-model="instruction.title" type="text"></ax-form-control>
           </ax-form-field>
@@ -201,11 +203,6 @@ const mesureUnits = [
   "L",
 ];
 
-const setRecipeProperty = (property: string, e: any) => {
-  //@ts-ignore
-  recipeStore.recipeEdit.recipe[property] = e;
-};
-
 onBeforeMount(() => {
   recipeCategoryStore.fetchData().then((e) => {
     categories.value = recipeCategoryStore.recipe_categories.map(
@@ -270,11 +267,4 @@ onBeforeMount(() => {
   width: 50vw;
 }
 
-// .form-field .form-control {
-//   width: 25vw;
-
-//   &:focus {
-//     border: none !important;
-//   }
-// }
 </style>

@@ -18,7 +18,12 @@ interface State {
 interface IRecipeCreate {
   recipe: Omit<IRecipe, "id">;
   ingredients: IIngredientCreate[];
-  instructions: any;
+  instructions: IInstruction[];
+}
+
+interface IInstruction {
+  title: string;
+  description: string
 }
 
 interface IRecipeEdit {
@@ -33,13 +38,12 @@ interface IRecipeEdit {
   recipe_type_id: string;
   recipe_category_id: string;
   ingredients: IIngredientCreate[];
-  instructions: any;
+  instructions: IInstruction[];
 }
 
 interface IIngredientCreate {
   id: string;
   product_name: string;
-  quantity: string | number;
   amount: string | number;
   unit: string;
 }
@@ -88,7 +92,6 @@ export const useRecipeStore = defineStore("recipe", {
 
   actions: {
     copyRecipeKey(key: string) {
-      //@ts-ignore
       navigator.clipboard.writeText(this.selectedRecipe[key]);
     },
 
@@ -203,11 +206,11 @@ export const useRecipeStore = defineStore("recipe", {
 
       this.recipeCreate.ingredients.push({
         id: ingredientStore.selectedIngredient.id,
-        //@ts-ignore
         product_name: ingredientStore.selectedIngredient.product_name,
         amount: "",
         unit: "",
       });
+
       ingredientStore.isModalDetailOpened = false;
     },
     addIngredientToEditRecipe() {

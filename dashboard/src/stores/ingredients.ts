@@ -53,7 +53,9 @@ export const useIngredientStore = defineStore("ingredient", {
     },
     searchIngredientBy(property: string, search: string) {
       this.axios
-        .post(`ingredients/search/${property}/${search}`)
+        .post(`ingredients/search/${property}`, {
+          search
+        })
         .then((res) => {
           this.ingredients = res.data;
         })
