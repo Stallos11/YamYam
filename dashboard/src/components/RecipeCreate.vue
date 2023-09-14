@@ -18,7 +18,7 @@
               </ax-form-field>
               <ax-form-field class="col-md2 col-xs1" label="Description">
                 <ax-form-control class="mb-5" v-model="recipeStore.recipeCreate.recipe.description"
-                  tag="textarea">Textarea content</ax-form-control>
+                  tag="textarea"></ax-form-control>
               </ax-form-field>
               <div>
                 <Timepicker :label="'Temps de préparation'" v-model="recipeStore.recipeCreate.recipe.preparation_time"

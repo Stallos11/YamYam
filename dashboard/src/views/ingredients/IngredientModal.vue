@@ -8,7 +8,6 @@
             ingredientStore.selectedIngredient?.img
           " />
         </div>
-        <!-- mdi:internet -->
         <div>
           <p class="my-0 ml-3 text-white">
             {{ ingredientStore.selectedIngredient?.product_name }}

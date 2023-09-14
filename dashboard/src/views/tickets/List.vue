@@ -17,7 +17,7 @@
                 </EasyDataTable>
             </template>
             <div v-else>
-                <p class="">No invoices found</p>
+                <p class="">No tickets found</p>
             </div>
         </div>
         <Icon v-else class="d-block mx-auto text-amaranth" icon="eos-icons:bubble-loading" width="50" />
