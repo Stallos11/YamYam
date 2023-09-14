@@ -32,7 +32,7 @@ export default class RecipeCategoriesController {
 
   /**
    * @swagger
-   * /recipe-categories/total/{period}:
+   * /recipe-categories/registrations/{period}:
    *  get:
    *      tags:
    *        - RecipeCategories
@@ -73,7 +73,7 @@ export default class RecipeCategoriesController {
 
   /**
    * @swagger
-   * /recipe-categories/total-per/{period}:
+   * /recipe-categories/total/{period}:
    *  get:
    *      tags:
    *        - RecipeCategories
@@ -177,7 +177,7 @@ export default class RecipeCategoriesController {
    *            description: Recipe category id
    *            required: true
    *            schema:
-   *              type: integer
+   *              type: string
    *      produces:
    *        - application/json
    *      responses:
@@ -210,7 +210,7 @@ export default class RecipeCategoriesController {
    *            description: Recipe category id
    *            required: true
    *            schema:
-   *              type: integer
+   *              type: string
    *      produces:
    *        - application/json
    *      requestBody:
@@ -252,7 +252,7 @@ export default class RecipeCategoriesController {
    *            description: Recipe category id
    *            required: true
    *            schema:
-   *              type: integer
+   *              type: string
    *      produces:
    *        - application/json
    *      responses:

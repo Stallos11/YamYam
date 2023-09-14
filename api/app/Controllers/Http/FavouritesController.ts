@@ -5,7 +5,7 @@ import User from "App/Models/User";
 export default class FavouritesController {
   /**
    * @swagger
-   * /favourites/{id}:
+   * /favourites/index/{id}:
    *  get:
    *      tags:
    *        - Favourites
@@ -42,7 +42,7 @@ export default class FavouritesController {
 
   /**
    * @swagger
-   * /favourites/{id}:
+   * /favourites/find/{id}:
    *  get:
    *      tags:
    *        - Favourites

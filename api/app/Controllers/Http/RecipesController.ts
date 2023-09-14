@@ -42,9 +42,9 @@ export default class RecipesController {
 
   /**
    * @swagger
-   * /recipes/total/{period}:
+   * /recipes/registrations/{period}:
    *  get:
-   *     tags:
+   *      tags:
    *        - Recipes
    *      summary: Retrieve total recipes by period
    *      description: Retrieve all recipes by period
@@ -76,7 +76,7 @@ export default class RecipesController {
 
   /**
    * @swagger
-   * /recipes/per/{period}:
+   * /recipes/total/{period}:
    *  get:
    *      tags:
    *        - Recipes
@@ -108,6 +108,29 @@ export default class RecipesController {
     return response.ok(data);
   }
 
+  /**
+   * @swagger
+   * /recipes:
+   *  post:
+   *      tags:
+   *        - Recipes
+   *      summary: Create new recipe
+   *      description: Create new recipe
+   *      produces:
+   *        - application/json
+   *      requestBody:
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/Recipe'
+   *        responses:
+   *          200:
+   *            description: Return recipe object
+   *            content:
+   *              application/json:
+   *                schema:
+   *                  $ref: '#/components/schemas/Recipe'
+   */
   public async insert({ request, response }: HttpContextContract) {
     const body = request.all();
     const defimg = (await Setting.firstOrFail()).defaultRecipeImage;
@@ -136,7 +159,7 @@ export default class RecipesController {
    *            description: Recipe id
    *            required: true
    *            schema:
-   *              type: integer
+   *              type: string
    *      produces:
    *        - application/json
    *      responses:
@@ -170,7 +193,7 @@ export default class RecipesController {
    *            description: Recipe id
    *            required: true
    *            schema:
-   *              type: integer
+   *              type: string
    *      produces:
    *        - application/json
    *      requestBody:
@@ -208,7 +231,7 @@ export default class RecipesController {
    *            description: Recipe id
    *            required: true
    *            schema:
-   *              type: integer
+   *              type: string
    *      produces:
    *        - application/json
    *      responses:
