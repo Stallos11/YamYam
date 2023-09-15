@@ -73,7 +73,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/recipes/:id',
-    component: () => import('../views/recipes/View.vue'),
+    component: () => import('../views/recipes/Details.vue'),
     name: 'recipe-details',
     meta: { title: 'Recipe details' },
   },

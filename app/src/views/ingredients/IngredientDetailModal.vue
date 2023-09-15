@@ -71,7 +71,7 @@ const props = defineProps(['type'])
 </script>
 
 
-<style>
+<style lang="scss">
 
 .nutri{
   display: flex;

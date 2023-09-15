@@ -12,6 +12,8 @@ export interface IIngredient {
   proteins: number;
   salt: number;
   img: string;
+  amount: number;
+  unit: string;
 }
 
 export type IIngredientCreate = Omit<IIngredient, "id" | "openfoodfact">;
