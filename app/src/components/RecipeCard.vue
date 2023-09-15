@@ -17,12 +17,12 @@
         <div class="bottom-card">
             <div class="d-flex vcenter">
                 <Icon icon="ic:baseline-access-time" width="20" class="mr-2" />
-                {{ Math.floor((recipe.preparation_time as number) / 60) % 60 }}min
+                {{ parsedPreparationTime() }}
             </div>
 
             <div class="d-flex vcenter">
                 <Icon icon="icon-park-outline:cook" width="20" class="mr-2" />
-                {{ Math.floor((recipe.cooking_time as number) / 60) % 60 }}min
+                {{ parsedCookingTime() }}
             </div>
 
             <div class="d-flex vcenter">
@@ -37,7 +37,15 @@
 import { useRecipeStore } from '../stores/recipes';
 
 const recipeStore = useRecipeStore();
-defineProps(['recipe']);
+const props = defineProps(['recipe']);
+
+const parsedPreparationTime = () => {
+    return `0${(props.recipe.preparation_time / 60) / 60 ^ 0}`.slice(-2) + ':' + ('0' + (props.recipe.preparation_time / 60) % 60).slice(-2)
+}
+
+const parsedCookingTime = () => {
+    return `0${(props.recipe.cooking_time / 60) / 60 ^ 0}`.slice(-2) + ':' + ('0' + (props.recipe.cooking_time / 60) % 60).slice(-2)
+}
 </script>
 
 <style lang="scss" scoped>
