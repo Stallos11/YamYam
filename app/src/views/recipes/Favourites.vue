@@ -1,38 +1,12 @@
 <template>
   <div class="container mt-4">
+    <div class="d-flex vcenter">
+      <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
+      <h2 class="font-w400 text-center m-3 font-s5">Favourites</h2>
+      <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
+    </div>
     <template v-if="recipeStore.favourites?.length">
-      <div v-for="recipe in recipeStore.favourites"
-        class="recipe-card relative-pos grey light-4 light-shadow-2 rounded-1 my-2 mx-3">
-        <ax-btn class="like-btn d-flex vcenter fx-center absolute-pos transparent text-white" size="" circle>
-          <Icon icon="ri:heart-add-line" width="30" />
-        </ax-btn>
-
-        <h2 class="font-w400 font-s4 mt-2 ml-1 text-white">
-          {{ recipe.name }}
-        </h2>
-        <div class="rounded-tl1 rounded-tr1 rounded-bl3 rounded-br3 shadow-3"
-          style="min-height: 12rem; background-size: cover; background-position: center"
-          :style="`background-image: url('data:image/png;base64, ${recipe.image}')`"></div>
-
-        <div class="p-3">
-          <div class="grix xs3 center">
-            <div class="d-flex vcenter">
-              <Icon icon="ic:baseline-access-time" width="20" class="mr-2" />
-              {{ Math.floor((recipe.preparation_time as number) / 60) % 60 }}min
-            </div>
-
-            <div class="d-flex vcenter">
-              <Icon icon="icon-park-outline:cook" width="20" class="mr-2" />
-              {{ Math.floor((recipe.cooking_time as number) / 60) % 60 }}min
-            </div>
-
-            <div class="d-flex vcenter">
-              <Icon icon="mdi:cards-heart-outline" width="20" class="mr-2" />
-              69
-            </div>
-          </div>
-        </div>
-      </div>
+      <RecipeCard v-for="recipe in recipes" :recipe="recipe" />
     </template>
     <div v-else class="h100 d-flex fx-col vcenter fx-center">
       <img class="responsive-media p-3" src="../../assets/donut.svg" alt="">
@@ -43,12 +17,18 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useRecipeStore } from '../../stores/recipes';
+import RecipeCard from '../../components/RecipeCard.vue';
 
 const recipeStore = useRecipeStore();
 
-onMounted(() => {
-  recipeStore.getFavourites();
+const recipes = computed(() => {
+  return recipeStore.recipes.filter(r => recipeStore.favourites?.some(fav => r.id === fav.recipe_id))
+})
+
+onMounted(async () => {
+  await recipeStore.getRecipes();
+  await recipeStore.getFavourites();
 });
 </script>

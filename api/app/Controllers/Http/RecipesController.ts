@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import RecipeRepository from 'App/Repositories/RecipeRepository';
 import { inject } from '@adonisjs/core/build/standalone';
 import Setting from 'App/Models/Setting';
+import Recipe from 'App/Models/Recipe';
 
 @inject()
 export default class RecipesController {
@@ -248,5 +249,10 @@ export default class RecipesController {
     const recipe = await this.recipeRepository.delete(recipe_id);
 
     return response.ok(recipe);
+  }
+
+  public async userRecipes({ auth, response }) {
+    const recipes = await Recipe.query().where('user_id', auth.user?.id);
+    return response.ok(recipes);
   }
 }

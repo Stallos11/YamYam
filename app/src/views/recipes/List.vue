@@ -1,24 +1,31 @@
 <template>
+  <div class="d-flex vcenter mt-4 px-3">
+    <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
+    <h2 class="font-w400 text-center m-3 font-s5">Feed</h2>
+    <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
+  </div>
   <div class="text-white">
-    <template v-if="!recipeStore.isLoading && !categoryStore.isLoading">
-      <div class="d-flex p-3" @click="isFiltersCollapsibleOpened = !isFiltersCollapsibleOpened">
-        <div class="font-s4">Filters</div>
-
-        <div class="d-flex ml-auto"
-          :style="isFiltersCollapsibleOpened ? 'transform: rotate(180deg)' : 'transform: rotate(0deg)'"
-          style="transition: transform 0.5s ease">
-          <Icon icon="material-symbols:keyboard-arrow-down-rounded" width="30" />
-        </div>
+    <div class="d-flex p-3" @click="isFiltersCollapsibleOpened = !isFiltersCollapsibleOpened">
+      <div class="font-s4">Filters</div>
+      <div class="d-flex ml-auto"
+        :style="isFiltersCollapsibleOpened ? 'transform: rotate(180deg)' : 'transform: rotate(0deg)'"
+        style="transition: transform 0.5s ease">
+        <Icon icon="material-symbols:keyboard-arrow-down-rounded" width="30" />
       </div>
+    </div>
 
-      <ax-collapsible v-model="isFiltersCollapsibleOpened">
-        <ax-form class="d-flex container">
-          <ax-form-field label="Category">
-            <ax-form-select :items="categories" v-model="selectedCategory"></ax-form-select>
-          </ax-form-field>
-        </ax-form>
-      </ax-collapsible>
+    <ax-collapsible v-model="isFiltersCollapsibleOpened">
+      <ax-form class="d-flex container">
+        <ax-form-field label="Category">
+          <ax-form-select :items="categories" v-model="selectedCategory"></ax-form-select>
+        </ax-form-field>
+      </ax-form>
+    </ax-collapsible>
 
+    <template v-if="recipeStore.isLoading || categoryStore.isLoading">
+      <Icon icon="line-md:loading-loop" width="40" class="text-white mx-auto d-block mt-5" />
+    </template>
+    <template v-else>
       <div class="container mt-4">
         <RecipeCard v-for="recipe in recipeStore.recipes" :recipe="recipe" />
       </div>
@@ -50,11 +57,11 @@ const bg = computed(() => {
   }
 })
 
-onMounted(() => {
-  recipeStore.getFavourites();
-  recipeStore.getRecipes();
-  typeStore.getTypes();
-  categoryStore.getCategories();
+onMounted(async () => {
+  await recipeStore.getFavourites();
+  await recipeStore.getRecipes();
+  await typeStore.getTypes();
+  await categoryStore.getCategories();
 });
 </script>
 

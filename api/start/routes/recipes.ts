@@ -4,6 +4,7 @@ Route.group(() => {
   Route.get('/', 'RecipesController.index').name = 'recipe.index';
   Route.get('/favourites', 'RecipesController.favourites').name =
     'recipe.favourites';
+    Route.get('/user-recipes', 'RecipesController.userRecipes');
   Route.get('/:id', 'RecipesController.find').name = 'recipe.find';
   Route.get('/total/:period', 'RecipesController.getRecipesPer');
   Route.get('/registrations/:period', 'RecipesController.getRegistrations');
@@ -17,5 +18,4 @@ Route.group(() => {
   //
 })
   .middleware(['auth'])
-  //   .middleware(["auth", "role:admin"])
   .prefix('/recipes');

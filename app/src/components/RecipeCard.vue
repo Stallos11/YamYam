@@ -1,6 +1,6 @@
 <template>
     <div @click="recipeStore.showDetails(recipe.id as string)" class="recipe-card relative-pos light-shadow-2 rounded-2 my-4 mx-3">
-        <ax-btn @click="recipeStore.toggleFavourite(recipe.id as string)"
+        <ax-btn @click.stop="recipeStore.toggleFavourite(recipe.id as string)"
             class="like-btn d-flex vcenter fx-center absolute-pos transparent text-white" size="" circle>
             <Icon v-if="recipeStore.favourites?.some(fav => fav.recipe_id === recipe.id)" icon="basil:heart-solid"
                 width="30" />

@@ -12,6 +12,7 @@ interface State {
   favourites?: Favourite[];
   recipeCreate: IRecipeCreate;
   recipeEdit: IRecipeEdit;
+  userRecipes?: IRecipe[];
 }
 
 interface IRecipeCreate {
@@ -60,6 +61,7 @@ export const useRecipeStore = defineStore('recipe', {
   state: (): State => ({
     isLoading: false,
     recipes: [],
+    userRecipes: [],
     favourites: [],
     recipeCreate: {
       recipe: {
@@ -259,5 +261,21 @@ export const useRecipeStore = defineStore('recipe', {
           this.isLoading = false
         })
     },
+
+    async getUserRecipes() {
+      this.isLoading = true;
+
+      return this.axios
+        .get(`/recipes/user-recipes`)
+        .then((res) => {
+          if (res.data) {
+            this.userRecipes = res.data;
+          }
+        })
+        .catch(console.error)
+        .finally(() => {
+          this.isLoading = false
+        })
+    }
   },
 });
