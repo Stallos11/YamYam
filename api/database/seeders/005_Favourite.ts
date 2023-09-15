@@ -1,7 +1,5 @@
 import BaseSeeder from "@ioc:Adonis/Lucid/Seeder";
-import { DateTime } from "luxon";
 import { enableUuidGeneration } from "App/Decorators/enableUuidGeneration";
-import Recipe from "App/Models/Recipe";
 import Favourite from "App/Models/Favourite";
 
 export default class UserSeeder extends BaseSeeder {

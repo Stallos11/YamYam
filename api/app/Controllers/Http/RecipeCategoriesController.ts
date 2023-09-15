@@ -4,12 +4,60 @@ import Database from "@ioc:Adonis/Lucid/Database";
 import Recipe from "App/Models/Recipe";
 
 export default class RecipeCategoriesController {
+  /**
+   * @swagger
+   * /recipe-categories:
+   *  get:
+   *      tags:
+   *       - RecipeCategories
+   *      summary: Retrieve all recipe categories
+   *      description: Retrieve all recipe categories
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return array of recipe categories
+   *          content:
+   *            application/json:
+   *              schema:
+   *                    type: array
+   *                    items:
+   *                      $ref: '#/components/schemas/RecipeCategory'
+   */
   public async index({ response }) {
     const recipeCategories = await RecipeCategory.all();
 
     return response.ok(recipeCategories);
   }
 
+  /**
+   * @swagger
+   * /recipe-categories/registrations/{period}:
+   *  get:
+   *      tags:
+   *        - RecipeCategories
+   *      summary: Retrieve total recipe categories by period
+   *      description: Retrieve total recipe categories by period
+   *      parameters:
+   *          - name: period
+   *            in: path
+   *            description: Period
+   *            required: true
+   *            schema:
+   *              type: string
+   *              enum: ['day', 'week', 'month', 'year']
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return array of objects
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: array
+   *                items:
+   *                  $ref: '#/components/schemas/ChartResponse'
+   */
   public async getRegistrations({ params, response }) {
     const recipe_categories = await Database.rawQuery(`
       SELECT 
@@ -23,6 +71,34 @@ export default class RecipeCategoriesController {
     return await response.ok(recipe_categories.rows);
   }
 
+  /**
+   * @swagger
+   * /recipe-categories/total/{period}:
+   *  get:
+   *      tags:
+   *        - RecipeCategories
+   *      summary: Retrieve total recipe categories per period
+   *      description: Retrieve total recipe categories per period
+   *      parameters:
+   *          - name: period
+   *            in: path
+   *            description: Period
+   *            required: true
+   *            schema:
+   *              type: string
+   *              enum: ['day', 'week', 'month', 'year']
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return array of objects
+   *          content:
+   *            application/json:
+   *              schema:
+   *                type: array
+   *                items:
+   *                  $ref: '#/components/schemas/ChartResponse'
+   */
   public async getRecipeCategoriesPer({ params, response }) {
     const recipe_categories = await Database.rawQuery(`
       SELECT 
@@ -47,6 +123,33 @@ export default class RecipeCategoriesController {
     return response.ok(data);
   }
 
+  /**
+   * @swagger
+   * /recipe-categories:
+   *  post:
+   *      tags:
+   *        - RecipeCategories
+   *      summary: Create new recipe category
+   *      description: Create new recipe category
+   *      requestBody:
+   *        content:
+   *          application/json:
+   *            schema:
+   *              type: object
+   *      properties:
+   *          recipe_category:
+   *            type: string
+   *            example: 'Diabétique'
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return recipe category object
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/RecipeCategory'
+   */
   public async insert({ request, response }: HttpContextContract) {
     const recipeCategory = new RecipeCategory();
     const body = request.all();
@@ -60,6 +163,31 @@ export default class RecipeCategoriesController {
     return response.ok(recipeCategory);
   }
 
+  /**
+   * @swagger
+   * /recipe-categories/{id}:
+   *  get:
+   *      tags:
+   *        - RecipeCategories
+   *      summary: Retrieve recipe category by id
+   *      description: Retrieve recipe category by id
+   *      parameters:
+   *          - name: id
+   *            in: path
+   *            description: Recipe category id
+   *            required: true
+   *            schema:
+   *              type: string
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return recipe category object
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/RecipeCategory'
+   */
   public async find({ params, response }) {
     const recipeCategory = await RecipeCategory.findOrFail(params.id);
 
@@ -68,6 +196,36 @@ export default class RecipeCategoriesController {
     return response.ok({ ...recipeCategory, usedBy });
   }
 
+  /**
+   * @swagger
+   * /recipe-categories/{id}:
+   *  put:
+   *      tags:
+   *        - RecipeCategories
+   *      summary: Update recipe category by id
+   *      description: Update recipe category by id
+   *      parameters:
+   *          - name: id
+   *            in: path
+   *            description: Recipe category id
+   *            required: true
+   *            schema:
+   *              type: string
+   *      produces:
+   *        - application/json
+   *      requestBody:
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/RecipeCategory'
+   *      responses:
+   *        200:
+   *          description: Return recipe category object
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/RecipeCategory'
+   */
   public async update({ request, params, response }) {
     const body = request.all();
 
@@ -80,6 +238,31 @@ export default class RecipeCategoriesController {
     return response.ok(recipeCategory);
   }
 
+  /**
+   * @swagger
+   * /recipe-categories/{id}:
+   *  delete:
+   *      tags:
+   *        - RecipeCategories
+   *      summary: Delete recipe category by id
+   *      description: Delete recipe category by id
+   *      parameters:
+   *          - name: id
+   *            in: path
+   *            description: Recipe category id
+   *            required: true
+   *            schema:
+   *              type: string
+   *      produces:
+   *        - application/json
+   *      responses:
+   *        200:
+   *          description: Return recipe category object
+   *          content:
+   *            application/json:
+   *              schema:
+   *                $ref: '#/components/schemas/RecipeCategory'
+   */
   public async delete({ params, response }) {
     const recipeCategory = await RecipeCategory.findOrFail(params.id);
     await recipeCategory.delete();

@@ -2,7 +2,6 @@ import Factory from "@ioc:Adonis/Lucid/Factory";
 import RecipeCategory from "App/Models/RecipeCategory";
 import RecipeType from "App/Models/RecipeType";
 import User from "App/Models/User";
-import { DateTime } from "luxon";
 import { v4 as uuidv4 } from "uuid";
 
 function randomDate(start: Date, end: Date) {
@@ -18,6 +17,7 @@ function randomDate(start: Date, end: Date) {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
+//@ts-ignore
 export const UserFactory = Factory.define(User, ({ faker }) => {
   return {
     id: uuidv4(),
@@ -37,6 +37,7 @@ export const UserFactory = Factory.define(User, ({ faker }) => {
   };
 }).build();
 
+//@ts-ignore
 export const RecipeTypeFactory = Factory.define(RecipeType, ({ faker }) => {
   return {
     id: uuidv4(),
@@ -54,6 +55,7 @@ export const RecipeTypeFactory = Factory.define(RecipeType, ({ faker }) => {
 
 export const RecipeCategoriesFactory = Factory.define(
   RecipeCategory,
+  //@ts-ignore
   ({ faker }) => {
     return {
       id: uuidv4(),

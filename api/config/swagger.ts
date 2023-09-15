@@ -1,5 +1,10 @@
 import { SwaggerConfig } from "@ioc:Adonis/Addons/Swagger";
 import { chartResponseSchema } from "App/Models/Schemas/Chart";
+import { favouriteSchema } from "App/Models/Schemas/Favourite";
+import { ingredientSchema } from "App/Models/Schemas/Ingredient";
+import { recipeSchema } from "App/Models/Schemas/Recipe";
+import { recipeCategorySchema } from "App/Models/Schemas/RecipeCategory";
+import { RecipeTypeSchema } from "App/Models/Schemas/RecipeType";
 import { userSchema } from "App/Models/Schemas/User";
 
 export default {
@@ -19,12 +24,17 @@ export default {
       components: {
         schemas: {
           User: userSchema,
+          Recipe: recipeSchema,
+          Favourite: favouriteSchema,
+          RecipeCategory: recipeCategorySchema,
+          Ingredient: ingredientSchema,
+          RecipeType: RecipeTypeSchema,
           ChartResponse: chartResponseSchema,
         },
       },
     },
 
-    apis: ["app/Controllers/Http/UserController.ts"],
+    apis: ["app/Controllers/Http/UserController.ts", "app/Controllers/Http/RecipesController.ts", "app/Controllers/Http/FavouritesController.ts", "app/Controllers/Http/RecipeCategoriesController.ts", "app/Controllers/Http/IngredientsController.ts", "app/Controllers/Http/RecipeTypesController.ts"],
 
     basePath: "/",
   },

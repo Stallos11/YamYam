@@ -7,7 +7,7 @@ export default class UserSeeder extends BaseSeeder {
   // @ts-ignore
   @enableUuidGeneration()
   public async run() {
-    const users = await UserFactory.createMany(100);
+    await UserFactory.createMany(100);
 
     await User.updateOrCreateMany("id", [
       {
