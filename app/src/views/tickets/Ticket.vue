@@ -35,7 +35,6 @@ interface ICollapsible {
   isOpened: boolean
 }
 
-
 //@ts-ignore
 const collapsibles: Ref<ICollapsible[]> = ref([])
 
@@ -52,23 +51,6 @@ onMounted(async () => {
 
   })
 })
-
-const showCollapsible = (id: string) => {
-  const colToOpen = collapsibles.value.find((col: ICollapsible) => col.id === id);
-
-  if (colToOpen) {
-    //@ts-ignore
-    if (colToOpen.isOpened) {
-      colToOpen.isOpened = false;
-    } else {
-      collapsibles.value.map(coll => {
-        //@ts-ignore
-        coll.isOpened = false
-      })
-      colToOpen.isOpened = true;
-    }
-  }
-}
 
 </script>
 

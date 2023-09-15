@@ -81,7 +81,7 @@ export const useTicketStore = defineStore('tickets', {
       const errorStore = useErrorStore();
       const authStore = useAuthStore();
 
-      if ((this.ticketCreate?.message?.length || 0) < 3 || (this.ticketCreate?.title?.length || 0) < 5) return;
+      if ((this.ticketCreate?.message?.length || 0) < 2 || (this.ticketCreate?.title?.length || 0) < 2) return;
       //@ts-ignore
       this.ticketCreate.userId = authStore.user.id;
 

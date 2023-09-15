@@ -23,7 +23,7 @@
           <ax-form-control :rules="[required]" v-model="ticketStore.ticketCreate.message" tag="textarea">Message</ax-form-control>
         </ax-form-field>
 
-        <ax-btn class="primary d-flex rounded-1 mx-auto mt-3" size="small">
+        <ax-btn :disabled="(ticketStore.ticketCreate?.message?.length || 0) < 2 || (ticketStore.ticketCreate?.title?.length || 0) < 2" class="primary d-flex rounded-1 mx-auto mt-3" size="small">
           <Icon class="mr-1" icon="material-symbols:mail-outline" width="20" /> Send
         </ax-btn>
       </ax-form>
