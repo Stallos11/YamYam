@@ -26,9 +26,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import IngredientDetailModal from "../views/ingredients/IngredientDetailModal.vue";
-import GeneralTab from "../components/RecipeCreate/GeneralTab.vue";
-import IngredientTab from "../components/RecipeCreate/IngredientTab.vue";
-import PreparationTab from "../components/RecipeCreate/PreparationTab.vue";
+import GeneralTab from "./RecipeCreate/GeneralTab.vue";
+import IngredientTab from "./RecipeCreate/IngredientTab.vue";
+import PreparationTab from "./RecipeCreate/PreparationTab.vue";
 import PreviewTab from "./RecipeCreate/PreviewTab.vue";
 
 const currentTab = ref();

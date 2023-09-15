@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!ingredientStore.isLoading" class="px-5 py-2">
+  <div v-if="!ingredientStore.isLoading" class="py-2">
     <EasyDataTable
       :search-field="searchField"
       :search-value="searchValue"
@@ -7,11 +7,13 @@
       header-text-direction="center"
       body-text-direction="center"
       buttons-pagination
-      :rows-per-page="5"
+      :empty-message="'Search ingredients'"
+      :rows-per-page="10"
       :headers="ingredientsTableHeaders"
       :items="ingredientStore.ingredients"
       alternating
-      @click-row="selectIngredient"
+      hide-rows-per-page
+      @click-row="ingredientStore.showIngredientDetails"
     />
   </div>
   <div v-else class="spinner text-blue mx-auto my-5">
@@ -31,18 +33,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useIngredientStore } from "../stores/ingredients";
-import { IIngredient, ingredientsTableHeaders } from "../models/ingredients";
-import { useRecipeStore } from "../stores/recipes";
+import { ingredientsTableHeaders } from "../models/ingredients";
 
 const searchField = ref("");
 const searchValue = ref("");
 const ingredientStore = useIngredientStore();
-const recipeStore = useRecipeStore();
-
-const selectIngredient = (item: IIngredient) => {
-  ingredientStore.selectedIngredient = item;
-  recipeStore.addIngredientToCreateRecipe()
-}
 </script>
 
 <style lang="scss">

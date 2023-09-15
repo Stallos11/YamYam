@@ -2,13 +2,16 @@ import { Header } from "vue3-easy-data-table";
 
 export interface IIngredient {
   id: string;
-  openfoodfact_id: string | null;
-  product_name: string | null;
-  product_name_de: string | null;
-  product_name_en: string | null;
-  product_name_fr: string | null;
-  openfoodfact: any;
-  nutriments?: any;
+  openfoodfact_id: string;
+  product_name: string;
+  kcal: number;
+  fat: number;
+  saturated_fat: number;
+  carbohydrates: number;
+  sugars: number;
+  proteins: number;
+  salt: number;
+  img: string;
 }
 
 export type IIngredientCreate = Omit<IIngredient, "id" | "openfoodfact">;

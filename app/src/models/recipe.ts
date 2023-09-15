@@ -1,11 +1,13 @@
-export interface Recipe {
+export interface IRecipe {
   id?: string;
-  name?: string;
-  description?: string;
-  image: string;
-  preparation_time?: number;
-  cooking_time?: number;
-  eaters_amount?: number;
-  role?: 'admin' | 'member' | 'no-access';
-  difficulty?: 1 | 2 | 3 | 4 | 5;
+  name: string;
+  description: string;
+  preparation_time: number | string;
+  cooking_time: number | string;
+  difficulty: number;
+  eaters_amount: number;
+  userId: string;
+  recipe_type_id: string;
+  recipe_category_id: string;
+  image: any;
 }

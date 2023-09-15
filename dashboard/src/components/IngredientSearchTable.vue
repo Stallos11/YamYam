@@ -7,6 +7,7 @@
       header-text-direction="center"
       body-text-direction="center"
       buttons-pagination
+      :empty-message="'Search ingredients'"
       :rows-per-page="5"
       :headers="ingredientsTableHeaders"
       :items="ingredientStore.ingredients"
@@ -48,5 +49,9 @@ const ingredientStore = useIngredientStore();
 }
 .vue3-easy-data-table__message {
   --easy-table-message-font-color: white;
+}
+
+.pagination__items-index {
+  display: none;
 }
 </style>

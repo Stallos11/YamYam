@@ -19,13 +19,16 @@ export const useIngredientStore = defineStore('ingredient', {
     isModalEditOpened: false,
     selectedIngredient: {
       id: '',
-      openfoodfact_id: null,
-      product_name: null,
-      product_name_de: null,
-      product_name_en: null,
-      product_name_fr: null,
-      openfoodfact: null,
-      nutriments: {},
+      openfoodfact_id: '',
+      product_name: '',
+      kcal: 0,
+      fat: 0,
+      saturated_fat: 0,
+      carbohydrates: 0,
+      sugars: 0,
+      proteins: 0,
+      salt: 0,
+      img: ''
     },
   }),
 
@@ -38,22 +41,19 @@ export const useIngredientStore = defineStore('ingredient', {
         .get(`ingredients/${id}`)
         .then((res) => {
           this.selectedIngredient = res.data;
-          this.fetchOpenFoodFact();
         })
         .catch(console.error);
     },
-    fetchOpenFoodFact() {
-      this.axios
-        .get(`https://world.openfoodfacts.org/api/v1/product/${this.selectedIngredient.openfoodfact_id}.json`)
-        .then((res) => {
-          this.selectedIngredient.openfoodfact = res.data.product;
-          this.selectedIngredient.nutriments = res.data.product.nutriments;
-        })
-        .catch((err) => console.error(err));
+    showIngredientDetails(item: IIngredient) {
+      this.selectedIngredient = item;
+      if (item.id) this.fetchDataDetails(item.id);
+      this.isModalDetailOpened = true;
     },
     searchIngredientBy(property: string, search: string) {
       this.axios
-        .post(`ingredients/search/${property}/${search}`)
+        .post(`ingredients/search/${property}`, {
+          search
+        })
         .then((res) => {
           this.ingredients = res.data;
         })
