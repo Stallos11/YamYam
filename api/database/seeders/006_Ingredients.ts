@@ -50,7 +50,7 @@ export default class IngredientSeeder extends BaseSeeder {
     while (products.length > 0) arrays.push(products.splice(0, size));
 
     var promises = arrays.map(async (arr, i) => {
-      await Ingredient.createMany(arr).then((e) => {
+      await Ingredient.createMany(arr).then(() => {
         console.clear();
         process.stdout.write("\u001b[1A\u001b[2K");
         process.stdout.write(
@@ -59,6 +59,6 @@ export default class IngredientSeeder extends BaseSeeder {
       }).catch(err => console.error('err', err));
     });
 
-    await Promise.allSettled(promises).then((res) => { });
+    await Promise.allSettled(promises).then(() => { });
   }
 }

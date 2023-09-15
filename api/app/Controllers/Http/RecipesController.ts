@@ -5,7 +5,7 @@ import Setting from 'App/Models/Setting';
 
 @inject()
 export default class RecipesController {
-  constructor(private recipeRepository: RecipeRepository) {}
+  constructor(private recipeRepository: RecipeRepository) { }
 
   /**
    * @swagger
@@ -137,6 +137,7 @@ export default class RecipesController {
 
     let file = null;
     if (request.allFiles().recipe) {
+      //@ts-ignore
       file = request.allFiles().recipe.recipe.image;
     }
 

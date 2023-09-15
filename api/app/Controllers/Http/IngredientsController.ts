@@ -34,6 +34,7 @@ export default class RecipeCategoriesController {
       limit
     );
 
+    //@ts-ignore
     return response.ok(ingredients.rows);
   }
 
