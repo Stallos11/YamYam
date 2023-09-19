@@ -366,4 +366,11 @@ body {
     }
   }
 }
+
+.ingredient-img {
+  min-width: 80px;
+  max-width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
 </style>

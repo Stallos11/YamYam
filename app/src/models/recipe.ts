@@ -33,6 +33,7 @@ export interface ISelectedRecipe {
   image: string;
   ingredients: IIngredient[];
   instructions: IInstruction[];
+  favourites?: any;
 }
 
 export interface IEditRecipe {
@@ -49,4 +50,5 @@ export interface IEditRecipe {
   image: string;
   ingredients: IIngredient[];
   instructions: IInstruction[];
+  previewImage?: string;
 }

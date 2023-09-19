@@ -31,6 +31,8 @@ interface IIngredientCreate {
   product_name: string;
   amount: string | number;
   unit: string;
+  img: string;
+  openfoodfact_id: string;
   nutriments: {
     kcal: number;
     fat: number;
@@ -78,6 +80,7 @@ export const useRecipeStore = defineStore('recipe', {
       image: "",
       ingredients: [],
       instructions: [],
+      previewImage: ''
     },
     selectedRecipe: {
       id: "",
@@ -176,6 +179,8 @@ export const useRecipeStore = defineStore('recipe', {
         product_name: ingredientStore.selectedIngredient.product_name,
         amount: '',
         unit: '',
+        openfoodfact_id: ingredientStore.selectedIngredient.openfoodfact_id,
+        img: ingredientStore.selectedIngredient.img,
         nutriments: {
           kcal: ingredientStore.selectedIngredient.kcal,
           fat: ingredientStore.selectedIngredient.fat,
@@ -196,6 +201,8 @@ export const useRecipeStore = defineStore('recipe', {
         //@ts-ignore
         product_name: ingredientStore.selectedIngredient.product_name,
         amount: '',
+        openfoodfact_id: ingredientStore.selectedIngredient.openfoodfact_id,
+        img: ingredientStore.selectedIngredient.img,
         unit: '',
         nutriments: {
           kcal: ingredientStore.selectedIngredient.kcal,

@@ -54,7 +54,6 @@
 </template>
 
 <script setup lang="ts">
-import Timepicker from "../../components/Timepicker.vue";
 import { useRecipeStore } from "../../stores/recipes";
 import { useRecipeTypeStore } from "../../stores/recipeTypes";
 import { useRecipeCategoryStore } from "../../stores/recipeCategories";
@@ -67,7 +66,7 @@ const recipeCategoryStore = useRecipeCategoryStore();
 
 const types = ref();
 const categories = ref();
-
+const updatedImageB64 = ref('');
 const difficultyLevels = ref(['1', '2', '3', '4', '5']);
 
 onMounted(() => {
@@ -97,8 +96,19 @@ onMounted(() => {
 })
 
 const setFile = (e: any) => {
-    if (e.target.files[0] != null && recipeStore.recipeEdit.id) {
-        recipeStore.recipeEdit.image = e.target.files[0];
+    const file = e.target.files[0]
+    if (file != null && recipeStore.recipeEdit.id) {
+        recipeStore.recipeEdit.image = file;
+
+        const reader = new FileReader();
+        reader.readAsBinaryString(file);
+
+        reader.onload = function () {
+            if ((reader.result as string).length) recipeStore.recipeEdit.previewImage = btoa(reader.result as string)
+        };
+        reader.onerror = function () {
+            console.log('there are some problems');
+        };
     }
 }
 </script>

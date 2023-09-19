@@ -4,9 +4,12 @@
             <p class="font-s4 mt-0 bd-b-solid bd-white bd-2 pb-2">Ingredient list</p>
 
             <div v-for="(ingredient, i) in recipeStore.recipeEdit.ingredients" :key="ingredient.id"
-                class="grix xs1 lg12 gutter-xs3 vcenter">
-                <p class="col-lg8">{{ ingredient.product_name }}</p>
-                <div class="grix xs3 col-lg4 gutter-xs3 vcenter center">
+                class="grix xs1 gutter-xs3 vcenter">
+                <p>{{ ingredient.product_name }}</p>
+                <div class="grix xs4  gutter-xs3 vcenter center">
+                    <a target="_blank" :href="`https://fr.openfoodfacts.org/produit/${ingredient.openfoodfact_id}`">
+                        <img class="rounded-2 ingredient-img" :src="ingredient.img" />
+                    </a>
                     <ax-form-field label="Qty">
                         <ax-form-control min="1" tag="input" v-model="ingredient.amount" type="number"></ax-form-control>
                     </ax-form-field>

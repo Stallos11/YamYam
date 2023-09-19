@@ -22,14 +22,9 @@
       </ax-form>
     </ax-collapsible>
 
-    <template v-if="recipeStore.isLoading || categoryStore.isLoading">
-      <Icon icon="line-md:loading-loop" width="40" class="text-white mx-auto d-block mt-5" />
-    </template>
-    <template v-else>
-      <div class="container mt-4">
-        <RecipeCard v-for="recipe in recipeStore.recipes" :recipe="recipe" />
-      </div>
-    </template>
+    <div class="container mt-4">
+      <RecipeCard v-for="recipe in recipeStore.recipes" :recipe="recipe" />
+    </div>
   </div>
 </template>
 
@@ -50,12 +45,6 @@ const selectedCategory = ref('');
 const categories = computed(() => {
   return categoryStore.categories?.map((c) => c.category);
 });
-
-const bg = computed(() => {
-  return (img: any) => {
-    return `linear-gradient(0deg, rgba(150, 150, 150, 0) 0 %, rgba(0, 0, 0, 1) 100 %), url("data:image/png;base64, ${img}")`
-  }
-})
 
 onMounted(async () => {
   await recipeStore.getFavourites();

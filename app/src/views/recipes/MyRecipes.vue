@@ -25,6 +25,7 @@ const recipeStore = useRecipeStore();
 
 
 onMounted(async () => {
+    await recipeStore.getFavourites();
     await recipeStore.getUserRecipes();
 });
 </script>

@@ -175,9 +175,6 @@ export default class RecipesController {
   public async find({ params, response }) {
     const recipe = await this.recipeRepository.find(params.id);
 
-    await recipe.load('favourites');
-    await recipe.load('instructions');
-
     return response.ok(recipe);
   }
 
@@ -258,7 +255,8 @@ export default class RecipesController {
   }
 
   public async userRecipes({ auth, response }) {
-    const recipes = await Recipe.query().where('user_id', auth.user?.id);
+    const recipes = await Recipe.query().where('user_id', auth.user?.id).preload('favourites');
+
     return response.ok(recipes);
   }
 }

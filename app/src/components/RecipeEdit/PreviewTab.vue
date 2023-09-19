@@ -5,7 +5,7 @@
                 {{ recipeStore.recipeEdit.name || 'No name' }}
             </p>
             <div class="rounded-2 my-5" style="min-height: 12rem; background-size: cover; background-position: center;"
-                :style="`background-image: url('data:image/png;base64, ${recipeStore.recipeEdit.image}')`">
+                :style="`background-image: url('data:image/png;base64, ${recipeStore.recipeEdit.previewImage || recipeStore.recipeEdit.image}')`">
             </div>
             <div>
                 <ax-btn class="btn primary px-4 py-1 rounded-3 font-s2 mr-3 mb-3">

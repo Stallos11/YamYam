@@ -30,7 +30,7 @@
 
             <div class="d-flex vcenter">
                 <Icon icon="mdi:cards-heart-outline" width="20" class="mr-2" />
-                69
+                {{  recipeStore.selectedRecipe?.favourites?.length || 0 }}
             </div>
         </div>
 
@@ -78,8 +78,8 @@
 
         <div class="d-flex fx-col px-3">
             <div class="nutri">
-                <span>kCal</span>
-                <span>{{ totalNutriments.kcal }}</span>
+                <span>Energy</span>
+                <span>{{ totalNutriments.kcal }} kCal</span>
             </div>
             <div class="nutri">
                 <span>Fat</span>
@@ -188,10 +188,5 @@ const recipeType = computed(() => {
     padding-bottom: 0.2rem;
 }
 
-.ingredient-img {
-    min-width: 80px;
-    max-width: 80px;
-    height: 80px;
-    object-fit: cover;
-}
+
 </style>

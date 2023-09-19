@@ -28,7 +28,7 @@
 
             <div class="d-flex vcenter">
                 <Icon icon="mdi:cards-heart-outline" width="20" class="mr-2" />
-                69
+                {{  recipe.favourites?.length || 0 }}
             </div>
         </div>
     </div>

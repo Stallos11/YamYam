@@ -13,6 +13,7 @@ export default class RecipeRepository {
     const recipes = await Recipe.query()
       .preload('recipeCategory')
       .preload('recipeType')
+      .preload('favourites')
       .preload('user');
 
     return recipes;
@@ -166,6 +167,8 @@ export default class RecipeRepository {
       .preload('ingredients', (query) => {
         query.pivotColumns(['amount', 'unit']);
       })
+      .preload('favourites')
+      .preload('instructions')
       .firstOrFail();
 
     return recipe;
