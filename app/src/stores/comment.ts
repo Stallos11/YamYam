@@ -20,7 +20,7 @@ export const useRecipeCommentStore = defineStore('recipe-comment', {
 
       return this.axios.get(`recipe-comments/${recipeStore.selectedRecipe?.id}`)
         .then(res => {
-          if (res.data) this.comments = res.data.comments
+          if (res.data) this.comments = res.data
         }).catch(err => console.error(err))
         .finally(() => this.isLoading = false)
     },

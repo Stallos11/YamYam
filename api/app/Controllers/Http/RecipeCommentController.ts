@@ -4,7 +4,7 @@ import RecipeComment from "App/Models/RecipeComment";
 export default class RecipeCommentController {
 
   public async list({ params, response }) {
-    const comments = await RecipeComment.query().where('recipe_id', params.id);
+    const comments = await RecipeComment.query().where('recipe_id', params.id).preload('user');
     return response.ok(comments);
   }
 

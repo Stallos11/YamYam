@@ -119,8 +119,8 @@
 
         <AddComment />
 
-
-
+        <RecipeComment v-for="comment in personnalComments" :comment="comment" />
+        <RecipeComment v-for="comment in externalComments" :comment="comment" />
 
     </div>
 
@@ -143,13 +143,16 @@ import { useRecipeStore } from '../../stores/recipes';
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRecipeCategoryStore } from '../../stores/recipeCategories';
 import { useRecipeTypeStore } from '../../stores/recipeTypes';
+import { useRecipeCommentStore } from '../../stores/comment';
 import { useAuthStore } from '../../stores/auth';
 import AddComment from '../../components/AddComment.vue';
+import RecipeComment from '../../components/RecipeComment.vue';
 
 const authStore = useAuthStore();
 const recipeStore = useRecipeStore();
 const recipeCategoryStore = useRecipeCategoryStore();
 const recipeTypeStore = useRecipeTypeStore();
+const commentStore = useRecipeCommentStore();
 const route = useRoute();
 const totalPersons = ref();
 const isModalDeleteOpened = ref(false);
@@ -158,7 +161,7 @@ onBeforeMount(async () => {
     if (!recipeCategoryStore.recipe_categories.length) await recipeCategoryStore.fetchData()
     if (!recipeTypeStore.recipe_types.length) await recipeTypeStore.fetchData()
     if (!recipeStore.selectedRecipe?.id) await recipeStore.showDetails(route.params.id as string)
-
+    await commentStore.getComments();
     totalPersons.value = recipeStore.selectedRecipe?.eaters_amount as number;
 })
 
@@ -170,6 +173,15 @@ const coefs = ref({
     mL: 0.00001,
     cL: 0.001,
     L: 10
+})
+
+const personnalComments = computed(() => {
+    return commentStore.comments.filter(com => com.user_id === authStore.user?.id);
+})
+
+
+const externalComments = computed(() => {
+    return commentStore.comments.filter(com => com.user_id != authStore.user?.id);
 })
 
 const reducePerson = () => {
