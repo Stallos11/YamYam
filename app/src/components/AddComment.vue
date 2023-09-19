@@ -1,5 +1,5 @@
 <template>
-    <div class="my-5">
+    <div class="mb-5">
         <template v-for="i in 5">
             <Icon v-if="i > comment.stars" @click="comment.stars = i" class="mr-2 text-yellow"
                 icon="material-symbols:star-outline" width="25" />

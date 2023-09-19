@@ -118,8 +118,13 @@
             </div>
         </div>
 
-        <AddComment />
+        <div class="d-flex vcenter mt-5">
+            <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
+            <h2 class="font-w400 text-center m-3 font-s5">Comments</h2>
+            <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
+        </div>
 
+        <AddComment />
         <RecipeComment v-for="comment in personnalComments" :comment="comment" />
         <RecipeComment v-for="comment in externalComments" :comment="comment" />
 
