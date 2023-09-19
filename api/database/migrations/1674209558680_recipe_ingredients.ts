@@ -10,8 +10,8 @@ export default class extends BaseSchema {
       table.string("unit");
 
       // Relations
-      table.uuid("recipe_id").references("recipes.id");
-      table.uuid("ingredient_id").references("ingredients.id");
+      table.uuid("recipe_id").references("recipes.id").onDelete('cascade');
+      table.uuid("ingredient_id").references("ingredients.id").onDelete('cascade');
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

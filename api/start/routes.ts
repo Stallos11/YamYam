@@ -27,6 +27,7 @@ import "./routes/recipes";
 import "./routes/users";
 import "./routes/tickets";
 import "./routes/ingredients";
+import "./routes/recipe_comments";
 
 Route.get("/", async () => {
   return { hello: "world" };

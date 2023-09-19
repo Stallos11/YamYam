@@ -313,6 +313,19 @@ export const useRecipeStore = defineStore('recipe', {
           this.isLoading = false
         });
     },
+    async deleteRecipe(id: string) {
+      this.isLoading = true;
+
+      return this.axios
+        .delete(`recipes/${id}`)
+        .then(() => {
+          this.router.push('/recipes')
+        })
+        .catch(console.error)
+        .finally(() => {
+          this.isLoading = false
+        });
+    },
     update() {
       this.axios
         .put(`recipes/${this.recipeEdit.id}`, {

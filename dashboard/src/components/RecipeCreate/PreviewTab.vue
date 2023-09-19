@@ -69,7 +69,7 @@
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')" :class="isRecipeOk.eatersAmountOk ? 'text-green' : 'text-red'">Eaters amount</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')" :class="isRecipeOk.categoryOk ? 'text-green' : 'text-red'">Category</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')" :class="isRecipeOk.typeOk ? 'text-green' : 'text-red'">Type</p>
-            <p class="cursor-pointer mb-0" @click="switchTab('tab2')" :class="isRecipeOk.ingredientsNotEmpty ? 'text-green' : 'text-red'">Ingredients not empty</p>
+            <p class="cursor-pointer mb-0" @click="switchTab('tab2')" :class="isRecipeOk.ingredientsNotEmpty ? 'text-green' : 'text-red'">Ingredients amount / unit</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab2')" :class="isRecipeOk.ingredientsOk ? 'text-green' : 'text-red'">Ingredients valid</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab3')" :class="isRecipeOk.instructionsNotEmpty ? 'text-green' : 'text-red'">Instructions not empty</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab3')" :class="isRecipeOk.instructionsOk ? 'text-green' : 'text-red'">Instructions valid</p>

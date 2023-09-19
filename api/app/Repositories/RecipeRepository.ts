@@ -14,7 +14,8 @@ export default class RecipeRepository {
       .preload('recipeCategory')
       .preload('recipeType')
       .preload('favourites')
-      .preload('user');
+      .preload('user')
+      .preload('comments');
 
     return recipes;
   }
@@ -168,6 +169,7 @@ export default class RecipeRepository {
         query.pivotColumns(['amount', 'unit']);
       })
       .preload('favourites')
+      .preload('comments')
       .preload('instructions')
       .firstOrFail();
 

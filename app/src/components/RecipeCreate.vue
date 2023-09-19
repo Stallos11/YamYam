@@ -16,7 +16,7 @@
     <ax-tab-item class="h100 pt-5" id="tab3">
       <PreparationTab />
     </ax-tab-item>
-    <ax-tab-item class="h100 pt-5" id="tab4">
+    <ax-tab-item class="h100" id="tab4">
       <PreviewTab @switch-tab="switchTab" />
     </ax-tab-item>
 

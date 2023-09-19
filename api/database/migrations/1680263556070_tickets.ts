@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.enum('status', ['in progress', 'closed']).notNullable();
       table.enum('priority', ['low', 'medium', 'high']).nullable();
 
-      table.uuid("user_id").references("users.id");
+      table.uuid("user_id").references("users.id").onDelete('cascade');
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

@@ -1,14 +1,15 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
 
 export default class extends BaseSchema {
-  protected tableName = "favourites";
+  protected tableName = "recipe_comments";
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
-
-      // Relations
-      table.uuid("user_id").references("users.id").onDelete('cascade');
+      table.text("message");
+      table.enum("stars", [1, 2, 3, 4, 5]);
+      // relations
+      table.uuid("user_id").references("users.id").notNullable().onDelete('cascade');
       table.uuid("recipe_id").references("recipes.id").onDelete('cascade');
 
       /**

@@ -18,6 +18,7 @@ import Favourite from "./Favourite";
 import Instruction from "./Instruction";
 import Config from "@ioc:Adonis/Core/Config";
 import Ingredient from "./Ingredient";
+import RecipeComment from "./RecipeComment";
 
 export default class Recipe extends BaseModel {
   @column({ isPrimary: true })
@@ -71,6 +72,9 @@ export default class Recipe extends BaseModel {
 
   @hasMany(() => Favourite)
   public favourites: HasMany<typeof Favourite>;
+
+  @hasMany(() => RecipeComment)
+  public comments: HasMany<typeof RecipeComment>;
 
   @hasMany(() => Instruction)
   public instructions: HasMany<typeof Instruction>;

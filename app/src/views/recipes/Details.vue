@@ -3,7 +3,17 @@
         <Icon icon="eos-icons:bubble-loading" width="40" class="text-white" />
     </div>
     <div v-else class="p-5">
+        <div class="grix xs2 center" v-if="recipeStore.selectedRecipe?.user_id == authStore.user?.id">
+            <ax-btn @click="recipeStore.editRecipe(recipeStore.selectedRecipe?.id as string)"
+                class="btn-circle primary d-flex vcenter fx-center">
+                <Icon icon="mdi:pen" width="30" />
+            </ax-btn>
+            <ax-btn @click="deleteRecipe()" class="btn-circle amaranth d-flex vcenter fx-center">
+                <Icon icon="mdi:trash" width="30" />
+            </ax-btn>
+        </div>
         <p class="font-s4">{{ recipeStore.selectedRecipe?.name }}</p>
+        <p class="font-s3 text-grey text-light-2">{{ recipeStore.selectedRecipe?.description }}</p>
         <div class="grix xs2 my-3">
             <ax-btn class="primary rounded-2 font-s2 px-4 py-1" v-if="recipeCategory">{{ recipeCategory }}</ax-btn>
             <ax-btn class="secondary rounded-2 font-s2 px-4 py-1" v-if="recipeType">{{ recipeType }}</ax-btn>
@@ -30,10 +40,9 @@
 
             <div class="d-flex vcenter">
                 <Icon icon="mdi:cards-heart-outline" width="20" class="mr-2" />
-                {{  recipeStore.selectedRecipe?.favourites?.length || 0 }}
+                {{ recipeStore.selectedRecipe?.favourites?.length || 0 }}
             </div>
         </div>
-
 
         <div class="d-flex vcenter mt-5">
             <Icon @click="reducePerson" icon="line-md:minus-circle" width="25" />
@@ -55,7 +64,8 @@
             </a>
             <div class="pl-3">
                 <p class="my-0 font-s2">{{ ingredient.product_name }}</p>
-                <span class="text-grey">x{{ ingredient.amount * totalPersons / (recipeStore.selectedRecipe?.eaters_amount as number) }} {{ ingredient.unit }}</span>
+                <span class="text-grey">x{{ ingredient.amount * totalPersons / (recipeStore.selectedRecipe?.eaters_amount as
+                    number) }} {{ ingredient.unit }}</span>
             </div>
         </div>
 
@@ -107,10 +117,24 @@
             </div>
         </div>
 
-        <ax-btn @click="recipeStore.editRecipe(recipeStore.selectedRecipe?.id as string)"
-            v-if="recipeStore.selectedRecipe?.user_id == authStore.user?.id"
-            class="amaranth px-4 py-1 d-block mx-auto mt-5 rounded-3">Edit recipe</ax-btn>
+        <AddComment />
+
+
+
+
     </div>
+
+
+    <ax-modal class="bg-dark rounded-1 shadow-1" v-model="isModalDeleteOpened">
+        <template #header>
+            <p class="text-center">Are you sure ?</p>
+        </template>
+        <div class="grix xs2 center">
+            <ax-btn @click="isModalDeleteOpened = false" class="grey px-4 py-1 rounded-3">Cancel</ax-btn>
+            <ax-btn @click="recipeStore.deleteRecipe(recipeStore.selectedRecipe?.id as string)"
+                class="red px-4 py-1 rounded-3">Delete</ax-btn>
+        </div>
+    </ax-modal>
 </template>
 
 <script setup lang="ts">
@@ -120,6 +144,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 import { useRecipeCategoryStore } from '../../stores/recipeCategories';
 import { useRecipeTypeStore } from '../../stores/recipeTypes';
 import { useAuthStore } from '../../stores/auth';
+import AddComment from '../../components/AddComment.vue';
 
 const authStore = useAuthStore();
 const recipeStore = useRecipeStore();
@@ -127,6 +152,7 @@ const recipeCategoryStore = useRecipeCategoryStore();
 const recipeTypeStore = useRecipeTypeStore();
 const route = useRoute();
 const totalPersons = ref();
+const isModalDeleteOpened = ref(false);
 
 onBeforeMount(async () => {
     if (!recipeCategoryStore.recipe_categories.length) await recipeCategoryStore.fetchData()
@@ -163,7 +189,7 @@ const totalNutriments = computed(() => {
             //@ts-ignore
             const total = val[nutri] * val.amount * coefs.value[val.unit] * totalPersons.value;
             return acc + total
-        }, 0).toFixed(4)
+        }, 0).toFixed(3)
     })
 
     return result;
@@ -177,6 +203,10 @@ const recipeType = computed(() => {
     return recipeTypeStore.recipe_types.find(rt => rt.id == recipeStore.selectedRecipe?.recipe_type_id)?.type || false
 })
 
+const deleteRecipe = () => {
+    isModalDeleteOpened.value = true;
+}
+
 </script>
 
 <style lang="scss">
@@ -187,6 +217,4 @@ const recipeType = computed(() => {
     margin-bottom: 0.5rem;
     padding-bottom: 0.2rem;
 }
-
-
 </style>

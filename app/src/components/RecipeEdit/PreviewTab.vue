@@ -81,7 +81,7 @@
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
                 :class="isRecipeOk.typeOk ? 'text-green' : 'text-red'">Type</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab2')"
-                :class="isRecipeOk.ingredientsNotEmpty ? 'text-green' : 'text-red'">Ingredients not empty</p>
+                :class="isRecipeOk.ingredientsNotEmpty ? 'text-green' : 'text-red'">Ingredients amount / unit</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab2')"
                 :class="isRecipeOk.ingredientsOk ? 'text-green' : 'text-red'">Ingredients valid</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab3')"

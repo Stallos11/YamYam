@@ -35,11 +35,16 @@
             </p>
             <p class="font-s3 mt-5 text-secondary">Ingrédients</p>
             <div class="divider white"></div>
-            <div v-for="ingredient in recipeStore.recipeCreate.ingredients" :key="ingredient.id" class="mt-5">
-                <p class="mb-0">{{ ingredient.product_name }}</p>
-                <p class="mt-0">
-                    <span>{{ ingredient.amount }}</span><span>{{ ingredient.unit }}</span>
-                </p>
+            <div v-for="ingredient in recipeStore.recipeCreate.ingredients" :key="ingredient.id" class="grix xs3 vcenter mt-5">
+                <a target="_blank" :href="`https://fr.openfoodfacts.org/produit/${ingredient.openfoodfact_id}`">
+                        <img class="rounded-2 ingredient-img" :src="ingredient.img" />
+                    </a>
+                <div class="col-xs2">
+                    <p class="mb-0">{{ ingredient.product_name }}</p>
+                    <p class="mt-0 text-grey text-light-2">
+                        <span>{{ ingredient.amount }}</span><span>{{ ingredient.unit }}</span>
+                    </p>
+                </div>
             </div>
             <p class="font-s3 mt-5 text-secondary">Instructions</p>
             <div class="divider white"></div>
@@ -69,7 +74,7 @@
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')" :class="isRecipeOk.eatersAmountOk ? 'text-green' : 'text-red'">Eaters amount</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')" :class="isRecipeOk.categoryOk ? 'text-green' : 'text-red'">Category</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')" :class="isRecipeOk.typeOk ? 'text-green' : 'text-red'">Type</p>
-            <p class="cursor-pointer mb-0" @click="switchTab('tab2')" :class="isRecipeOk.ingredientsNotEmpty ? 'text-green' : 'text-red'">Ingredients not empty</p>
+            <p class="cursor-pointer mb-0" @click="switchTab('tab2')" :class="isRecipeOk.ingredientsNotEmpty ? 'text-green' : 'text-red'">Ingredients amount / unit</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab2')" :class="isRecipeOk.ingredientsOk ? 'text-green' : 'text-red'">Ingredients valid</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab3')" :class="isRecipeOk.instructionsNotEmpty ? 'text-green' : 'text-red'">Instructions not empty</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab3')" :class="isRecipeOk.instructionsOk ? 'text-green' : 'text-red'">Instructions valid</p>
