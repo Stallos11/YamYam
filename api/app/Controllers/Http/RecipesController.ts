@@ -208,7 +208,7 @@ export default class RecipesController {
    *              schema:
    *                $ref: '#/components/schemas/Recipe'
    */
-  public async update({ params, request, response }: HttpContextContract) {
+  public async update({ request, response }: HttpContextContract) {
     const body = request.all();
 
     let file = null;

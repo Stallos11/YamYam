@@ -2,7 +2,7 @@ import BaseSeeder from "@ioc:Adonis/Lucid/Seeder";
 import { enableUuidGeneration } from "App/Decorators/enableUuidGeneration";
 import Setting from "App/Models/Setting";
 
-const base64_encode = async () => {
+export const base64_encode = async () => {
   // read binary data
   const fs = require('fs').promises;
   const contents = await fs.readFile('defaultimg.png', { encoding: 'base64' });
