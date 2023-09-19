@@ -6,9 +6,9 @@ import { useAuthStore } from './auth';
 interface State {
   isLoading: boolean;
   tickets?: ITicket[];
-  ticketCreate?: Omit<ITicket, 'id' | 'response'>;
-  selectedTicket: any;
-  selectedTicketResponses: any;
+  ticketCreate: Omit<ITicket, 'id' | 'response'>;
+  selectedTicket?: any;
+  selectedTicketResponses?: any;
 }
 
 export const useTicketStore = defineStore('tickets', {

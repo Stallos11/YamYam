@@ -12,7 +12,7 @@ export interface IIngredient {
   proteins: number;
   salt: number;
   img: string;
-  amount: number;
+  amount: number | string;
   unit: string;
 }
 

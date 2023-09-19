@@ -11,6 +11,7 @@ import { Icon } from '@iconify/vue';
 import VueAxios from 'vue-axios';
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
+//@ts-ignore
 import VueTimepicker from "vue3-timepicker";
 import 'vue3-timepicker/dist/VueTimepicker.css'
 

@@ -28,7 +28,9 @@ export const useIngredientStore = defineStore('ingredient', {
       sugars: 0,
       proteins: 0,
       salt: 0,
-      img: ''
+      img: '',
+      amount: 0,
+      unit: ''
     },
   }),
 

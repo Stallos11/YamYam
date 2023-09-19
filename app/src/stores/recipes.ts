@@ -204,6 +204,7 @@ export const useRecipeStore = defineStore('recipe', {
         openfoodfact_id: ingredientStore.selectedIngredient.openfoodfact_id,
         img: ingredientStore.selectedIngredient.img,
         unit: '',
+        //@ts-ignore
         nutriments: {
           kcal: ingredientStore.selectedIngredient.kcal,
           fat: ingredientStore.selectedIngredient.fat,

@@ -64,8 +64,9 @@
             </a>
             <div class="pl-3">
                 <p class="my-0 font-s2">{{ ingredient.product_name }}</p>
-                <span class="text-grey">x{{ ingredient.amount * totalPersons / (recipeStore.selectedRecipe?.eaters_amount as
-                    number) }} {{ ingredient.unit }}</span>
+                <span class="text-grey">x{{ ingredient.amount as number * totalPersons /
+                    (recipeStore.selectedRecipe?.eaters_amount as
+                        number) }} {{ ingredient.unit }}</span>
             </div>
         </div>
 
