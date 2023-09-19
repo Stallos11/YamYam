@@ -15,12 +15,12 @@
         <div class="grix xs4 center my-3">
             <div class="d-flex vcenter">
                 <Icon icon="ic:baseline-access-time" width="20" class="mr-2" />
-                {{ parsedPreparationTime() }}
+                {{ recipeStore.selectedRecipe?.preparation_time }}
             </div>
 
             <div class="d-flex vcenter">
                 <Icon icon="icon-park-outline:cook" width="20" class="mr-2" />
-                {{ parsedCookingTime() }}
+                {{ recipeStore.selectedRecipe?.cooking_time }}
             </div>
 
             <div class="d-flex vcenter">
@@ -55,7 +55,7 @@
             </a>
             <div class="pl-3">
                 <p class="my-0 font-s2">{{ ingredient.product_name }}</p>
-                <span class="text-grey">x{{ ingredient.amount * totalPersons }} {{ ingredient.unit }}</span>
+                <span class="text-grey">x{{ ingredient.amount * totalPersons / (recipeStore.selectedRecipe?.eaters_amount as number) }} {{ ingredient.unit }}</span>
             </div>
         </div>
 
@@ -106,6 +106,10 @@
                 <span>{{ totalNutriments.salt }} g</span>
             </div>
         </div>
+
+        <ax-btn @click="recipeStore.editRecipe(recipeStore.selectedRecipe?.id as string)"
+            v-if="recipeStore.selectedRecipe?.user_id == authStore.user?.id"
+            class="amaranth px-4 py-1 d-block mx-auto mt-5 rounded-3">Edit recipe</ax-btn>
     </div>
 </template>
 
@@ -115,7 +119,9 @@ import { useRecipeStore } from '../../stores/recipes';
 import { computed, onBeforeMount, ref } from 'vue';
 import { useRecipeCategoryStore } from '../../stores/recipeCategories';
 import { useRecipeTypeStore } from '../../stores/recipeTypes';
+import { useAuthStore } from '../../stores/auth';
 
+const authStore = useAuthStore();
 const recipeStore = useRecipeStore();
 const recipeCategoryStore = useRecipeCategoryStore();
 const recipeTypeStore = useRecipeTypeStore();
@@ -157,7 +163,7 @@ const totalNutriments = computed(() => {
             //@ts-ignore
             const total = val[nutri] * val.amount * coefs.value[val.unit] * totalPersons.value;
             return acc + total
-        }, 0)
+        }, 0).toFixed(4)
     })
 
     return result;
@@ -170,14 +176,6 @@ const recipeCategory = computed(() => {
 const recipeType = computed(() => {
     return recipeTypeStore.recipe_types.find(rt => rt.id == recipeStore.selectedRecipe?.recipe_type_id)?.type || false
 })
-
-const parsedPreparationTime = () => {
-    return `0${(recipeStore.selectedRecipe?.preparation_time as number / 60) / 60 ^ 0}`.slice(-2) + ':' + ('0' + (recipeStore.selectedRecipe?.preparation_time as number / 60) % 60).slice(-2)
-}
-
-const parsedCookingTime = () => {
-    return `0${(recipeStore.selectedRecipe?.cooking_time as number / 60) / 60 ^ 0}`.slice(-2) + ':' + ('0' + (recipeStore.selectedRecipe?.cooking_time as number / 60) % 60).slice(-2)
-}
 
 </script>
 

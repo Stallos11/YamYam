@@ -8,8 +8,8 @@ export default class extends BaseSchema {
       table.uuid("id").primary();
       table.string("name");
       table.text("description");
-      table.integer("preparation_time");
-      table.integer("cooking_time");
+      table.string("preparation_time");
+      table.string("cooking_time");
       table.enum("difficulty", [1, 2, 3, 4, 5]).defaultTo(1).notNullable();
       table.integer("eaters_amount");
       table.text('image');

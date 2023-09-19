@@ -2,6 +2,7 @@ import { inject } from '@adonisjs/core/build/standalone';
 import Database from '@ioc:Adonis/Lucid/Database';
 import Instruction from 'App/Models/Instruction';
 import Recipe from 'App/Models/Recipe';
+import RecipeIngredient from 'App/Models/RecipeIngredient';
 import User from 'App/Models/User';
 import fs from 'fs';
 
@@ -13,7 +14,7 @@ export default class RecipeRepository {
       .preload('recipeCategory')
       .preload('recipeType')
       .preload('user');
-    
+
     return recipes;
   }
 
@@ -63,11 +64,6 @@ export default class RecipeRepository {
     return data;
   }
 
-  private convertToSeconds(_time: string) {
-    const times = _time.split(':');
-    return +times[0] * 3600 + +times[1] * 60;
-  }
-
   public async insert(_body, _file) {
     try {
       console.log('body', _body);
@@ -89,15 +85,13 @@ export default class RecipeRepository {
       let data;
       let base64;
 
-      if(typeof _file == 'string'){
-        base64 =  _file;
-      }else{
+      if (typeof _file == 'string') {
+        base64 = _file;
+      } else {
         data = await fs.promises.readFile(_file.tmpPath);
         base64 = data.toString('base64');
       }
 
-      _recipe.preparationTime = this.convertToSeconds(_recipe.preparation_time);
-      _recipe.cookingTime = this.convertToSeconds(_recipe.cooking_time);
       _recipe.eatersAmount = +_recipe.eaters_amount;
       _recipe.image = base64;
 
@@ -112,7 +106,7 @@ export default class RecipeRepository {
 
   private async createRecipeInstructions(_recipe_id, _instructions) {
     try {
-      _instructions.map(async (inst) => {
+      _instructions.forEach(async (inst) => {
         const instruction = new Instruction();
 
         const inst_to_save = {
@@ -145,6 +139,13 @@ export default class RecipeRepository {
 
   private async updateRecipeIngredients(_recipe, _ingredients) {
     console.log('ingrediets', _ingredients);
+    const recipe = await Recipe.findOrFail(_recipe.id);
+    await recipe.load('ingredients');
+
+    await Promise.all(recipe.ingredients.map(async (ingr) => {
+      await RecipeIngredient.query().where('recipe_id', recipe.id).where('ingredient_id', ingr.id).delete()
+    }))
+
     try {
       _ingredients.map(async (ing) => {
         const ingr = {
@@ -152,7 +153,7 @@ export default class RecipeRepository {
           unit: ing.unit,
         };
 
-        await _recipe.related('ingredients').sync({ [ing.id]: ingr }, true);
+        await _recipe.related('ingredients').sync({ [ing.id]: ingr }, false);
       });
     } catch (err) {
       return err;
@@ -170,15 +171,18 @@ export default class RecipeRepository {
     return recipe;
   }
 
-  public async update(_id, _body) {
+  public async update(_body, _file) {
+    let data;
+    let base64;
+
     try {
       await Recipe.query()
-        .where('id', _id)
+        .where('id', _body.recipe.id)
         .update({
           name: _body.recipe.name,
           description: _body.recipe.description,
-          preparationTime: this.convertToSeconds(_body.recipe.preparation_time),
-          cookingTime: this.convertToSeconds(_body.recipe.cooking_time),
+          preparationTime: _body.recipe.preparation_time,
+          cookingTime: _body.recipe.cooking_time,
           difficulty: _body.recipe.difficulty,
           eatersAmount: +_body.recipe.eaters_amount,
           userId: _body.recipe.userId,
@@ -186,14 +190,25 @@ export default class RecipeRepository {
           recipeCategoryId: _body.recipe.recipe_category_id,
         });
 
-      const recipe = await Recipe.findOrFail(_id);
+      if (_file) {
+        data = await fs.promises.readFile(_file.tmpPath);
+        base64 = data.toString('base64');
+
+        await Recipe.query()
+          .where('id', _body.recipe.id)
+          .update({
+            image: base64
+          })
+      }
+
+      const recipe = await Recipe.findOrFail(_body.recipe.id);
 
       await this.updateRecipeIngredients(recipe, _body.recipe.ingredients);
 
-      _body.recipe.instructions.map(async (inst) => {
-        console.log(inst.id);
+      _body.recipe.instructions.map(async () => {
         await Instruction.query().where('recipe_id', recipe.id).delete();
       });
+
       await this.createRecipeInstructions(recipe.id, _body.recipe.instructions);
     } catch (err) {
       console.error(err);

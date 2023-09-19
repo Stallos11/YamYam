@@ -72,6 +72,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: 'Favourites' },
   },
   {
+    path: '/recipes/edit/:id',
+    component: () => import('../views/recipes/Edit.vue'),
+    name: 'recipe-edit',
+    meta: { title: 'Recipe edit' },
+  },
+  {
     path: '/recipes/:id',
     component: () => import('../views/recipes/Details.vue'),
     name: 'recipe-details',

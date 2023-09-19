@@ -12,8 +12,12 @@
             DETAILS
           </a>
           <ax-btn
-            v-if="props.type != 'edit' && recipeStore.recipeCreate.ingredients.find(ingr => ingr.id == ingredientStore.selectedIngredient.id) == null"
+            v-if="props.type == 'create' && recipeStore.recipeCreate.ingredients.find(ingr => ingr.id == ingredientStore.selectedIngredient.id) == null"
             @click="recipeStore.addIngredientToCreateRecipe()" class="primary font-s2 px-3 py-1 rounded-2">ADD</ax-btn>
+
+            <ax-btn
+            v-if="props.type == 'edit' && recipeStore.recipeEdit.ingredients.find(ingr => ingr.id == ingredientStore.selectedIngredient.id) == null"
+            @click="recipeStore.addIngredientToEditRecipe()" class="primary font-s2 px-3 py-1 rounded-2">ADD</ax-btn>
         </div>
         <!-- <div class="ml-auto font-s5">
             <Icon

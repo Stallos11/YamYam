@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { IRecipe, ISelectedRecipe } from '../models/recipe';
+import { IEditRecipe, IRecipe, ISelectedRecipe } from '../models/recipe';
 import { useErrorStore } from './error';
 import { useAuthStore } from './auth';
 import { useIngredientStore } from './ingredients';
@@ -11,7 +11,7 @@ interface State {
   selectedRecipe?: ISelectedRecipe;
   favourites?: Favourite[];
   recipeCreate: IRecipeCreate;
-  recipeEdit: IRecipeEdit;
+  recipeEdit: IEditRecipe;
   userRecipes?: IRecipe[];
 }
 
@@ -24,21 +24,6 @@ interface IRecipeCreate {
 interface IInstruction {
   title: string;
   description: string
-}
-
-interface IRecipeEdit {
-  id?: string;
-  name: string;
-  description: string;
-  preparation_time: number | string;
-  cooking_time: number;
-  difficulty: number;
-  eaters_amount: number;
-  userId: string;
-  recipe_type_id: string;
-  recipe_category_id: string;
-  ingredients: IIngredientCreate[];
-  instructions: IInstruction[];
 }
 
 interface IIngredientCreate {
@@ -73,13 +58,14 @@ export const useRecipeStore = defineStore('recipe', {
         preparation_time: 0,
         recipe_category_id: "",
         recipe_type_id: "",
-        userId: "",
+        user_id: "",
         image: null
       },
       ingredients: [],
       instructions: [],
     },
     recipeEdit: {
+      id: "",
       name: "",
       description: "",
       difficulty: 0,
@@ -88,7 +74,8 @@ export const useRecipeStore = defineStore('recipe', {
       preparation_time: 0,
       recipe_category_id: "",
       recipe_type_id: "",
-      userId: "",
+      user_id: "",
+      image: "",
       ingredients: [],
       instructions: [],
     },
@@ -102,7 +89,7 @@ export const useRecipeStore = defineStore('recipe', {
       preparation_time: 0,
       recipe_category_id: "",
       recipe_type_id: "",
-      userId: "",
+      user_id: "",
       image: "",
       ingredients: [],
       instructions: [],
@@ -148,7 +135,7 @@ export const useRecipeStore = defineStore('recipe', {
         });
     },
     insert() {
-      this.recipeCreate.recipe.userId = useAuthStore().user?.id as string;
+      this.recipeCreate.recipe.user_id = useAuthStore().user?.id as string;
       this.axios
         .post("recipes", {
           recipe: this.recipeCreate,
@@ -171,7 +158,7 @@ export const useRecipeStore = defineStore('recipe', {
               preparation_time: 0,
               recipe_category_id: "",
               recipe_type_id: "",
-              userId: "",
+              user_id: "",
               image: null
             },
             ingredients: [],
@@ -201,8 +188,35 @@ export const useRecipeStore = defineStore('recipe', {
       });
       ingredientStore.isModalDetailOpened = false;
     },
+    addIngredientToEditRecipe() {
+      const ingredientStore = useIngredientStore();
+
+      this.recipeEdit?.ingredients?.push({
+        id: ingredientStore.selectedIngredient.id,
+        //@ts-ignore
+        product_name: ingredientStore.selectedIngredient.product_name,
+        amount: '',
+        unit: '',
+        nutriments: {
+          kcal: ingredientStore.selectedIngredient.kcal,
+          fat: ingredientStore.selectedIngredient.fat,
+          saturated_fat: ingredientStore.selectedIngredient.saturated_fat,
+          carbs: ingredientStore.selectedIngredient.carbohydrates,
+          sugars: ingredientStore.selectedIngredient.sugars,
+          proteins: ingredientStore.selectedIngredient.proteins,
+          salt: ingredientStore.selectedIngredient.salt,
+        }
+      });
+      ingredientStore.isModalDetailOpened = false;
+    },
     addInstructionToCreateRecipe(instruction: { title: string; description: string }) {
       this.recipeCreate?.instructions.push({
+        title: instruction.title,
+        description: instruction.description,
+      });
+    },
+    addInstructionToEditRecipe(instruction: { title: string; description: string }) {
+      this.recipeEdit?.instructions.push({
         title: instruction.title,
         description: instruction.description,
       });
@@ -261,7 +275,6 @@ export const useRecipeStore = defineStore('recipe', {
           this.isLoading = false
         })
     },
-
     async getUserRecipes() {
       this.isLoading = true;
 
@@ -276,6 +289,54 @@ export const useRecipeStore = defineStore('recipe', {
         .finally(() => {
           this.isLoading = false
         })
-    }
+    },
+    async editRecipe(id: string) {
+      this.isLoading = true;
+
+      return this.axios
+        .get(`recipes/${id}`)
+        .then((res) => {
+          if (res.data) {
+            this.recipeEdit = res.data;
+            this.router.push(`/recipes/edit/${id}`)
+          }
+        })
+        .catch(console.error)
+        .finally(() => {
+          this.isLoading = false
+        });
+    },
+    update() {
+      this.axios
+        .put(`recipes/${this.recipeEdit.id}`, {
+          recipe: this.recipeEdit,
+        }, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(async () => {
+          await this.getRecipes()
+          this.toast.showToast("Info", "recipe updated", "bg-dark", "bg-dark");
+          this.router.replace("/recipes");
+          this.recipeEdit = {
+            id: "",
+            name: "",
+            description: "",
+            difficulty: 0,
+            eaters_amount: 0,
+            cooking_time: 0,
+            preparation_time: 0,
+            recipe_category_id: "",
+            recipe_type_id: "",
+            user_id: "",
+            image: "",
+            ingredients: [],
+            instructions: [],
+          }
+        })
+        .catch((err) => console.error(err));
+    },
   },
+
 });

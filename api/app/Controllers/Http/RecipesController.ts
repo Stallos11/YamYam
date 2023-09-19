@@ -213,8 +213,14 @@ export default class RecipesController {
    */
   public async update({ params, request, response }: HttpContextContract) {
     const body = request.all();
-    const id = params.id;
-    const recipe = await this.recipeRepository.update(id, body);
+
+    let file = null;
+
+    if (request.allFiles().recipe) {
+      //@ts-ignore
+      file = request.allFiles().recipe.image;
+    };
+    const recipe = await this.recipeRepository.update(body, file);
 
     return response.ok(recipe);
   }

@@ -30,10 +30,10 @@ export default class Recipe extends BaseModel {
   public description: string;
 
   @column()
-  public preparationTime: number;
+  public preparationTime: string;
 
   @column()
-  public cookingTime: number;
+  public cookingTime: string;
 
   @column()
   public difficulty: 1 | 2 | 3 | 4 | 5;

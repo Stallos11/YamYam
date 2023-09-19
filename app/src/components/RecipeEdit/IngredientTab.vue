@@ -3,7 +3,7 @@
         <div>
             <p class="font-s4 mt-0 bd-b-solid bd-white bd-2 pb-2">Ingredient list</p>
 
-            <div v-for="(ingredient, i) in recipeStore.recipeCreate.ingredients" :key="ingredient.id"
+            <div v-for="(ingredient, i) in recipeStore.recipeEdit.ingredients" :key="ingredient.id"
                 class="grix xs1 lg12 gutter-xs3 vcenter">
                 <p class="col-lg8">{{ ingredient.product_name }}</p>
                 <div class="grix xs3 col-lg4 gutter-xs3 vcenter center">
@@ -42,7 +42,7 @@ const mesureUnits = [
 ];
 
 const removeIngredient = (id: string) => {
-    recipeStore.recipeCreate.ingredients = recipeStore.recipeCreate.ingredients.filter(ingr => ingr.id != id)
+    recipeStore.recipeEdit.ingredients = recipeStore.recipeEdit.ingredients.filter(ingr => ingr.id != id)
 }
 
 </script>

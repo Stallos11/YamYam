@@ -1,5 +1,6 @@
 <template>
-    <div @click="recipeStore.showDetails(recipe.id as string)" class="recipe-card relative-pos light-shadow-2 rounded-2 my-4 mx-3">
+    <div @click="recipeStore.showDetails(recipe.id as string)"
+        class="recipe-card relative-pos light-shadow-2 rounded-2 my-4 mx-3">
         <ax-btn @click.stop="recipeStore.toggleFavourite(recipe.id as string)"
             class="like-btn d-flex vcenter fx-center absolute-pos transparent text-white" size="" circle>
             <Icon v-if="recipeStore.favourites?.some(fav => fav.recipe_id === recipe.id)" icon="basil:heart-solid"
@@ -17,12 +18,12 @@
         <div class="bottom-card">
             <div class="d-flex vcenter">
                 <Icon icon="ic:baseline-access-time" width="20" class="mr-2" />
-                {{ parsedPreparationTime() }}
+                {{ recipe.preparation_time }}
             </div>
 
             <div class="d-flex vcenter">
                 <Icon icon="icon-park-outline:cook" width="20" class="mr-2" />
-                {{ parsedCookingTime() }}
+                {{ recipe.cooking_time }}
             </div>
 
             <div class="d-flex vcenter">
@@ -37,15 +38,8 @@
 import { useRecipeStore } from '../stores/recipes';
 
 const recipeStore = useRecipeStore();
-const props = defineProps(['recipe']);
+defineProps(['recipe']);
 
-const parsedPreparationTime = () => {
-    return `0${(props.recipe.preparation_time / 60) / 60 ^ 0}`.slice(-2) + ':' + ('0' + (props.recipe.preparation_time / 60) % 60).slice(-2)
-}
-
-const parsedCookingTime = () => {
-    return `0${(props.recipe.cooking_time / 60) / 60 ^ 0}`.slice(-2) + ':' + ('0' + (props.recipe.cooking_time / 60) % 60).slice(-2)
-}
 </script>
 
 <style lang="scss" scoped>

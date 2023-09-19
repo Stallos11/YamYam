@@ -8,7 +8,7 @@ export interface IRecipe {
   cooking_time: number | string;
   difficulty: number;
   eaters_amount: number;
-  userId: string;
+  user_id: string;
   recipe_type_id: string;
   recipe_category_id: string;
   image: any;
@@ -27,7 +27,23 @@ export interface ISelectedRecipe {
   cooking_time: number | string;
   difficulty: number;
   eaters_amount: number;
-  userId: string;
+  user_id: string;
+  recipe_type_id: string;
+  recipe_category_id: string;
+  image: string;
+  ingredients: IIngredient[];
+  instructions: IInstruction[];
+}
+
+export interface IEditRecipe {
+  id: string;
+  name: string;
+  description: string;
+  preparation_time: number | string;
+  cooking_time: number | string;
+  difficulty: number;
+  eaters_amount: number;
+  user_id: string;
   recipe_type_id: string;
   recipe_category_id: string;
   image: string;
