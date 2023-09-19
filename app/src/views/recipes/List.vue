@@ -15,15 +15,31 @@
     </div>
 
     <ax-collapsible v-model="isFiltersCollapsibleOpened">
-      <ax-form class="d-flex container">
+      <ax-form class="d-flex px-5">
         <ax-form-field label="Category">
           <ax-form-select :items="categories" v-model="selectedCategory"></ax-form-select>
         </ax-form-field>
       </ax-form>
     </ax-collapsible>
 
+    <ax-collapsible v-model="isFiltersCollapsibleOpened">
+      <ax-form class="d-flex px-5">
+        <ax-form-field label="Type">
+          <ax-form-select :items="types" v-model="selectedType"></ax-form-select>
+        </ax-form-field>
+      </ax-form>
+    </ax-collapsible>
+
+    <ax-collapsible v-model="isFiltersCollapsibleOpened">
+      <ax-form class="d-flex px-5">
+        <ax-form-field label="Order By">
+          <ax-form-select :items="orderTypes" v-model="selectedOrder"></ax-form-select>
+        </ax-form-field>
+      </ax-form>
+    </ax-collapsible>
+
     <div class="container mt-4">
-      <RecipeCard v-for="recipe in recipeStore.recipes" :recipe="recipe" />
+      <RecipeCard v-for="recipe in fileteredRecipes" :recipe="recipe" />
     </div>
   </div>
 </template>
@@ -40,11 +56,51 @@ const typeStore = useTypeStore();
 const categoryStore = useCategoryStore();
 
 const isFiltersCollapsibleOpened = ref(false);
-const selectedCategory = ref('');
+const selectedCategory = ref('All');
+const selectedType = ref('All');
+const selectedOrder = ref('Date');
 
 const categories = computed(() => {
-  return categoryStore.categories?.map((c) => c.category);
+  return ['All', ...(categoryStore.categories?.map((c) => c.category) as [])];
 });
+
+const types = computed(() => {
+  return ['All', ...(typeStore.types?.map((t) => t.type) as [])];
+});
+
+const orderTypes = ['Date', 'Alphabetical', 'Most Liked', 'Difficulty']
+
+const fileteredRecipes = computed(() => {
+  let recipes = recipeStore.recipes;
+
+  if (selectedCategory.value.length && selectedCategory.value != 'All') {
+    //@ts-ignore
+    recipes = recipes.filter(r => r.recipeCategory.category == selectedCategory.value)
+  }
+
+  if (selectedType.value.length && selectedType.value != 'All') {
+
+    //@ts-ignore
+    recipes = recipes.filter(r => r.recipeType.type == selectedType.value)
+  }
+
+  switch (selectedOrder.value) {
+    case 'Date':
+      // @ts-ignore
+      return recipes.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+    case 'Alphabetical':
+      // @ts-ignore
+      return recipes.sort((a, b) => a.name.localeCompare(b.name))
+    case 'Most Liked':
+      // @ts-ignore
+      return recipes.sort((a, b) => b.favourites.length - a.favourites.length)
+    case 'Difficulty':
+      // @ts-ignore
+      return recipes.sort((a, b) => +b.difficulty - +a.difficulty)
+  }
+
+  return recipes
+})
 
 onMounted(async () => {
   await recipeStore.getFavourites();
