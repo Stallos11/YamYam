@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
       table.string("title");
-      table.text("description");
+      table.text("description", "longtext");
 
       // Relations
       table.uuid("recipe_id").references("recipes.id").onDelete('cascade');

@@ -24,26 +24,35 @@ const databaseConfig: DatabaseConfig = {
   connections: {
     /*
     |--------------------------------------------------------------------------
-    | PostgreSQL config
+    | MySQL config
     |--------------------------------------------------------------------------
     |
-    | Configuration for PostgreSQL database. Make sure to install the driver
+    | Configuration for MySQL database. Make sure to install the driver
     | from npm when using this connection
     |
-    | npm i pg
+    | npm i mysql2
     |
     */
-    pg: {
-      client: 'pg',
+    mysql: {
+      client: 'mysql2',
       connection: {
-        host: Env.get('PG_HOST'),
-        port: Env.get('PG_PORT'),
-        user: Env.get('PG_USER'),
-        password: Env.get('PG_PASSWORD', ''),
-        database: Env.get('PG_DB_NAME'),
+        host: Env.get('MYSQL_HOST'),
+        port: Env.get('MYSQL_PORT'),
+        user: Env.get('MYSQL_USER'),
+        password: Env.get('MYSQL_PASSWORD', ''),
+        database: Env.get('MYSQL_DB_NAME'),
       },
       migrations: {
         naturalSort: true,
+      },
+      pool: {
+        min: 0,
+        max: 10,
+        acquireTimeoutMillis: 300000,
+        createTimeoutMillis: 300000,
+        idleTimeoutMillis: 30000,
+        reapIntervalMillis: 1000,
+        createRetryIntervalMillis: 2000
       },
       healthCheck: false,
       debug: false,

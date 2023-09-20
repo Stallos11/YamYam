@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
       table.string("openfoodfact_id").notNullable();
-      table.string("product_name").notNullable();
+      table.text("product_name", "longtext").notNullable();
       table.float("kcal").notNullable();
       table.float("fat").notNullable();
       table.float("saturated_fat").notNullable();
@@ -15,7 +15,7 @@ export default class extends BaseSchema {
       table.float("sugars").notNullable();
       table.float("proteins").notNullable();
       table.float("salt").notNullable();
-      table.text("img").notNullable();
+      table.text("img", 'longtext').notNullable();
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

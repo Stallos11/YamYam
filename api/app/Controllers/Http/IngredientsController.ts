@@ -76,12 +76,14 @@ export default class RecipeCategoriesController {
   public async searchBy({ request, params, response }: HttpContextContract) {
     // const ingredients = await Ingredient.all();
 
-    const ingredients = await Ingredient.query().whereLike(
-      params.property ? params.property : "product_name",
-      `%${request.body().search.replace(/%20/g, " ")}%`
-    );
+    // const ingredients = await Ingredient.query().whereLike(
+    //   params.property ? params.property : "product_name",
+    //   `%${request.body().search.replace(/%20/g, " ")}%`, 
+    // );
 
-    return response.ok(ingredients);
+    const ingredients = await Database.rawQuery(`select * from ingredients where ingredients.${params.property ? params.property : "product_name"} like '%${request.body().search.replace(/%20/g, ' ')}%'; `)
+
+    return response.ok(ingredients[0]);
   }
 
   public async getRegistrations({ params, response }) {

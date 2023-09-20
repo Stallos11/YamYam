@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
-      table.text("message");
+      table.text("message", "longtext");
       table.enum("stars", [1, 2, 3, 4, 5]);
       // relations
       table.uuid("user_id").references("users.id").notNullable().onDelete('cascade');

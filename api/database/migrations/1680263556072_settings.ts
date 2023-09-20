@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
-      table.text("default_recipe_image");
+      table.text("default_recipe_image", 'longtext');
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

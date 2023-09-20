@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
       table.string("title");
-      table.text("message");
+      table.text("message", "longtext");
       table.enum('status', ['in progress', 'closed']).notNullable();
       table.enum('priority', ['low', 'medium', 'high']).nullable();
 

@@ -113,12 +113,12 @@ services:
       NODE_ENV: development
       APP_KEY: 51p6hxeWWV0G3qqGpVWyhq8ExI4rz8FZ
       DRIVE_DISK: local
-      DB_CONNECTION: pg
-      PG_HOST: postgres
-      PG_PORT: 5432
-      PG_USER: yamyam
-      PG_PASSWORD: yamyam
-      PG_DB_NAME: yamyam
+      DB_CONNECTION: mysql
+      # PG_HOST: postgres
+      # PG_PORT: 5432
+      # PG_USER: yamyam
+      # PG_PASSWORD: yamyam
+      # PG_DB_NAME: yamyam
       API_URL: http://api.yamyam.test/
       APP_URL: http://app.yamyam.test/
       DASHBOARD_URL: http://dashboard.yamyam.test

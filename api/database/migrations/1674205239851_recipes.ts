@@ -7,12 +7,12 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
       table.string("name");
-      table.text("description");
+      table.text("description", "longtext");
       table.string("preparation_time");
       table.string("cooking_time");
       table.enum("difficulty", [1, 2, 3, 4, 5]).defaultTo(1).notNullable();
       table.integer("eaters_amount");
-      table.text('image');
+      table.text('image', 'longtext');
       // relations
       table.uuid("user_id").references("users.id").defaultTo('34353531-c3a0-4eb9-8b87-28cc3147c5f7').onDelete('cascade');
       table.uuid("recipe_category_id").references("recipe_categories.id");
