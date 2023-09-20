@@ -5,7 +5,7 @@
     <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
   </div>
   <div class="text-white">
-    <div class="d-flex p-3" @click="isFiltersCollapsibleOpened = !isFiltersCollapsibleOpened">
+    <div class="d-flex p-3 px-5" @click="isFiltersCollapsibleOpened = !isFiltersCollapsibleOpened">
       <div class="font-s4">Filters</div>
       <div class="d-flex ml-auto"
         :style="isFiltersCollapsibleOpened ? 'transform: rotate(180deg)' : 'transform: rotate(0deg)'"
@@ -14,24 +14,24 @@
       </div>
     </div>
 
-    <ax-collapsible v-model="isFiltersCollapsibleOpened">
-      <ax-form class="d-flex px-5">
+    <ax-collapsible class="px-5" v-model="isFiltersCollapsibleOpened">
+      <ax-form-field label="Search">
+        <ax-form-control tag="input" v-model="searchValue" type="text"></ax-form-control>
+      </ax-form-field>
+
+      <ax-form class="d-flex">
         <ax-form-field label="Category">
           <ax-form-select :items="categories" v-model="selectedCategory"></ax-form-select>
         </ax-form-field>
       </ax-form>
-    </ax-collapsible>
 
-    <ax-collapsible v-model="isFiltersCollapsibleOpened">
-      <ax-form class="d-flex px-5">
+      <ax-form class="d-flex">
         <ax-form-field label="Type">
           <ax-form-select :items="types" v-model="selectedType"></ax-form-select>
         </ax-form-field>
       </ax-form>
-    </ax-collapsible>
 
-    <ax-collapsible v-model="isFiltersCollapsibleOpened">
-      <ax-form class="d-flex px-5">
+      <ax-form class="d-flex">
         <ax-form-field label="Order By">
           <ax-form-select :items="orderTypes" v-model="selectedOrder"></ax-form-select>
         </ax-form-field>
@@ -59,6 +59,7 @@ const isFiltersCollapsibleOpened = ref(false);
 const selectedCategory = ref('All');
 const selectedType = ref('All');
 const selectedOrder = ref('Date');
+const searchValue = ref('');
 
 const categories = computed(() => {
   return ['All', ...(categoryStore.categories?.map((c) => c.category) as [])];
@@ -72,6 +73,10 @@ const orderTypes = ['Date', 'Alphabetical', 'Most Liked', 'Difficulty']
 
 const fileteredRecipes = computed(() => {
   let recipes = recipeStore.recipes;
+
+  if (searchValue.value.length) {
+    recipes = recipes.filter(r => r.name.toLowerCase().includes(searchValue.value.toLowerCase()))
+  }
 
   if (selectedCategory.value.length && selectedCategory.value != 'All') {
     //@ts-ignore
@@ -96,7 +101,7 @@ const fileteredRecipes = computed(() => {
       return recipes.sort((a, b) => b.favourites.length - a.favourites.length)
     case 'Difficulty':
       // @ts-ignore
-      return recipes.sort((a, b) => +b.difficulty - +a.difficulty)
+      return recipes.sort((a, b) => +a.difficulty - +b.difficulty)
   }
 
   return recipes
