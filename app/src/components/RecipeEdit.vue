@@ -48,7 +48,6 @@ onBeforeMount(async () => {
 
 <style lang="scss">
 .tab-left {
-  // display: flex;
   width: 50vw;
 
   @media screen and (max-width: 969px) {
@@ -67,20 +66,4 @@ onBeforeMount(async () => {
     }
   }
 }
-
-.tab-img {
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 100%), url('../assets/img/verres.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 50vw;
-}
-
-// .form-field .form-control {
-//   width: 25vw;
-
-//   &:focus {
-//     border: none !important;
-//   }
-// }
 </style>

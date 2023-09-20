@@ -18,37 +18,8 @@
     </main>
   </div>
 
-  <div class="layout bg-dark relative-pos" v-else>
-    <!-- <div class="navbar-fixed">
-      <header>
-        <nav class="navbar bg-dark text-white shadow-2 rounded-bl2 rounded-br2">
-          <a href="/" class="navbar-logo mx-0">
-            <img src="/icon.png" alt="logo" class="navbar-logo" />
-          </a>
-
-          <div class="navbar-menu ml-auto lh-normal mr-2">
-            <ax-dropdown
-              v-model="isDropdownOpened"
-              @click="isDropdownOpened = !isDropdownOpened"
-              content-classes="bg-light light-shadow-1 rounded-1 dropdown-right my-auto"
-              animation-type="fade"
-            >
-              <template #trigger>
-                <a href="" @click.prevent class="font-w600 d-inline-flex fx-center vcenter pr-0">
-                  <Icon icon="mdi:account-circle" width="30" class="ml-1 mt-1" />
-                </a>
-              </template>
-
-              <a href="" class="dropdown-item" @click.prevent="authStore.logout">
-                <Icon icon="mdi:logout" width="20" class="mr-2" />Log out
-              </a>
-            </ax-dropdown>
-          </div>
-        </nav>
-      </header>
-    </div> -->
-
-    <main class="bg-dark" style="margin-bottom: 5rem">
+  <div class="layout bg-gradient relative-pos text-white" v-else>
+    <main class="bg-gradient" style="margin-bottom: 5rem">
       <router-view></router-view>
       <Pwa />
     </main>
@@ -372,5 +343,10 @@ body {
   max-width: 80px;
   height: 80px;
   object-fit: cover;
+}
+
+
+.bg-gradient {
+  background-image: linear-gradient(180deg, rgb(45, 45, 45) 10.9%, rgb(57 57 57) 87.1%);
 }
 </style>
