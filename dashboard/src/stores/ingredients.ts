@@ -98,10 +98,6 @@ export const useIngredientStore = defineStore("ingredient", {
     showDeleteModal() {
       this.isModalDeleteOpened = true;
     },
-    redirEdit() {
-      this.isModalOpened = false;
-      this.router.replace("/ingredients/edit");
-    },
     update() {
       this.axios
         .put(

@@ -88,9 +88,9 @@
         </ax-form-field>
         <ax-btn @click="addInstructionToEditRecipe()"
           class="btn my-5 primary rounded-3 px-5 py-2 text-white d-block mx-auto">AJOUTER</ax-btn>
-        <div v-for="(instruction, i) in recipeStore.recipeEdit.instructions" :key="instruction.id" class="d-flex fx-col">
+        <div v-for="(instruction, i) in recipeStore.recipeEdit.instructions" class="d-flex fx-col">
           <ax-btn class="rounded-2 px-5 py-2 red text-white"
-            @click="recipeStore.deleteInstruction(instruction.id)">SUPPRIMER</ax-btn>
+            @click="recipeStore.deleteInstruction(i)">SUPPRIMER</ax-btn>
           <ax-form-field label="Titre">
             <ax-form-control tag="input" v-model="instruction.title" type="text"></ax-form-control>
           </ax-form-field>
@@ -148,7 +148,7 @@
         </div>
         <p class="font-s3 mt-5 text-primary">Instructions</p>
         <div class="divider white"></div>
-        <div v-for="instruction in recipeStore.recipeEdit.instructions" :key="instruction.id" class="mt-5">
+        <div v-for="instruction in recipeStore.recipeEdit.instructions" class="mt-5">
           <p class="mb-0 font-s">
             {{ instruction.title }}
           </p>

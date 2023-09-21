@@ -243,8 +243,8 @@ export const useRecipeStore = defineStore("recipe", {
         description: instruction.description,
       });
     },
-    deleteInstruction(id: string) {
-      this.recipeEdit.instructions = this.recipeEdit.instructions.filter(inst => inst.id != id)
+    deleteInstruction(index: any) {
+      this.recipeEdit.instructions.splice(index, 1);
     },
     deleteIngredient(id: string) {
       this.recipeEdit.ingredients = this.recipeEdit.ingredients.filter(ing => ing.id != id)
