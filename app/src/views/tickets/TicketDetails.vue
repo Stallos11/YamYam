@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useTicketStore } from '../../stores/ticket';
 import { useAuthStore } from '../../stores/auth';
 import { useErrorStore } from '../../stores/error';
@@ -63,11 +63,6 @@ const conv = ref();
 onMounted(() => {
   ticketStore.getTicket(route.params.id as string);
   ticketStore.getTicketResponses(route.params.id as string);
-
-  setTimeout(() => {
-    conv.value.scrollTop = conv.value.scrollHeight;
-    response.value = '';
-  }, 300);
 });
 
 const sendResponse = async () => {
@@ -77,12 +72,18 @@ const sendResponse = async () => {
   }
 
   await ticketStore.insertResponse(response.value);
-
-  setTimeout(() => {
-    conv.value.scrollTop = conv.value.scrollHeight;
-    response.value = '';
-  }, 300);
 };
+
+const responses = computed(() => ticketStore.selectedTicketResponses)
+
+watch(responses, (o, n) => {
+  if (o.length !== n.length) {
+    setTimeout(() => {
+      conv.value.scrollTop = conv.value.scrollHeight;
+      response.value = '';
+    }, 100);
+  }
+})
 </script>
 
 <style lang="scss">
