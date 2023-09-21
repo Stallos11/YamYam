@@ -17,6 +17,10 @@ jobs:
       run: npm ci
       working-directory: app
 
+    - name: Test
+      run: npm run test
+      working-directory: app
+
     - name: Build
       run: npm run build
       working-directory: app
@@ -24,9 +28,7 @@ jobs:
         VITE_ENV: production
         VITE_RECAPTCHA_KEY: 6LcggW0kAAAAAIBPh7SXqoEofNWpSmibvJIfHEoh
 
-    - name: Test
-      run: npm run test
-      working-directory: app
+    
 
     - name: Install rsync 📚
       run: |
