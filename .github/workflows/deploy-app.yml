@@ -24,6 +24,9 @@ jobs:
         VITE_ENV: production
         VITE_RECAPTCHA_KEY: 6LcggW0kAAAAAIBPh7SXqoEofNWpSmibvJIfHEoh
 
+    - name: Test
+      run: npm run test
+      working-directory: app
 
     - name: Install rsync 📚
       run: |
