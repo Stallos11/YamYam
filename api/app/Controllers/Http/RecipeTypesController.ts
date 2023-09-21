@@ -60,16 +60,30 @@ export default class RecipeTypesController {
    *                  $ref: '#/components/schemas/ChartResponse'
    */
   public async getRegistrations({ params, response }) {
-    const recipe_types = await Database.rawQuery(`
+    let interval = '';
+
+    switch (params.period) {
+      case 'day':
+        interval = `DATE(created_at)`;
+        break;
+      case 'month':
+        interval = `DATE_FORMAT(created_at, '%Y-%m')`;
+        break;
+      case 'year':
+        interval = `YEAR(created_at)`;
+        break;
+    }
+
+    const data = await Database.rawQuery(`
       SELECT 
-      DATE_TRUNC('${params.period}', created_at) as x, 
-        COUNT(*) as y 
+      ${interval} as x,
+      COUNT(*) as y 
       FROM recipe_types 
       GROUP BY x
       ORDER BY x
     `);
 
-    return await response.ok(recipe_types.rows);
+    return await response.ok(data[0]);
   }
 
   /**
@@ -101,9 +115,23 @@ export default class RecipeTypesController {
    *                  $ref: '#/components/schemas/ChartResponse'
    */
   public async getRecipeTypesPer({ params, response }) {
-    const recipe_types = await Database.rawQuery(`
+    let interval = '';
+
+    switch (params.period) {
+      case 'day':
+        interval = `DATE(created_at)`;
+        break;
+      case 'month':
+        interval = `DATE_FORMAT(created_at, '%Y-%m')`;
+        break;
+      case 'year':
+        interval = `YEAR(created_at)`;
+        break;
+    }
+
+    const items = await Database.rawQuery(`
       SELECT 
-      (DATE_TRUNC('${params.period}', created_at)) as x,
+      ${interval} as x,
       COUNT(*) as y 
       FROM recipe_types 
       GROUP BY x
@@ -112,7 +140,7 @@ export default class RecipeTypesController {
 
     let total = 0;
 
-    const data = recipe_types.rows.map((row: { x: string; y: string }) => {
+    const data = items[0].map((row: { x: string; y: string }) => {
       total += parseInt(row.y);
 
       return {

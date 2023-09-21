@@ -21,6 +21,9 @@ export default class Instruction extends BaseModel {
   public description: string;
 
   @column()
+  public order: number;
+
+  @column()
   public recipeId: string;
 
   @belongsTo(() => Recipe)

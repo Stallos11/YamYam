@@ -39,7 +39,7 @@
         <ax-collapsible v-model="isRecipeCollapsibleOpened">
           <div class="">
             <router-link class="sidenav-link" to="/recipes">List</router-link>
-            <router-link class="sidenav-link" to="/recipes/create">Create</router-link>
+            <!-- <router-link class="sidenav-link" to="/recipes/create">Create</router-link> -->
           </div>
         </ax-collapsible>
       </div>

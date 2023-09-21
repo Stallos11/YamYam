@@ -11,8 +11,8 @@
           </p>
         </div>
         <div class="ml-auto font-s5">
-          <Icon @click="recipeStore.redirEdit()" class="ml-auto mr-2 cursor-pointer" icon="ri:ball-pen-fill" size="100">
-          </Icon>
+          <!-- <Icon @click="recipeStore.redirEdit()" class="ml-auto mr-2 cursor-pointer" icon="ri:ball-pen-fill" size="100"> -->
+          <!-- </Icon> -->
           <Icon @click="recipeStore.showDeleteModal()" class="ml-auto cursor-pointer" icon="mdi:trash-can-circle"
             size="100"></Icon>
         </div>

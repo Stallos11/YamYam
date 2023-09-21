@@ -57,16 +57,30 @@ export default class UserController {
    *                  $ref: '#/components/schemas/ChartResponse'
    */
   public async getRegistrations({ params, response }) {
+    let interval = '';
+
+    switch (params.period) {
+      case 'day':
+        interval = `DATE(created_at)`;
+        break;
+      case 'month':
+        interval = `DATE_FORMAT(created_at, '%Y-%m')`;
+        break;
+      case 'year':
+        interval = `YEAR(created_at)`;
+        break;
+    }
+
     const users = await Database.rawQuery(`
       SELECT 
-      DATE_TRUNC('${params.period}', created_at) as x, 
-        COUNT(*) as y 
+      ${interval} as x,
+      COUNT(*) as y 
       FROM users 
       GROUP BY x
       ORDER BY x
     `);
 
-    return await response.ok(users.rows);
+    return await response.ok(users[0]);
   }
 
   /**
@@ -100,9 +114,22 @@ export default class UserController {
    *                      $ref: '#/components/schemas/ChartResponse'
    */
   public async getUsersPer({ params, response }) {
+    let interval = '';
+
+    switch (params.period) {
+      case 'day':
+        interval = `DATE(created_at)`;
+        break;
+      case 'month':
+        interval = `DATE_FORMAT(created_at, '%Y-%m')`;
+        break;
+      case 'year':
+        interval = `YEAR(created_at)`;
+        break;
+    }
     const users = await Database.rawQuery(`
       SELECT 
-      (DATE_TRUNC('${params.period}', created_at)) as x,
+      ${interval} as x,
       COUNT(*) as y 
       FROM users 
       GROUP BY x
@@ -111,7 +138,7 @@ export default class UserController {
 
     let total = 0;
 
-    const data = users.rows.map((row: { x: string; y: string }) => {
+    const data = users[0].map((row: { x: string; y: string }) => {
       total += parseInt(row.y);
 
       return {

@@ -35,7 +35,7 @@ export default class RecipeCategoriesController {
     );
 
     //@ts-ignore
-    return response.ok(ingredients.rows);
+    return response.ok(ingredients[0]);
   }
 
   /**
@@ -87,16 +87,30 @@ export default class RecipeCategoriesController {
   }
 
   public async getRegistrations({ params, response }) {
-    const ingredients = await Database.rawQuery(`
+    let interval = '';
+
+    switch (params.period) {
+      case 'day':
+        interval = `DATE(created_at)`;
+        break;
+      case 'month':
+        interval = `DATE_FORMAT(created_at, '%Y-%m')`;
+        break;
+      case 'year':
+        interval = `YEAR(created_at)`;
+        break;
+    }
+
+    const data = await Database.rawQuery(`
       SELECT 
-      DATE_TRUNC('${params.period}', created_at) as x, 
-        COUNT(*) as y 
+      ${interval} as x,
+      COUNT(*) as y 
       FROM ingredients 
       GROUP BY x
       ORDER BY x
     `);
 
-    return await response.ok(ingredients.rows);
+    return await response.ok(data[0]);
   }
 
   /**
@@ -128,18 +142,33 @@ export default class RecipeCategoriesController {
    *                  $ref: '#/components/schemas/ChartResponse'
    */
   public async getIngredientsPer({ params, response }: HttpContextContract) {
-    const ingredients = await Database.rawQuery(`
+    let interval = '';
+
+    switch (params.period) {
+      case 'day':
+        interval = `DATE(created_at)`;
+        break;
+      case 'month':
+        interval = `DATE_FORMAT(created_at, '%Y-%m')`;
+        break;
+      case 'year':
+        interval = `YEAR(created_at)`;
+        break;
+    }
+
+    const items = await Database.rawQuery(`
       SELECT 
-      (DATE_TRUNC('${params.period}', created_at)) as x,
+      ${interval} as x,
       COUNT(*) as y 
       FROM ingredients 
       GROUP BY x
       ORDER BY x
     `);
 
+
     let total = 0;
 
-    const data = ingredients.rows.map((row: { x: string; y: string }) => {
+    const data = items[0].map((row: { x: string; y: string }) => {
       total += parseInt(row.y);
 
       return {

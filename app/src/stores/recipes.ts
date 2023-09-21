@@ -150,23 +150,23 @@ export const useRecipeStore = defineStore('recipe', {
         .then((res) => {
           this.recipes.push(res.data);
           this.toast.showToast("Info", "recipe created", "bg-dark", "bg-dark");
-          this.router.replace("/recipes");
-          this.recipeCreate = {
-            recipe: {
-              name: "",
-              description: "",
-              difficulty: 0,
-              eaters_amount: 0,
-              cooking_time: 0,
-              preparation_time: 0,
-              recipe_category_id: "",
-              recipe_type_id: "",
-              user_id: "",
-              image: null
-            },
-            ingredients: [],
-            instructions: [],
-          }
+          // this.router.replace("/recipes");
+          // this.recipeCreate = {
+          //   recipe: {
+          //     name: "",
+          //     description: "",
+          //     difficulty: 0,
+          //     eaters_amount: 0,
+          //     cooking_time: 0,
+          //     preparation_time: 0,
+          //     recipe_category_id: "",
+          //     recipe_type_id: "",
+          //     user_id: "",
+          //     image: null
+          //   },
+          //   ingredients: [],
+          //   instructions: [],
+          // }
         })
         .catch((err) => console.error(err));
     },

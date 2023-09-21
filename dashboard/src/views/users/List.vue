@@ -4,14 +4,14 @@
       <div class="grix xs1 sm2">
         <div>
           <ApexChart
-            :period="'week'"
+            :period="'month'"
             :url="'users/registrations'"
             :title="'Registered users'"
           />
         </div>
         <div>
           <ApexChart
-            :period="'week'"
+            :period="'month'"
             :url="'users/total'"
             :title="'Total users'"
           />

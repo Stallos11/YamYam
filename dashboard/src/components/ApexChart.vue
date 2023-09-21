@@ -38,12 +38,6 @@ const chartOptions = ref<ApexOptions>({
             },
           },
           {
-            icon: "W",
-            click: function (e, chartContext) {
-              fetchData("week");
-            },
-          },
-          {
             icon: "M",
             click: function (e, chartContext) {
               fetchData("month");

@@ -7,6 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid("id").primary();
       table.string("title");
+      table.integer("order");
       table.text("description", "longtext");
 
       // Relations

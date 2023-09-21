@@ -24,35 +24,59 @@ export default class RecipeRepository {
   }
 
   public async getRegistrations(_period: string) {
-    const recipes = await Database.rawQuery(
-      `
-                SELECT 
-                DATE_TRUNC('${_period}', created_at) as x, 
-                  COUNT(*) as y 
-                FROM recipes 
-                GROUP BY x
-                ORDER BY x
-            `
-    );
+    let interval = '';
 
-    return recipes.rows;
+    switch (_period) {
+      case 'day':
+        interval = `DATE(created_at)`;
+        break;
+      case 'month':
+        interval = `DATE_FORMAT(created_at, '%Y-%m')`;
+        break;
+      case 'year':
+        interval = `YEAR(created_at)`;
+        break;
+    }
+
+    const data = await Database.rawQuery(`
+      SELECT 
+      ${interval} as x,
+      COUNT(*) as y 
+      FROM recipes 
+      GROUP BY x
+      ORDER BY x
+    `);
+
+    return data[0];
   }
 
   public async getRecipesPer(_period: string) {
-    const recipes = await Database.rawQuery(
-      `
-                SELECT 
-                (DATE_TRUNC('${_period}', created_at)) as x,
-                COUNT(*) as y 
-                FROM recipes 
-                GROUP BY x
-                ORDER BY x
-            `
-    );
+    let interval = '';
+
+    switch (_period) {
+      case 'day':
+        interval = `DATE(created_at)`;
+        break;
+      case 'month':
+        interval = `DATE_FORMAT(created_at, '%Y-%m')`;
+        break;
+      case 'year':
+        interval = `YEAR(created_at)`;
+        break;
+    }
+
+    const items = await Database.rawQuery(`
+      SELECT 
+      ${interval} as x,
+      COUNT(*) as y 
+      FROM recipes 
+      GROUP BY x
+      ORDER BY x
+    `);
 
     let total = 0;
 
-    const data = recipes.rows.map((row: { x: string; y: string }) => {
+    const data = items[0].map((row: { x: string; y: string }) => {
       total += parseInt(row.y);
 
       return {
@@ -106,126 +130,130 @@ export default class RecipeRepository {
 
   private async createRecipeInstructions(_recipe_id, _instructions) {
     try {
-      _instructions.forEach(async (inst) => {
+      _instructions.forEach(async (inst, i) => {
+        console.log(inst.title, i)
         const instruction = new Instruction();
 
         const inst_to_save = {
           title: inst.title,
           description: inst.description,
+          order: i,
           recipe_id: _recipe_id,
         };
 
         await instruction.fill(inst_to_save).save();
-      });
-    } catch (err) {
-      return err;
-    }
+      })
+    } catch(err) {
+    return err;
   }
+}
 
   private async createRecipeIngredients(_recipe, _ingredients) {
-    try {
-      _ingredients.map(async (ing) => {
-        const ingr = {
-          amount: ing.amount,
-          unit: ing.unit,
-        };
+  try {
+    _ingredients.map(async (ing) => {
+      const ingr = {
+        amount: ing.amount,
+        unit: ing.unit,
+      };
 
-        await _recipe.related('ingredients').sync({ [ing.id]: ingr }, false);
-      });
-    } catch (err) {
-      return err;
-    }
+      await _recipe.related('ingredients').sync({ [ing.id]: ingr }, false);
+    });
+  } catch (err) {
+    return err;
   }
+}
 
   private async updateRecipeIngredients(_recipe, _ingredients) {
-    console.log('ingrediets', _ingredients);
-    const recipe = await Recipe.findOrFail(_recipe.id);
-    await recipe.load('ingredients');
+  console.log('ingrediets', _ingredients);
+  const recipe = await Recipe.findOrFail(_recipe.id);
+  await recipe.load('ingredients');
 
-    await Promise.all(recipe.ingredients.map(async (ingr) => {
-      await RecipeIngredient.query().where('recipe_id', recipe.id).where('ingredient_id', ingr.id).delete()
-    }))
+  await Promise.all(recipe.ingredients.map(async (ingr) => {
+    await RecipeIngredient.query().where('recipe_id', recipe.id).where('ingredient_id', ingr.id).delete()
+  }))
 
-    try {
-      _ingredients.map(async (ing) => {
-        const ingr = {
-          amount: ing.amount,
-          unit: ing.unit,
-        };
+  try {
+    _ingredients.map(async (ing) => {
+      const ingr = {
+        amount: ing.amount,
+        unit: ing.unit,
+      };
 
-        await _recipe.related('ingredients').sync({ [ing.id]: ingr }, false);
-      });
-    } catch (err) {
-      return err;
-    }
+      await _recipe.related('ingredients').sync({ [ing.id]: ingr }, false);
+    });
+  } catch (err) {
+    return err;
   }
+}
 
   public async find(_id: string) {
-    const recipe = await Recipe.query()
-      .where('id', _id)
-      .preload('ingredients', (query) => {
-        query.pivotColumns(['amount', 'unit']);
-      })
-      .preload('favourites')
-      .preload('instructions')
-      .firstOrFail();
+  const recipe = await Recipe.query()
+    .where('id', _id)
+    .preload('ingredients', (query) => {
+      query.pivotColumns(['amount', 'unit']);
+    })
+    .preload('favourites')
+    .preload('instructions', (query) => {
+      query.orderBy('order', 'asc')
+    })
+    .firstOrFail();
 
-    return recipe;
-  }
+  return recipe;
+}
 
   public async update(_body, _file) {
-    let data;
-    let base64;
+  let data;
+  let base64;
 
-    try {
+  try {
+    await Recipe.query()
+      .where('id', _body.recipe.id)
+      .update({
+        name: _body.recipe.name,
+        description: _body.recipe.description,
+        preparationTime: _body.recipe.preparation_time,
+        cookingTime: _body.recipe.cooking_time,
+        difficulty: _body.recipe.difficulty,
+        eatersAmount: +_body.recipe.eaters_amount,
+        userId: _body.recipe.userId,
+        recipeTypeId: _body.recipe.recipe_type_id,
+        recipeCategoryId: _body.recipe.recipe_category_id,
+      });
+
+    if (_file) {
+      data = await fs.promises.readFile(_file.tmpPath);
+      base64 = data.toString('base64');
+
       await Recipe.query()
         .where('id', _body.recipe.id)
         .update({
-          name: _body.recipe.name,
-          description: _body.recipe.description,
-          preparationTime: _body.recipe.preparation_time,
-          cookingTime: _body.recipe.cooking_time,
-          difficulty: _body.recipe.difficulty,
-          eatersAmount: +_body.recipe.eaters_amount,
-          userId: _body.recipe.userId,
-          recipeTypeId: _body.recipe.recipe_type_id,
-          recipeCategoryId: _body.recipe.recipe_category_id,
-        });
-
-      if (_file) {
-        data = await fs.promises.readFile(_file.tmpPath);
-        base64 = data.toString('base64');
-
-        await Recipe.query()
-          .where('id', _body.recipe.id)
-          .update({
-            image: base64
-          })
-      }
-
-      const recipe = await Recipe.findOrFail(_body.recipe.id);
-
-      await this.updateRecipeIngredients(recipe, _body.recipe.ingredients);
-
-      _body.recipe.instructions.map(async () => {
-        await Instruction.query().where('recipe_id', recipe.id).delete();
-      });
-
-      await this.createRecipeInstructions(recipe.id, _body.recipe.instructions);
-    } catch (err) {
-      console.error(err);
-      return err;
+          image: base64
+        })
     }
-  }
 
-  public async delete(_id) {
-    try {
-      const recipe = await Recipe.findOrFail(_id);
-      await recipe.delete();
+    const recipe = await Recipe.findOrFail(_body.recipe.id);
 
-      return { msg: 'recipe deleted' };
-    } catch (err) {
-      return err;
-    }
+    await this.updateRecipeIngredients(recipe, _body.recipe.ingredients);
+
+    _body.recipe.instructions.map(async () => {
+      await Instruction.query().where('recipe_id', recipe.id).delete();
+    });
+
+    await this.createRecipeInstructions(recipe.id, _body.recipe.instructions);
+  } catch (err) {
+    console.error(err);
+    return err;
   }
+}
+
+  public async delete (_id) {
+  try {
+    const recipe = await Recipe.findOrFail(_id);
+    await recipe.delete();
+
+    return { msg: 'recipe deleted' };
+  } catch (err) {
+    return err;
+  }
+}
 }

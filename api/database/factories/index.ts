@@ -14,6 +14,10 @@ function randomDate(start: Date, end: Date) {
   let hours = date.getHours().toString().padStart(2, "0");
   let minutes = date.getMinutes().toString().padStart(2, "0");
   let seconds = date.getSeconds().toString().padStart(2, "0");
+
+  if (+month > 12) month = '12'
+  if (+day > 28) day = '25'
+
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
@@ -27,7 +31,7 @@ export const UserFactory = Factory.define(User, ({ faker }) => {
     role: "user",
     provider: "database",
     createdAt: randomDate(
-      new Date("2023-01-01 00:00:00"),
+      new Date("2022-01-01 00:00:00"),
       new Date("2023-02-04 23:59:59")
     ),
     updatedAt: randomDate(
