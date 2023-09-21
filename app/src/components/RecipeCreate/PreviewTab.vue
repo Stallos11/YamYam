@@ -33,7 +33,7 @@
             <p class="pb-5">
                 {{ recipeStore.recipeCreate.recipe.description }}
             </p>
-            <p class="font-s3 mt-5 text-secondary">Ingrédients</p>
+            <p class="font-s3 mt-5 text-secondary">Ingredients</p>
             <div class="divider white"></div>
             <div v-for="ingredient in recipeStore.recipeCreate.ingredients" :key="ingredient.id" class="grix xs3 vcenter mt-5">
                 <a target="_blank" :href="`https://fr.openfoodfacts.org/produit/${ingredient.openfoodfact_id}`">

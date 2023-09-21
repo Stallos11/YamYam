@@ -31,7 +31,7 @@
                     </ax-form-field>
                 </div>
                 <div>
-                    <ax-form-field label="Catégorie">
+                    <ax-form-field label="Category">
                         <ax-form-select :items="categories"
                             v-model="recipeStore.recipeEdit.recipe_category_id"></ax-form-select>
                     </ax-form-field>

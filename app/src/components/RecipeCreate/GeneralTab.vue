@@ -11,11 +11,11 @@
                         tag="textarea"></ax-form-control>
                 </ax-form-field>
                 <div>
-                    <Timepicker :label="'Temps de préparation'" v-model="recipeStore.recipeCreate.recipe.preparation_time"
+                    <Timepicker :label="'Preparation time'" v-model="recipeStore.recipeCreate.recipe.preparation_time"
                         @emit-value="setRecipeProperty('preparation_time', $event)" />
                 </div>
                 <div>
-                    <Timepicker :label="'Temps de cuisson'" v-model="recipeStore.recipeCreate.recipe.cooking_time"
+                    <Timepicker :label="'Cooking time'" v-model="recipeStore.recipeCreate.recipe.cooking_time"
                         @emit-value="setRecipeProperty('cooking_time', $event)" />
                 </div>
                 <div>
@@ -31,7 +31,7 @@
                     </ax-form-field>
                 </div>
                 <div>
-                    <ax-form-field label="Catégorie">
+                    <ax-form-field label="Category">
                         <ax-form-select :items="categories"
                             v-model="recipeStore.recipeCreate.recipe.recipe_category_id"></ax-form-select>
                     </ax-form-field>

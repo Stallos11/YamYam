@@ -66,6 +66,10 @@ $axentix-palette: (
 @import 'axentix';
 @import '@axentix/vue/dist/vue3/vue-axentix.css';
 
+:root {
+  --ax-modal-max-height: 75%;
+}
+
 // Forms hack
 .grix>.form-field {
   margin-top: 0.5rem !important;
@@ -345,8 +349,7 @@ body {
   object-fit: cover;
 }
 
-
 .bg-gradient {
-  background-image: linear-gradient(180deg, rgb(45, 45, 45) 10.9%, rgb(57 57 57) 87.1%);
+  background-image: linear-gradient(90deg, #323232 59.9%, rgb(57, 57, 57) 87.1%);
 }
 </style>

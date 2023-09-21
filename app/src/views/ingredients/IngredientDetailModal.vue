@@ -34,32 +34,32 @@
     <p class="text-center">Nutriments / 100g</p>
     <div class="d-flex fx-col px-3">
       <div class="nutri">
-        <span>Kcal</span>
-        <span>{{ +ingredientStore.selectedIngredient?.kcal }}</span>
+        <span>Energy</span>
+        <span>{{ +ingredientStore.selectedIngredient?.kcal }} kCal</span>
       </div>
       <div class="nutri">
         <span>Fat</span>
-        <span>{{ +ingredientStore.selectedIngredient?.fat }}</span>
+        <span>{{ +ingredientStore.selectedIngredient?.fat }} g</span>
       </div>
       <div class="nutri">
         <span>Saturated Fat</span>
-        <span>{{ +ingredientStore.selectedIngredient?.saturated_fat }}</span>
+        <span>{{ +ingredientStore.selectedIngredient?.saturated_fat }} g</span>
       </div>
       <div class="nutri">
         <span>Carbs</span>
-        <span>{{ +ingredientStore.selectedIngredient?.carbohydrates }}</span>
+        <span>{{ +ingredientStore.selectedIngredient?.carbohydrates }} g</span>
       </div>
       <div class="nutri">
         <span>Sugars</span>
-        <span>{{ +ingredientStore.selectedIngredient?.sugars }}</span>
+        <span>{{ +ingredientStore.selectedIngredient?.sugars }} g</span>
       </div>
       <div class="nutri">
         <span>Proteins</span>
-        <span>{{ +ingredientStore.selectedIngredient?.proteins }}</span>
+        <span>{{ +ingredientStore.selectedIngredient?.proteins }} g</span>
       </div>
       <div class="nutri">
         <span>Salt</span>
-        <span>{{ +ingredientStore.selectedIngredient?.salt }}</span>
+        <span>{{ +ingredientStore.selectedIngredient?.salt }} g</span>
       </div>
     </div>
   </ax-modal>

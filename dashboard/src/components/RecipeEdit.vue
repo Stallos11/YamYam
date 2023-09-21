@@ -2,7 +2,7 @@
   <ax-tab v-model="currentTab" class="shadow-1 h100">
     <template #menu>
       <ax-tab-link href="#tab1">General</ax-tab-link>
-      <ax-tab-link href="#tab2">Ingrédients</ax-tab-link>
+      <ax-tab-link href="#tab2">Ingredients</ax-tab-link>
       <ax-tab-link href="#tab3">Préparation</ax-tab-link>
       <ax-tab-link href="#tab4">Aperçu</ax-tab-link>
     </template>
@@ -44,7 +44,7 @@
                 </ax-form-field>
               </div>
               <div>
-                <ax-form-field label="Catégorie">
+                <ax-form-field label="Category">
                   <ax-form-select :items="categories"
                     v-model="recipeStore.recipeEdit.recipe_category_id"></ax-form-select>
                 </ax-form-field>
@@ -80,18 +80,18 @@
     </ax-tab-item>
     <ax-tab-item class="p-3 h100" id="tab3">
       <div class="mt-5 pt-5 mx-5 mt-3 gutter-xs7">
-        <ax-form-field label="Titre">
+        <ax-form-field label="Title">
           <ax-form-control tag="input" v-model="instruction.title" type="text"></ax-form-control>
         </ax-form-field>
         <ax-form-field label="Description">
           <ax-form-control tag="textarea" v-model="instruction.description" type="text"></ax-form-control>
         </ax-form-field>
         <ax-btn @click="addInstructionToEditRecipe()"
-          class="btn my-5 primary rounded-3 px-5 py-2 text-white d-block mx-auto">AJOUTER</ax-btn>
+          class="btn my-5 primary rounded-3 px-5 py-2 text-white d-block mx-auto">ADD</ax-btn>
         <div v-for="(instruction, i) in recipeStore.recipeEdit.instructions" class="d-flex fx-col">
           <ax-btn class="rounded-2 px-5 py-2 red text-white"
             @click="recipeStore.deleteInstruction(i)">SUPPRIMER</ax-btn>
-          <ax-form-field label="Titre">
+          <ax-form-field label="Title">
             <ax-form-control tag="input" v-model="instruction.title" type="text"></ax-form-control>
           </ax-form-field>
           <ax-form-field label="Description">
@@ -138,7 +138,7 @@
         <p class="pb-5">
           {{ recipeStore.recipeEdit.description }}
         </p>
-        <p class="font-s3 mt-5 text-primary">Ingrédients</p>
+        <p class="font-s3 mt-5 text-primary">Ingredients</p>
         <div class="divider white"></div>
         <div v-for="ingredient in recipeStore.recipeEdit.ingredients" :key="ingredient.id" class="mt-5">
           <p class="mb-0">{{ ingredient.product_name }}</p>

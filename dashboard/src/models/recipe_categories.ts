@@ -6,7 +6,7 @@ export interface IRecipeCategory {
 }
 
 export const recipeCategoryTableHeaders: Header[] = [
-  { text: "Catégorie", value: "category", sortable: true },
+  { text: "Category", value: "category", sortable: true },
   { text: "Created_at", value: "created_at", sortable: true },
 ];
 export const recipeCategoryFilterKeyOptions = ["category", "created_at"];

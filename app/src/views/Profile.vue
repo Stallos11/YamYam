@@ -4,8 +4,8 @@
       <h2 class="my-2">Account summary</h2>
 
       <ul>
-        <li>0 Created recipes</li>
-        <li>3 Favourite recipes</li>
+        <li>{{ createdRecipes }} created recipe{{ createdRecipes < 2 ? '' : 's' }}</li>
+        <li>{{ favouritesLength }} favourite recipe{{ favouritesLength < 2 ? '' : 's' }}</li>
       </ul>
     </div>
 
@@ -16,14 +16,18 @@
 
       <ax-form @submit.prevent="submit" class="mt-4">
         <ax-form-field label="Title">
-          <ax-form-control tag="input" :rules="[required]" v-model="ticketStore.ticketCreate.title" type="text"></ax-form-control>
+          <ax-form-control tag="input" :rules="[required]" v-model="ticketStore.ticketCreate.title"
+            type="text"></ax-form-control>
         </ax-form-field>
 
         <ax-form-field label="Messsage">
-          <ax-form-control :rules="[required]" v-model="ticketStore.ticketCreate.message" tag="textarea">Message</ax-form-control>
+          <ax-form-control :rules="[required]" v-model="ticketStore.ticketCreate.message"
+            tag="textarea">Message</ax-form-control>
         </ax-form-field>
 
-        <ax-btn :disabled="(ticketStore.ticketCreate?.message?.length || 0) < 2 || (ticketStore.ticketCreate?.title?.length || 0) < 2" class="primary d-flex rounded-1 mx-auto mt-3" size="small">
+        <ax-btn
+          :disabled="(ticketStore.ticketCreate?.message?.length || 0) < 2 || (ticketStore.ticketCreate?.title?.length || 0) < 2"
+          class="primary d-flex rounded-1 mx-auto mt-3" size="small">
           <Icon class="mr-1" icon="material-symbols:mail-outline" width="20" /> Send
         </ax-btn>
       </ax-form>
@@ -40,16 +44,32 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onBeforeMount } from 'vue';
 import { useAuthStore } from '../stores/auth';
+import { useRecipeStore } from '../stores/recipes';
 import { useTicketStore } from '../stores/ticket';
 import { required } from '../utils/validation';
 
 const authStore = useAuthStore();
 const ticketStore = useTicketStore();
+const recipeStore = useRecipeStore();
+
+onBeforeMount(async () => {
+  await recipeStore.getRecipes();
+  await recipeStore.getFavourites();
+})
 
 const submit = async () => {
   await ticketStore.createTicket();
 };
+
+const createdRecipes = computed(() => {
+  return recipeStore.recipes.filter(r => r.user_id === authStore.user?.id).length
+})
+
+const favouritesLength = computed(() => {
+  return recipeStore.recipes.filter(r => recipeStore.favourites?.some(fav => r.id === fav.recipe_id)).length
+})
 </script>
 
 <style lang="scss">
