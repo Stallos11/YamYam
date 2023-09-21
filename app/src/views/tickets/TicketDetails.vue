@@ -87,7 +87,7 @@ const sendResponse = async () => {
 
 <style lang="scss">
 .conv {
-  max-height: 50vh;
+  max-height: 42vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }

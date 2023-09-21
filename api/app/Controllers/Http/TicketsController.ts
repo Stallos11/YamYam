@@ -67,7 +67,9 @@ export default class TicketsController {
   public async responses({ params, response }) {
     const ticket = await Ticket.findOrFail(params.id);
 
-    await ticket.load('responses');
+    await ticket.load('responses', (q) => {
+      q.orderBy('created_at', 'asc')
+    });
 
     return response.ok({ responses: ticket.responses });
   }
