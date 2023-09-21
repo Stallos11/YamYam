@@ -125,19 +125,19 @@ services:
       SESSION_DRIVER: cookie
       ROOT_DOMAIN: yamyam.test
 
-  postgres:
-    image: postgres:14.5
-    restart: unless-stopped
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: yamyam
-      POSTGRES_USER: yamyam
-      POSTGRES_DB: yamyam
-    networks:
-      - yamyam
+  # postgres:
+  #   image: postgres:14.5
+  #   restart: unless-stopped
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: yamyam
+  #     POSTGRES_USER: yamyam
+  #     POSTGRES_DB: yamyam
+  #   networks:
+  #     - yamyam
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
@@ -150,31 +150,45 @@ services:
       - ./portainer-data:/data
     ports:
       - 9000:9000
+    networks:
+      yamyam:
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    expose:
+      - 9100
+    networks:
+      - yamyam
 
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:latest
     container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-    ports:
-      - 9090:9090
-    restart: unless-stopped
-    volumes:
-      - ./config/prometheus:/etc/prometheus
-      - prom_data:/prometheus
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    ports:
-      - 3000:3000
-    restart: unless-stopped
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=grafana
-    volumes:
-      - ./config/grafana:/etc/grafana/provisioning/datasources
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    expose:
+      - 9090
+    networks:
+      - yamyam
 
-      
 networks:
   yamyam:
     driver: bridge
@@ -182,4 +196,4 @@ networks:
 volumes:
   postgres:
     driver: local
-  prom_data:
+  prometheus_data:
