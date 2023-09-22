@@ -9,7 +9,7 @@
             <Icon v-if="i > comment.stars" class="mr-2 text-yellow" icon="material-symbols:star-outline" width="20" />
             <Icon v-else class="mr-2 text-yellow" icon="material-symbols:star" width="20" />
         </template>
-        <p class="mb-0" style="word-break: break-all;">{{ comment.message }}</p>
+        <p class="mb-0" style="word-break: break-word;">{{ comment.message }}</p>
     </div>
 
     <ax-modal class="bg-dark rounded-1 shadow-1" v-model="isModalDeleteOpened">
