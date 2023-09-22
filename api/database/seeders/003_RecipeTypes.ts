@@ -10,7 +10,7 @@ export default class RecipeTypesSeeder extends BaseSeeder {
     await RecipeType.updateOrCreateMany("id", [
       {
         id: "1b2ae1ba-9165-4c09-b65a-a4072caa8680",
-        type: "Entrance",
+        type: "Entrée",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       },
@@ -22,13 +22,13 @@ export default class RecipeTypesSeeder extends BaseSeeder {
       },
       {
         id: "91bdd636-8b6f-46f9-a59b-318c1901215b",
-        type: "Salad",
+        type: "Salade",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       },
       {
         id: "2d58f83a-b644-4274-8021-c803d2c49048",
-        type: "Soup",
+        type: "Soupe",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       },

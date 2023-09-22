@@ -1,7 +1,7 @@
 <template>
     <div class="grix xs1 lg2 gutter-xs3">
         <div>
-            <p class="font-s4 mt-0 bd-b-solid bd-white bd-2 pb-2">Ingredient list</p>
+            <p class="font-s4 mt-0 bd-b-solid bd-white bd-2 pb-2">Liste d'ingrédients</p>
 
             <div v-for="(ingredient, i) in recipeStore.recipeCreate.ingredients" :key="ingredient.id"
                 class="grix xs1 gutter-xs3 vcenter">
@@ -10,10 +10,10 @@
                     <a target="_blank" :href="`https://fr.openfoodfacts.org/produit/${ingredient.openfoodfact_id}`">
                         <img class="rounded-2 ingredient-img" :src="ingredient.img" />
                     </a>
-                    <ax-form-field label="Qty">
+                    <ax-form-field label="Qté">
                         <ax-form-control min="1" tag="input" v-model="ingredient.amount" type="number"></ax-form-control>
                     </ax-form-field>
-                    <ax-form-field label="Unit">
+                    <ax-form-field label="Unité">
                         <ax-form-select :items="mesureUnits" v-model="ingredient.unit"></ax-form-select>
                     </ax-form-field>
                     <ax-btn @click="removeIngredient(ingredient.id)" circle small class="red d-flex vcenter fx-center">

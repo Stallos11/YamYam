@@ -46,7 +46,7 @@
 
         <div class="d-flex vcenter mt-5">
             <Icon @click="reducePerson" icon="line-md:minus-circle" width="25" />
-            <ax-form-field class="my-0 mx-3" label="Eaters amount">
+            <ax-form-field class="my-0 mx-3" label="Nbr Personnes">
                 <ax-form-control tag="input" v-model="totalPersons" type="number" min="0"></ax-form-control>
             </ax-form-field>
             <Icon @click="upPerson" icon="line-md:plus-circle" width="25" />
@@ -54,7 +54,7 @@
 
         <div class="d-flex vcenter">
             <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
-            <h2 class="font-w400 text-center m-3 font-s5">Ingredients</h2>
+            <h2 class="font-w400 text-center m-3 font-s5">Ingrédients</h2>
             <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
         </div>
 
@@ -64,9 +64,8 @@
             </a>
             <div class="pl-3">
                 <p class="my-0 font-s2">{{ ingredient.product_name }}</p>
-                <span class="text-grey">x{{ ingredient.amount as number * totalPersons /
-                    (recipeStore.selectedRecipe?.eaters_amount as
-                        number) }} {{ ingredient.unit }}</span>
+                <span class="text-grey">x{{ (ingredient.amount as number * totalPersons /
+                    (recipeStore.selectedRecipe?.eaters_amount as number)).toFixed(0) }} {{ ingredient.unit }}</span>
             </div>
         </div>
 
@@ -89,38 +88,38 @@
 
         <div class="d-flex fx-col px-3">
             <div class="nutri">
-                <span>Energy</span>
+                <span>Energie</span>
                 <span>{{ totalNutriments.kcal }} kCal</span>
             </div>
             <div class="nutri">
-                <span>Fat</span>
+                <span>Gras</span>
                 <span>{{ totalNutriments.fat }} g</span>
             </div>
             <div class="nutri">
-                <span>Saturated Fat</span>
+                <span>Acides gras saturés</span>
                 <span>{{ totalNutriments.saturated_fat }} g</span>
             </div>
             <div class="nutri">
-                <span>Carbs</span>
+                <span>Glucides</span>
                 <span>{{ totalNutriments.carbohydrates }} g</span>
             </div>
             <div class="nutri">
-                <span>Sugars</span>
+                <span>Sucres</span>
                 <span>{{ totalNutriments.sugars }} g</span>
             </div>
             <div class="nutri">
-                <span>Proteins</span>
+                <span>Protéines</span>
                 <span>{{ totalNutriments.proteins }} g</span>
             </div>
             <div class="nutri">
-                <span>Salt</span>
+                <span>Sel</span>
                 <span>{{ totalNutriments.salt }} g</span>
             </div>
         </div>
 
         <div class="d-flex vcenter mt-5">
             <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
-            <h2 class="font-w400 text-center m-3 font-s5">Comments</h2>
+            <h2 class="font-w400 text-center m-3 font-s5">Commentaires</h2>
             <div class="fx-grow bd-2 bd-grey bd-dark-3 bd-b-solid"></div>
         </div>
 
@@ -133,12 +132,12 @@
 
     <ax-modal class="bg-dark rounded-1 shadow-1" v-model="isModalDeleteOpened">
         <template #header>
-            <p class="text-center">Are you sure ?</p>
+            <p class="text-center">Etes-vous sûr ?</p>
         </template>
         <div class="grix xs2 center">
-            <ax-btn @click="isModalDeleteOpened = false" class="grey px-4 py-1 rounded-3">Cancel</ax-btn>
+            <ax-btn @click="isModalDeleteOpened = false" class="grey px-4 py-1 rounded-3">Annuler</ax-btn>
             <ax-btn @click="recipeStore.deleteRecipe(recipeStore.selectedRecipe?.id as string)"
-                class="red px-4 py-1 rounded-3">Delete</ax-btn>
+                class="red px-4 py-1 rounded-3">Supprimer</ax-btn>
         </div>
     </ax-modal>
 </template>
@@ -205,7 +204,7 @@ const totalNutriments = computed(() => {
     nutriments.value.forEach(nutri => {
         result[nutri] = recipeStore.selectedRecipe?.ingredients.reduce((acc, val) => {
             //@ts-ignore
-            const total = val[nutri] * val.amount * coefs.value[val.unit] * totalPersons.value;
+            const total = val[nutri] * val.amount * coefs.value[val.unit] * totalPersons.value / recipeStore.selectedRecipe?.eaters_amount;
             return acc + total
         }, 0).toFixed(3)
     })

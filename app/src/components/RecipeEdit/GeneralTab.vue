@@ -2,36 +2,36 @@
     <div v-if="!recipeStore.isLoading" class="d-flex h100">
         <ax-form class="w100">
             <div class="grix xs1 md2 gutter-xs5">
-                <ax-form-field class="col-md2 col-xs1" label="Recipe name">
+                <ax-form-field class="col-md2 col-xs1" label="Nom">
                     <ax-form-control tag="input" v-model="recipeStore.recipeEdit.name" type="text"></ax-form-control>
                 </ax-form-field>
                 <ax-form-field class="col-md2 col-xs1" label="Description">
                     <ax-form-control v-model="recipeStore.recipeEdit.description" tag="textarea"></ax-form-control>
                 </ax-form-field>
                 <ax-form-field>
-                    <label>Preparation Time</label>
-                    <VueTimepicker class="time-control" close-on-complete v-model="recipeStore.recipeEdit.preparation_time"
+                    <label>Tps de préparation</label>
+                    <VueTimepicker class="time-control w100" close-on-complete v-model="recipeStore.recipeEdit.preparation_time"
                         :minute-interval="5" />
                 </ax-form-field>
                 <ax-form-field>
-                    <label>Cooking Time</label>
-                    <VueTimepicker class="time-control" close-on-complete v-model="recipeStore.recipeEdit.cooking_time"
+                    <label>Tps de cuisson</label>
+                    <VueTimepicker class="time-control w100" close-on-complete v-model="recipeStore.recipeEdit.cooking_time"
                         :minute-interval="5" />
                 </ax-form-field>
                 <div>
-                    <ax-form-field label="Dificulty">
+                    <ax-form-field label="Dificulté">
                         <ax-form-select :items="difficultyLevels"
                             v-model="recipeStore.recipeEdit.difficulty"></ax-form-select>
                     </ax-form-field>
                 </div>
                 <div>
-                    <ax-form-field label="Eaters amount">
+                    <ax-form-field label="Nbr de personnes">
                         <ax-form-control tag="input" v-model="recipeStore.recipeEdit.eaters_amount" type="number"
                             min="0"></ax-form-control>
                     </ax-form-field>
                 </div>
                 <div>
-                    <ax-form-field label="Category">
+                    <ax-form-field label="Catégorie">
                         <ax-form-select :items="categories"
                             v-model="recipeStore.recipeEdit.recipe_category_id"></ax-form-select>
                     </ax-form-field>
@@ -42,7 +42,7 @@
                     </ax-form-field>
                 </div>
                 <div>
-                    <ax-form-file label="Upload" @change="setFile"
+                    <ax-form-file label="Image" @change="setFile"
                         label-classes="btn airforce dark-1 rounded-1"></ax-form-file>
                 </div>
             </div>

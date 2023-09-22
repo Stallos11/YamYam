@@ -240,6 +240,6 @@ export default class RecipeCategoriesController {
     const ingredient = await Ingredient.findOrFail(params.id);
     await ingredient.delete();
 
-    return response.ok({ msg: "ingredient deleted" });
+    return response.ok({ msg: "Ingrédient supprimé" });
   }
 }

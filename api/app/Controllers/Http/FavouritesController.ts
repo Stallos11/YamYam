@@ -134,9 +134,9 @@ export default class FavouritesController {
    */
   public async delete({ auth, params, response }: HttpContextContract) {
     const favourite = await Favourite.findOrFail(params.id);
-    if (favourite.userId != auth.user?.id) return response.badRequest({ msg: 'Unauthorized' })
+    if (favourite.userId != auth.user?.id) return response.badRequest({ msg: 'Accès interdit' })
     await favourite.delete();
 
-    return response.ok({ msg: "favourite deleted" });
+    return response.ok({ msg: "Favoris supprimé" });
   }
 }

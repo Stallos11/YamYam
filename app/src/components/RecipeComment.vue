@@ -14,11 +14,11 @@
 
     <ax-modal class="bg-dark rounded-1 shadow-1" v-model="isModalDeleteOpened">
         <template #header>
-            <p class="text-center">Are you sure ?</p>
+            <p class="text-center">Êtes-vous sûr ? ?</p>
         </template>
         <div class="grix xs2 center">
-            <ax-btn @click="isModalDeleteOpened = false" class="grey px-4 py-1 rounded-3">Cancel</ax-btn>
-            <ax-btn @click="deleteComment" class="red px-4 py-1 rounded-3">Delete</ax-btn>
+            <ax-btn @click="isModalDeleteOpened = false" class="grey px-4 py-1 rounded-3">Annuler</ax-btn>
+            <ax-btn @click="deleteComment" class="red px-4 py-1 rounded-3">Supprimer</ax-btn>
         </div>
     </ax-modal>
 </template>

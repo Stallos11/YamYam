@@ -2,11 +2,11 @@
   <div class="h100 d-flex fx-center vcenter auth-card">
     <div class="card bg-dark rounded-2 overflow-visible mt-5 light-shadow-4">
       <div class="robot"></div>
-      <h1 class="card-header text-center my-2 font-s5 font-w500">Register</h1>
+      <h1 class="card-header text-center my-2 font-s5 font-w500">Inscription</h1>
 
       <div class="card-content">
         <div class="text-center">
-          <router-link to="/login" class="text-primary font-w500">You have an account ? Log in now !</router-link>
+          <router-link to="/login" class="text-primary font-w500">Déjà inscrit ? Connectez-vous !</router-link>
         </div>
 
         <ax-form ref="form" class="mt-4" @keypress.enter.prevent="register">
@@ -14,21 +14,21 @@
             <ax-form-control type="email" v-model="user.email" lazy :rules="[required, emailRule]"></ax-form-control>
           </ax-form-field>
 
-          <ax-form-field label="Firstname*">
+          <ax-form-field label="Pseudo*">
             <ax-form-control type="text" v-model="user.firstname" lazy :rules="[required]"></ax-form-control>
           </ax-form-field>
 
-          <ax-form-field label="Password*">
+          <ax-form-field label="Mot de passe*">
             <ax-form-control type="password" v-model="user.password" lazy :rules="[required, passwordRule]"></ax-form-control>
           </ax-form-field>
 
-          <ax-form-field label="Confirm Password*">
+          <ax-form-field label="Confirmation*">
             <ax-form-control type="password" :rules="[required, samePasswordRule]"></ax-form-control>
           </ax-form-field>
         </ax-form>
 
         <div class="text-center mt-3">
-          <router-link to="/forgot-password" class="text-grey text-light-2">Forgot password ?</router-link>
+          <router-link to="/forgot-password" class="text-grey text-light-2">Mot de passe oublié ?</router-link>
         </div>
 
         <div class="d-flex fx-center my-4 captcha">
@@ -45,7 +45,7 @@
 
         <div class="social-divider my-3">
           <span></span>
-          <p class="text-center">Or with</p>
+          <p class="text-center">Ou avec</p>
         </div>
 
         <div class="d-flex fx-center social-auth-icons">
@@ -64,7 +64,7 @@
           </div>
 
           <template v-else>
-            Register now
+            S'inscrire
             <Icon icon="bx:log-in" class="ml-1"></Icon>
           </template>
         </ax-btn>
@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref, onMounted } from 'vue';
+import { ref, Ref } from 'vue';
 import { User } from '../../models/user';
 import { useAuthStore } from '../../stores/auth';
 import { required, emailRule, passwordRule } from '../../utils/validation';
@@ -82,7 +82,6 @@ import { VueRecaptcha } from 'vue-recaptcha';
 import { useRoute } from 'vue-router';
 
 const authStore = useAuthStore();
-const route = useRoute();
 
 const siteKey = import.meta.env.VITE_RECAPTCHA_KEY;
 const user: Ref<User> = ref({});

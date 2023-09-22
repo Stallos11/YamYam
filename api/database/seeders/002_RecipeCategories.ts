@@ -23,13 +23,13 @@ export default class UserSeeder extends BaseSeeder {
       },
       {
         id: "91bdd636-8b6f-46f9-a59b-318c1901215b",
-        category: "No sugar",
+        category: "Sans sucre",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       },
       {
         id: "2d58f83a-b644-4274-8021-c803d2c49048",
-        category: "Snack",
+        category: "Encas",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       },

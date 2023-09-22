@@ -7,7 +7,7 @@
         </a>
 
         <div class="navbar-menu ml-auto text-white lh-normal mr-2">
-          <router-link to="login" class="navbar-link">Login</router-link>
+          <router-link to="login" class="navbar-link">Connexion</router-link>
         </div>
       </nav>
     </header>
@@ -29,13 +29,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import Pwa from './components/Pwa.vue';
 import { useAuthStore } from './stores/auth';
 import Footer from './components/Footer.vue';
 
 const authStore = useAuthStore();
-const isDropdownOpened = ref(false);
+
 </script>
 
 <style lang="scss">
@@ -351,5 +350,13 @@ body {
 
 .bg-gradient {
   background-image: linear-gradient(90deg, #323232 59.9%, rgb(57, 57, 57) 87.1%);
+}
+
+.form-select-content {
+  z-index: 1000;
+}
+
+.dropdown.drop-down{
+  z-index: 11 !important;
 }
 </style>

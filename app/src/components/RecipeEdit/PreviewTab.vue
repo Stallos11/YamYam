@@ -2,17 +2,17 @@
     <div class="p-4 grix xs1 lg2 gutter-xs4">
         <div>
             <p class="font-s5">
-                {{ recipeStore.recipeEdit.name || 'No name' }}
+                {{ recipeStore.recipeEdit.name || 'Pas de nom' }}
             </p>
             <div class="rounded-2 my-5" style="min-height: 12rem; background-size: cover; background-position: center;"
                 :style="`background-image: url('data:image/png;base64, ${recipeStore.recipeEdit.previewImage || recipeStore.recipeEdit.image}')`">
             </div>
             <div>
                 <ax-btn class="btn primary px-4 py-1 rounded-3 font-s2 mr-3 mb-3">
-                    {{ cat || 'empty cat' }}
+                    {{ cat || 'Pas de catégorie' }}
                 </ax-btn>
                 <ax-btn class="btn tertiary px-4 py-1 rounded-3 font-s2">
-                    {{ type || 'empty type' }}
+                    {{ type || 'Pas de type' }}
                 </ax-btn>
             </div>
             <div class="grix xs2 md12 gutter-xs5 font-s3 mt-4">
@@ -36,7 +36,7 @@
             <p class="pb-5">
                 {{ recipeStore.recipeEdit.description }}
             </p>
-            <p class="font-s3 mt-5 text-secondary">Ingredients</p>
+            <p class="font-s3 mt-5 text-secondary">Ingrédients</p>
             <div class="divider white"></div>
             <div v-for="ingredient in recipeStore.recipeEdit.ingredients" :key="ingredient.id" class="mt-5">
                 <p class="mb-0">{{ ingredient.product_name }}</p>
@@ -55,39 +55,39 @@
                 </p>
             </div>
             <ax-btn :disabled="!isRecipeOk.isValid" @click="createRecipe"
-                class="mt-3 d-block mx-auto rounded-2 primary rounded-3 px-4 py-1">Validate</ax-btn>
+                class="mt-3 d-block mx-auto rounded-2 primary rounded-3 px-4 py-1">Valider</ax-btn>
         </div>
         <div class="d-flex fx-col px-4">
             <p class="font-s4" :class="isRecipeOk.isValid ? 'text-green' : 'text-red'">
-                Recipe {{ isRecipeOk.isValid ? 'valid' : 'invalid' }}
+                Recette {{ isRecipeOk.isValid ? 'valide' : 'invalide' }}
                 <span class="font-s7" v-if="isRecipeOk.isValid">👌</span>
                 <span class="font-s7" v-else="isRecipeOk.isValid">🥲</span>
             </p>
 
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
-                :class="isRecipeOk.recipeNameOk ? 'text-green' : 'text-red'">Name</p>
+                :class="isRecipeOk.recipeNameOk ? 'text-green' : 'text-red'">Nom</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
                 :class="isRecipeOk.recipeDescriptionOk ? 'text-green' : 'text-red'">Description</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
-                :class="isRecipeOk.recipePreparationTimeOk ? 'text-green' : 'text-red'">Preparation time</p>
+                :class="isRecipeOk.recipePreparationTimeOk ? 'text-green' : 'text-red'">Tps de préparation</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
-                :class="isRecipeOk.recipeCookingTimeOk ? 'text-green' : 'text-red'">Cooking time</p>
+                :class="isRecipeOk.recipeCookingTimeOk ? 'text-green' : 'text-red'">Tps de cuisson</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
-                :class="isRecipeOk.difficultyOk ? 'text-green' : 'text-red'">Difficulty</p>
+                :class="isRecipeOk.difficultyOk ? 'text-green' : 'text-red'">Difficulté</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
-                :class="isRecipeOk.eatersAmountOk ? 'text-green' : 'text-red'">Eaters amount</p>
+                :class="isRecipeOk.eatersAmountOk ? 'text-green' : 'text-red'">Nbr de personnes</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
-                :class="isRecipeOk.categoryOk ? 'text-green' : 'text-red'">Category</p>
+                :class="isRecipeOk.categoryOk ? 'text-green' : 'text-red'">Catégorie</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab1')"
                 :class="isRecipeOk.typeOk ? 'text-green' : 'text-red'">Type</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab2')"
-                :class="isRecipeOk.ingredientsNotEmpty ? 'text-green' : 'text-red'">Ingredients amount / unit</p>
+                :class="isRecipeOk.ingredientsNotEmpty ? 'text-green' : 'text-red'">Ingrédients qté / unité</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab2')"
-                :class="isRecipeOk.ingredientsOk ? 'text-green' : 'text-red'">Ingredients valid</p>
+                :class="isRecipeOk.ingredientsOk ? 'text-green' : 'text-red'">Ingrédients valides</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab3')"
-                :class="isRecipeOk.instructionsNotEmpty ? 'text-green' : 'text-red'">Instructions not empty</p>
+                :class="isRecipeOk.instructionsNotEmpty ? 'text-green' : 'text-red'">Instructions remplies</p>
             <p class="cursor-pointer mb-0" @click="switchTab('tab3')"
-                :class="isRecipeOk.instructionsOk ? 'text-green' : 'text-red'">Instructions valid</p>
+                :class="isRecipeOk.instructionsOk ? 'text-green' : 'text-red'">Instructions valides</p>
         </div>
     </div>
 </template>

@@ -1,10 +1,10 @@
 <template>
   <ax-tab v-model="currentTab" class="shadow-1 h100 px-5 pt-2">
     <template #menu>
-      <ax-tab-link href="#tab1">General</ax-tab-link>
-      <ax-tab-link href="#tab2">Ingredients</ax-tab-link>
+      <ax-tab-link href="#tab1">Général</ax-tab-link>
+      <ax-tab-link href="#tab2">Ingrédients</ax-tab-link>
       <ax-tab-link href="#tab3">Instructions</ax-tab-link>
-      <ax-tab-link href="#tab4">Preview</ax-tab-link>
+      <ax-tab-link href="#tab4">Aperçu</ax-tab-link>
     </template>
 
     <ax-tab-item class="h100 pt-5" id="tab1">

@@ -149,7 +149,7 @@ export const useRecipeStore = defineStore('recipe', {
         })
         .then((res) => {
           this.recipes.push(res.data);
-          this.toast.showToast("Info", "recipe created", "bg-dark", "bg-dark");
+          this.toast.showToast("Info", "Recette créée", "bg-dark", "bg-dark");
           this.router.replace("/recipes");
           this.recipeCreate = {
             recipe: {
@@ -338,7 +338,7 @@ export const useRecipeStore = defineStore('recipe', {
         })
         .then(async () => {
           await this.getRecipes()
-          this.toast.showToast("Info", "recipe updated", "bg-dark", "bg-dark");
+          this.toast.showToast("Info", "Recette mise à jour", "bg-dark", "bg-dark");
           this.router.replace("/recipes");
           this.recipeEdit = {
             id: "",

@@ -2,7 +2,7 @@
   <ax-form class="d-flex fx-col">
     <div class="grix xs1 sm2">
       <div>
-        <ax-form-field label="Search">
+        <ax-form-field label="Recherche">
           <ax-form-control
             tag="input"
             v-model="queryValue"

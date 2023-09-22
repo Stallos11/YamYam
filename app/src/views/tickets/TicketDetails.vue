@@ -4,7 +4,7 @@
       <div class="w100">
         <h2>{{ ticketStore.selectedTicket.title }}</h2>
         <div class="d-flex">
-          <p class="">{{ ticketStore.selectedTicket.status }}</p>
+          <p class="">{{ status}}</p>
           <p class="ml-auto">{{ new Date(ticketStore.selectedTicket.created_at).toLocaleDateString() }}</p>
         </div>
       </div>
@@ -36,11 +36,11 @@
 
     <div class="my-5">
       <ax-form>
-        <ax-form-field label="Response">
-          <ax-form-control v-model="response" tag="textarea">Put your response here</ax-form-control>
+        <ax-form-field label="Réponse">
+          <ax-form-control v-model="response" tag="textarea"></ax-form-control>
         </ax-form-field>
       </ax-form>
-      <button @click="sendResponse" class="btn primary rounded-2 px-4 py-1">Send response</button>
+      <button @click="sendResponse" class="btn primary rounded-2 px-4 py-1">Envoyer</button>
     </div>
   </div>
 </template>
@@ -59,6 +59,10 @@ const route = useRoute();
 
 const response = ref('');
 const conv = ref();
+
+const status = computed(() => {
+  return ticketStore.selectedTicket.status === "in progress" ? "En cours" : "Fermé"
+})
 
 onMounted(() => {
   ticketStore.getTicket(route.params.id as string);

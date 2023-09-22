@@ -19,7 +19,7 @@ export interface IIngredient {
 export type IIngredientCreate = Omit<IIngredient, "id" | "openfoodfact">;
 
 export const ingredientsTableHeaders: Header[] = [
-  { text: "Product Name", value: "product_name", sortable: true },
+  { text: "Nom du produit", value: "product_name", sortable: true },
 ];
 
 export const ingredientsFilterKeyOptions = [

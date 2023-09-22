@@ -193,7 +193,7 @@ export default class UserController {
     const user = await User.findOrFail(params.id);
     await user.delete();
 
-    return response.ok({ msg: "user deleted" });
+    return response.ok({ msg: "Utilisateur supprimé" });
   }
 
   /**

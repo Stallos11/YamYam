@@ -2,11 +2,11 @@
   <div class="h100 d-flex fx-center vcenter auth-card">
     <div class="card bg-dark rounded-2 overflow-visible mt-4 light-shadow-4 mb-4">
       <div class="robot"></div>
-      <h1 class="card-header text-center my-2 font-s5 font-w500">Forgot password ?</h1>
+      <h1 class="card-header text-center my-2 font-s5 font-w500">Mot de passe oublié ?</h1>
 
       <div class="card-content">
         <div class="text-center">
-          <router-link to="/login" class="text-primary font-w500">Back to login.</router-link>
+          <router-link to="/login" class="text-primary font-w500">Retour à la connexion.</router-link>
         </div>
 
         <ax-form ref="form" class="mt-4" @keypress.enter.prevent="forgotPassword">
@@ -50,7 +50,7 @@
 import { ref, Ref } from 'vue';
 import { User } from '../../models/user';
 import { useAuthStore } from '../../stores/auth';
-import { required, emailRule, passwordRule } from '../../utils/validation';
+import { required, emailRule } from '../../utils/validation';
 import { VueRecaptcha } from 'vue-recaptcha';
 
 const authStore = useAuthStore();

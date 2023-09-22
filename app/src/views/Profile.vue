@@ -1,21 +1,21 @@
 <template>
   <div class="container mt-5">
     <div class="profile-card p-3 rounded-2">
-      <h2 class="my-2">Account summary</h2>
+      <h2 class="my-2">Compte</h2>
 
       <ul>
-        <li>{{ createdRecipes }} created recipe{{ createdRecipes < 2 ? '' : 's' }}</li>
-        <li>{{ favouritesLength }} favourite recipe{{ favouritesLength < 2 ? '' : 's' }}</li>
+        <li>{{ createdRecipes }} recettes créées{{ createdRecipes < 2 ? '' : 's' }}</li>
+        <li>{{ favouritesLength }} recettes favorites{{ favouritesLength < 2 ? '' : 's' }}</li>
       </ul>
     </div>
 
     <div class="profile-card p-3 rounded-2 my-3">
-      <h2 class="my-2">Send ticket</h2>
+      <h2 class="my-2">Envoyer ticket</h2>
 
-      <span class="text-grey text-center">Found a bug ? A feature idea ? Send us your thoughts</span>
+      <span class="text-grey text-center">Un bug ? Une idée de fonctionnalité ? Contactez nous</span>
 
       <ax-form @submit.prevent="submit" class="mt-4">
-        <ax-form-field label="Title">
+        <ax-form-field label="Titre">
           <ax-form-control tag="input" :rules="[required]" v-model="ticketStore.ticketCreate.title"
             type="text"></ax-form-control>
         </ax-form-field>
@@ -28,16 +28,16 @@
         <ax-btn
           :disabled="(ticketStore.ticketCreate?.message?.length || 0) < 2 || (ticketStore.ticketCreate?.title?.length || 0) < 2"
           class="primary d-flex rounded-1 mx-auto mt-3" size="small">
-          <Icon class="mr-1" icon="material-symbols:mail-outline" width="20" /> Send
+          <Icon class="mr-1" icon="material-symbols:mail-outline" width="20" /> Envoyer
         </ax-btn>
       </ax-form>
     </div>
 
     <div class="my-5 d-flex fx-center">
-      <router-link class="btn py-2 rounded-1 tertiary mx-auto text-white" to="/tickets">Show my tickets</router-link>
+      <router-link class="btn py-2 rounded-1 tertiary mx-auto text-white" to="/tickets">Mes tickets</router-link>
 
       <ax-btn @click.prevent="authStore.logout" class="red py-2 dark-1 d-flex rounded-1 mx-auto" size="small">
-        <Icon class="mr-1" icon="material-symbols:power-rounded" width="20" /> Disconnect
+        <Icon class="mr-1" icon="material-symbols:power-rounded" width="20" /> Déconnexion
       </ax-btn>
     </div>
   </div>

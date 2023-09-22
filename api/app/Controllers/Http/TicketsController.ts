@@ -39,13 +39,13 @@ export default class TicketsController {
       })
       .save();
 
-    return response.ok({ msg: 'Ticket created' });
+    return response.ok({ msg: 'Ticket créé' });
   }
 
   public async insertResponse({ auth, request, response }: HttpContextContract) {
     const ticket = await Ticket.findOrFail(request.params().id);
 
-    if (ticket.status != 'in progress') return response.badRequest({ msg: 'Ticket already closed' });
+    if (ticket.status != 'in progress') return response.badRequest({ msg: 'Ticket déjà fermé' });
     
     const ticketResponse = new TicketResponse();
 
@@ -55,7 +55,7 @@ export default class TicketsController {
 
     await ticketResponse.save();
 
-    return response.ok({ msg: 'Response sent' });
+    return response.ok({ msg: 'Réponse envoyée' });
   }
 
   public async find({ params, response }) {
@@ -96,6 +96,6 @@ export default class TicketsController {
     const ticket = await Ticket.findOrFail(params.id);
     await ticket.delete();
 
-    return response.ok({ msg: "ticket deleted" });
+    return response.ok({ msg: "Ticket supprimé" });
   }
 }

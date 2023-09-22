@@ -295,6 +295,6 @@ export default class RecipeCategoriesController {
     const recipeCategory = await RecipeCategory.findOrFail(params.id);
     await recipeCategory.delete();
 
-    return response.ok({ msg: "recipeCategory deleted" });
+    return response.ok({ msg: "Catégorie supprimée" });
   }
 }

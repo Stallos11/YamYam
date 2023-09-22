@@ -1,11 +1,11 @@
 <template>
   <div class="h100 d-flex fx-center vcenter auth-card">
     <div class="card bg-dark rounded-2 overflow-visible mt-4 light-shadow-4">
-      <h1 class="card-header text-center my-2 font-s5 font-w500">Login</h1>
+      <h1 class="card-header text-center my-2 font-s5 font-w500">Connexion</h1>
 
       <div class="card-content">
         <div class="text-center">
-          <router-link to="/register" class="text-primary font-w500">Don't have an account ? Create it now !</router-link>
+          <router-link to="/register" class="text-primary font-w500">Pas de compte ? Inscrivez-vous !</router-link>
         </div>
 
         <ax-form ref="form" class="mt-4" @keypress.enter.prevent="login">
@@ -13,13 +13,13 @@
             <ax-form-control type="email" v-model="user.email" lazy :rules="[required, emailRule]"></ax-form-control>
           </ax-form-field>
 
-          <ax-form-field label="Password*">
+          <ax-form-field label="Mot de passe*">
             <ax-form-control type="password" v-model="user.password" lazy :rules="[required, passwordRule]"></ax-form-control>
           </ax-form-field>
         </ax-form>
 
         <div class="text-center mt-3">
-          <router-link to="/forgot-password" class="text-grey text-light-2">Forgot password ?</router-link>
+          <router-link to="/forgot-password" class="text-grey text-light-2">Mot de passe oublié ?</router-link>
         </div>
 
         <div class="d-flex fx-center my-4 captcha">
@@ -36,7 +36,7 @@
 
         <div class="social-divider my-4">
           <span></span>
-          <p>Or with</p>
+          <p>Ou avec</p>
         </div>
 
         <div class="d-flex fx-center social-auth-icons">
@@ -55,7 +55,7 @@
           </div>
 
           <template v-else>
-            Sign In
+            Connexion
             <Icon icon="bx:log-in" class="ml-1"></Icon>
           </template>
         </ax-btn>

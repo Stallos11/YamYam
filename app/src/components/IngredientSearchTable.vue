@@ -7,7 +7,7 @@
       header-text-direction="center"
       body-text-direction="center"
       buttons-pagination
-      :empty-message="'Search ingredients'"
+      :empty-message="'Chercher des ingredients'"
       :rows-per-page="10"
       :headers="ingredientsTableHeaders"
       :items="ingredientStore.ingredients"

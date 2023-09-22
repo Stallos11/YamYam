@@ -251,7 +251,7 @@ export default class RecipeRepository {
     const recipe = await Recipe.findOrFail(_id);
     await recipe.delete();
 
-    return { msg: 'recipe deleted' };
+    return { msg: 'Recette supprimée' };
   } catch (err) {
     return err;
   }

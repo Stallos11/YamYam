@@ -27,8 +27,8 @@ export default class RecipeCommentController {
   public async delete({ auth, params, response }) {
     const comment = await RecipeComment.findOrFail(params.id);
 
-    if (comment.userId != auth.user?.id) return response.badRequest({ msg: 'Unauthaurized' });
+    if (comment.userId != auth.user?.id) return response.badRequest({ msg: 'Accès interdit' });
     await comment.delete();
-    return response.ok({ msg: "Comment deleted" });
+    return response.ok({ msg: "Commentaire supprimé" });
   }
 }

@@ -7,10 +7,10 @@
                 class="grix xs1 lg12 gutter-xs3 vcenter">
                 <p class="col-lg8">{{ ingredient.product_name }}</p>
                 <div class="grix xs3 col-lg4 gutter-xs3 vcenter center">
-                    <ax-form-field label="Qty">
+                    <ax-form-field label="Qté">
                         <ax-form-control tag="input" v-model="ingredient.amount" type="text"></ax-form-control>
                     </ax-form-field>
-                    <ax-form-field label="Unit">
+                    <ax-form-field label="Unité">
                         <ax-form-select :items="mesureUnits" v-model="ingredient.unit"></ax-form-select>
                     </ax-form-field>
                     <ax-btn @click="removeIngredient(ingredient.id)" circle small class="red d-flex vcenter fx-center">

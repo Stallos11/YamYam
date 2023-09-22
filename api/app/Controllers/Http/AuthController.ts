@@ -19,14 +19,14 @@ export default class AuthController {
       );
 
       if (!recaptchaResponse.data.success) {
-        return response.badRequest({ msg: "Captcha was invalid." });
+        return response.badRequest({ msg: "Captcha invalide." });
       }
 
       const userDB = await User.findBy("email", userBody.email);
       if (userDB && userDB.provider !== "database") {
         return response.movedPermanently(`auth/${userDB.provider}/redirect`);
       } else if (userDB) {
-        return response.badRequest({ msg: "User already exist." });
+        return response.badRequest({ msg: "User déjà existant." });
       }
 
       const user = new User();
@@ -48,10 +48,10 @@ export default class AuthController {
       console.error(error.code || error);
 
       if (error.code == 23505) {
-        return response.badRequest({ msg: "Email already used" });
+        return response.badRequest({ msg: "Email utilisé" });
       }
 
-      return response.badRequest({ msg: "Invalid credentials." });
+      return response.badRequest({ msg: "Identifiants invalides." });
     }
   }
 
@@ -70,7 +70,7 @@ export default class AuthController {
         );
 
         if (!recaptchaResponse.data.success) {
-          return response.badRequest({ msg: "Captcha was invalid." });
+          return response.badRequest({ msg: "Captcha invalide." });
         }
 
         email = body.user.email;
@@ -86,7 +86,7 @@ export default class AuthController {
         user: token.user,
       });
     } catch {
-      return response.badRequest({ msg: "Invalid credentials." });
+      return response.badRequest({ msg: "Identifiants invalides." });
     }
   }
 

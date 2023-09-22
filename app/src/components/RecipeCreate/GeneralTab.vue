@@ -2,7 +2,7 @@
     <div class="d-flex h100">
         <ax-form class="w100">
             <div class="grix xs1 md2 gutter-xs5">
-                <ax-form-field class="col-md2 col-xs1" label="Recipe name">
+                <ax-form-field class="col-md2 col-xs1" label="Nom">
                     <ax-form-control tag="input" v-model="recipeStore.recipeCreate.recipe.name" type="text"
                         class="mb-5"></ax-form-control>
                 </ax-form-field>
@@ -11,27 +11,27 @@
                         tag="textarea"></ax-form-control>
                 </ax-form-field>
                 <div>
-                    <Timepicker :label="'Preparation time'" v-model="recipeStore.recipeCreate.recipe.preparation_time"
+                    <Timepicker :label="'Tps de préparation'" v-model="recipeStore.recipeCreate.recipe.preparation_time"
                         @emit-value="setRecipeProperty('preparation_time', $event)" />
                 </div>
                 <div>
-                    <Timepicker :label="'Cooking time'" v-model="recipeStore.recipeCreate.recipe.cooking_time"
+                    <Timepicker :label="'Tps de cuisson'" v-model="recipeStore.recipeCreate.recipe.cooking_time"
                         @emit-value="setRecipeProperty('cooking_time', $event)" />
                 </div>
                 <div>
-                    <ax-form-field label="Dificulty">
+                    <ax-form-field label="Dificulté">
                         <ax-form-select :items="difficultyLevels"
                             v-model="recipeStore.recipeCreate.recipe.difficulty"></ax-form-select>
                     </ax-form-field>
                 </div>
                 <div>
-                    <ax-form-field label="Eaters amount">
+                    <ax-form-field label="Nbr de personnes">
                         <ax-form-control tag="input" v-model="recipeStore.recipeCreate.recipe.eaters_amount" type="number"
                             min="0" class="mb-5"></ax-form-control>
                     </ax-form-field>
                 </div>
                 <div>
-                    <ax-form-field label="Category">
+                    <ax-form-field label="Catégorie">
                         <ax-form-select :items="categories"
                             v-model="recipeStore.recipeCreate.recipe.recipe_category_id"></ax-form-select>
                     </ax-form-field>
@@ -43,7 +43,7 @@
                     </ax-form-field>
                 </div>
                 <div>
-                    <ax-form-file label="Upload" @change="setFile"
+                    <ax-form-file label="Image" @change="setFile"
                         label-classes="btn airforce dark-1 rounded-1"></ax-form-file>
                 </div>
             </div>

@@ -288,6 +288,6 @@ export default class RecipeTypesController {
     const recipeType = await RecipeType.findOrFail(params.id);
     await recipeType.delete();
 
-    return response.ok({ msg: "recipeType deleted" });
+    return response.ok({ msg: "Type supprimé" });
   }
 }

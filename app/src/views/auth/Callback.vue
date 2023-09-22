@@ -7,7 +7,7 @@
         </svg>
       </div>
 
-      <h1 class="font-s4 font-w500 mb-0">Loading...</h1>
+      <h1 class="font-s4 font-w500 mb-0">Chargement...</h1>
     </div>
   </div>
 </template>
