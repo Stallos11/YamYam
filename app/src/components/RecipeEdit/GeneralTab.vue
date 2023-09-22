@@ -19,7 +19,7 @@
                         :minute-interval="5" />
                 </ax-form-field>
                 <div>
-                    <ax-form-field label="Dificulté">
+                    <ax-form-field label="Difficulté">
                         <ax-form-select :items="difficultyLevels"
                             v-model="recipeStore.recipeEdit.difficulty"></ax-form-select>
                     </ax-form-field>
