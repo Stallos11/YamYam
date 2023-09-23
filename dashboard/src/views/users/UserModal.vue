@@ -41,6 +41,7 @@
         <div v-for="recipe in userStore.selectedUser.recipes" :key="recipe.id" @click="recipeStore.showDetails(recipe.id)"
           class="card recipe-card rounded-2 shadow-1 fx-row"
           style="min-height: 12rem; background-size: cover; background-position: center;"
+          
           :style="`background-image: url('data:image/png;base64, ${recipe.image}')`">
           <div class="d-flex fx-col fx-grow">
             <div class="card-header">{{ recipe.name }}</div>

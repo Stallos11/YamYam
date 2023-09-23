@@ -7,6 +7,7 @@ interface Recipe {
   name: string;
   id: string;
   img: string;
+  image: string;
 }
 
 interface ISelectedUser {

@@ -29,11 +29,10 @@ export default class RecipeCommentController {
     const comment = await RecipeComment.findOrFail(params.id);
     const adminUser = await User.query().where('email', 'admin@admin.com').firstOrFail();
 
-    if (auth.user.id === adminUser.id) {
+    if ((auth.user.id === adminUser.id) || (comment.userId != auth.user?.id)) {
       await comment.delete();
     } else {
-      if (comment.userId != auth.user?.id) return response.badRequest({ msg: 'Accès interdit' });
-      await comment.delete();
+      return response.badRequest({ msg: 'Accès interdit' });
     }
 
     return response.ok({ msg: "Commentaire supprimé" });
