@@ -9,7 +9,7 @@
           <p class="mt-0 mb-2 font-s3 text-white truncate">{{ ticket.title }}</p>
           <div class="d-flex mb-1">
             <p class="mt-0 text-grey text-light-1 font-s2">
-              {{ status }}
+              {{ ticket.status === "in progress" ? "En cours" : "Fermé" }}
             </p>
             <p class="ml-auto text-grey text-light-1">{{ new Date(ticket.created_at).toLocaleDateString() }}</p>
           </div>

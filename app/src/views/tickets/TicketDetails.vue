@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="my-5">
+    <div class="my-5" v-if="ticketStore.selectedTicket.status === 'in progress'">
       <ax-form>
         <ax-form-field label="Réponse">
           <ax-form-control v-model="response" tag="textarea"></ax-form-control>
@@ -42,7 +42,12 @@
       </ax-form>
       <button @click="sendResponse" class="btn primary rounded-2 px-4 py-1">Envoyer</button>
     </div>
+
+    <div v-else class="text-center mt-4">
+      Impossible de répondre, le ticket est fermé.
+    </div>
   </div>
+
 </template>
 
 <script setup lang="ts">
