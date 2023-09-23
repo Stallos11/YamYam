@@ -1,5 +1,6 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import RecipeComment from "App/Models/RecipeComment";
+import User from "App/Models/User";
 
 export default class RecipeCommentController {
 
@@ -26,9 +27,15 @@ export default class RecipeCommentController {
 
   public async delete({ auth, params, response }) {
     const comment = await RecipeComment.findOrFail(params.id);
+    const adminUser = await User.query().where('email', 'admin@admin.com').firstOrFail();
 
-    if (comment.userId != auth.user?.id) return response.badRequest({ msg: 'Accès interdit' });
-    await comment.delete();
+    if (auth.user.id === adminUser.id) {
+      await comment.delete();
+    } else {
+      if (comment.userId != auth.user?.id) return response.badRequest({ msg: 'Accès interdit' });
+      await comment.delete();
+    }
+
     return response.ok({ msg: "Commentaire supprimé" });
   }
 }

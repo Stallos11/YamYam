@@ -105,20 +105,24 @@ export const useRecipeStore = defineStore("recipe", {
         .catch(console.error)
         .finally(() => (this.isLoading = false));
     },
+    async showDetails(item: ClickRowArgument | string) {
+      let id = typeof(item) === 'string' ? item : item.id
 
-    fetchDataDetails(id: string) {
-      this.axios
+
+      this.isLoading = true;
+
+      return this.axios
         .get(`recipes/${id}`)
         .then((res) => {
-          this.selectedRecipe = res.data;
+          if (res.data) {
+            this.selectedRecipe = res.data;
+            this.router.push(`/recipes/${id}`)
+          }
         })
-        .catch(console.error);
-    },
-
-    showDetails(item: ClickRowArgument) {
-      this.selectedRecipe = item;
-      this.fetchDataDetails(item.id);
-      this.isModalOpened = true;
+        .catch(console.error)
+        .finally(() => {
+          this.isLoading = false
+        })
     },
 
     insert() {
@@ -154,31 +158,18 @@ export const useRecipeStore = defineStore("recipe", {
         })
         .catch((err) => console.error(err));
     },
-    delete() {
-      this.axios
-        .delete(`recipes/${this.selectedRecipe.id}`)
-        .then((res) => {
-          if (res.status == 200) {
-            this.recipes = this.recipes.filter(
-              (recipe) => recipe.id != this.selectedRecipe.id
-            );
-            this.isModalOpened = false;
-            this.isModalDeleteOpened = false;
-            this.toast.showToast(
-              "Info",
-              "recipe deleted",
-              "bg-dark",
-              "bg-dark"
-            );
-          }
+    async deleteRecipe(id: string) {
+      this.isLoading = true;
+
+      return this.axios
+        .delete(`recipes/${id}`)
+        .then(() => {
+          this.router.push('/recipes')
         })
-        .catch((err) => console.error(err));
-    },
-    cancelDelete() {
-      this.isModalDeleteOpened = !this.isModalDeleteOpened;
-    },
-    showDeleteModal() {
-      this.isModalDeleteOpened = true;
+        .catch(console.error)
+        .finally(() => {
+          this.isLoading = false
+        });
     },
     redirEdit() {
       this.isModalOpened = false;
@@ -191,15 +182,6 @@ export const useRecipeStore = defineStore("recipe", {
       //@ts-ignore
       this.recipeEdit.difficulty = parseInt(this.recipeEdit.difficulty)
       this.router.replace("/recipes/edit");
-    },
-    secToMins(secs: number) {
-      const hours = Math.floor(secs / 3600)
-      const minutes = Math.floor(secs / 60) % 60
-
-      return [hours, minutes]
-        .map(v => v < 10 ? "0" + v : v)
-        .filter((v, i) => v !== "00" || i > 0)
-        .join(":")
     },
     addIngredientToCreateRecipe() {
       const ingredientStore = useIngredientStore();

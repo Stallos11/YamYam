@@ -38,7 +38,7 @@ const emitValue = (a: any) => {
     position: absolute;
     top: -0.5rem;
     margin-bottom: 0;
-    background-color: #181818;
+    background-color: #2b2b2b;
     z-index: 10;
     margin-left: 0.5rem;
     padding: 0 0.25rem;

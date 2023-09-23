@@ -3,27 +3,14 @@
     <div>
       <div class="grix xs1 sm2">
         <div>
-          <ApexChart
-            :period="'month'"
-            :url="'recipes/registrations'"
-            :title="'Registered recipes'"
-          />
+          <ApexChart :period="'month'" :url="'recipes/registrations'" :title="'Registered recipes'" />
         </div>
         <div>
-          <ApexChart
-            :period="'month'"
-            :url="'recipes/total'"
-            :title="'Total recipes'"
-          />
+          <ApexChart :period="'month'" :url="'recipes/total'" :title="'Total recipes'" />
         </div>
       </div>
-      <Table
-        :enable-form="true"
-        :filter-key-options="recipeFilterKeyOptions"
-        :headers="recipeTableHeaders"
-        :store="'recipes'"
-      />
-      <RecipeModal />
+      <Table :enable-form="true" :filter-key-options="recipeFilterKeyOptions" :headers="recipeTableHeaders"
+        :store="'recipes'" />
     </div>
   </Transition>
 </template>
@@ -34,5 +21,4 @@ import {
   recipeTableHeaders,
   recipeFilterKeyOptions,
 } from "../../models/recipes";
-import RecipeModal from "./RecipeModal.vue";
 </script>

@@ -2,7 +2,7 @@
   <div :class="authStore.isLoggedIn ? 'layout-under-navbar' : 'layout'" class="bg-dark">
     <header>
       <div v-if="authStore.isLoggedIn" class="navbar-fixed">
-        <nav class="navbar">
+        <nav class="navbar bg-dark light-shadow-2">
           <router-link class="sidenav-brand ml-3" to="/">Dashboard</router-link>
           <div class="navbar-menu ml-auto">
             <a v-if="authStore.isLoggedIn" @click="authStore.logout()" class="navbar-link" href="#">
@@ -13,10 +13,10 @@
       </div>
     </header>
 
-    <ax-sidenav v-if="authStore.isLoggedIn" v-model="isSidenavOpened" class="sidenav-fixed shadow-1">
+    <ax-sidenav v-if="authStore.isLoggedIn" v-model="isSidenavOpened" class="sidenav-fixed light-shadow-2">
       <!-- Users -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3"
+        <ax-btn class="w100 bg-dark rounded-1 d-flex vcenter font-s3"
           @click="isUserCollapsibleOpened = !isUserCollapsibleOpened">
           <Icon class="mr-2" icon="heroicons:users-20-solid" size="50"></Icon>
           Users
@@ -30,7 +30,7 @@
       </div>
       <!-- Recipes -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3"
+        <ax-btn class="w100 bg-dark rounded-1 d-flex vcenter font-s3"
           @click="isRecipeCollapsibleOpened = !isRecipeCollapsibleOpened">
           <Icon class="mr-2" icon="mdi:cook" size="50"></Icon>
           Recipes
@@ -45,7 +45,7 @@
       </div>
       <!-- Recipes Types -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3" @click="
+        <ax-btn class="w100 bg-dark rounded-1 d-flex vcenter font-s3" @click="
           isRecipeTypeCollapsibleOpened = !isRecipeTypeCollapsibleOpened
           ">
           <Icon class="mr-2" icon="mdi:format-list-bulleted-type" size="50"></Icon>
@@ -61,7 +61,7 @@
       </div>
       <!-- Recipes Types -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3" @click="
+        <ax-btn class="w100 bg-dark rounded-1 d-flex vcenter font-s3" @click="
           isRecipeCategoryCollapsibleOpened =
           !isRecipeCategoryCollapsibleOpened
           ">
@@ -77,7 +77,7 @@
         </ax-collapsible>
       </div>
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3" @click="
+        <ax-btn class="w100 bg-dark rounded-1 d-flex vcenter font-s3" @click="
           isIngredientCollapsibleOpened = !isIngredientCollapsibleOpened
           ">
           <Icon class="mr-2" icon="fluent:bowl-salad-20-regular" size="50"></Icon>
@@ -92,7 +92,7 @@
       </div>
       <!-- Tickets -->
       <div>
-        <ax-btn class="w100 bg-dark rounded-1 shadow-1 d-flex vcenter font-s3" @click="
+        <ax-btn class="w100 bg-dark rounded-1 d-flex vcenter font-s3" @click="
           isTicketCollapsibleOpened = !isTicketCollapsibleOpened
           ">
           <Icon class="mr-2" icon="ion:ticket-outline" size="50"></Icon>
@@ -171,7 +171,7 @@ $axentix-palette: (
   "white": #fff,
   "black": #000,
   "transparent": transparent,
-  "bg-dark": #181818,
+  "bg-dark": #2b2b2b,
   "bg-light": #f3f3f3,
 );
 
@@ -181,6 +181,13 @@ $axentix-palette: (
 // Forms hack
 .grix>.form-field {
   margin-top: 0.5rem !important;
+}
+
+.ingredient-img {
+  min-width: 80px;
+  max-width: 80px;
+  height: 80px;
+  object-fit: cover;
 }
 
 .form-field {
